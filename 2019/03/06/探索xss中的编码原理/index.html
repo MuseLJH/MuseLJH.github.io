@@ -76,7 +76,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="xss,">
 
 
 
@@ -89,17 +89,23 @@
 
 
 
-<meta name="description" content="一只ctf菜鸡的博客分享一些平时积累的学习经验偶尔可能也会分享一些乱七八糟的教程">
-<meta property="og:type" content="website">
-<meta property="og:title" content="关于">
-<meta property="og:url" content="https://museljh.github.io/about/index.html">
+<meta name="description" content="探索xss在浏览器中是如何被渲染的。">
+<meta name="keywords" content="xss">
+<meta property="og:type" content="article">
+<meta property="og:title" content="探索xss中的编码原理">
+<meta property="og:url" content="https://museljh.github.io/2019/03/06/探索xss中的编码原理/index.html">
 <meta property="og:site_name" content="LJH&#39;s blog">
-<meta property="og:description" content="一只ctf菜鸡的博客分享一些平时积累的学习经验偶尔可能也会分享一些乱七八糟的教程">
+<meta property="og:description" content="探索xss在浏览器中是如何被渲染的。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-05T13:11:04.114Z">
+<meta property="og:image" content="https://museljh.github.io/images/fly.png">
+<meta property="og:image" content="https://i.imgur.com/of4NVgF.png">
+<meta property="og:image" content="https://museljh.github.io/2019/03/06/探索xss中的编码原理/’non-exist.jpg’">
+<meta property="og:image" content="https://museljh.github.io/2019/03/06/探索xss中的编码原理/1onerror=alert(1)">
+<meta property="og:updated_time" content="2019-03-06T15:07:19.231Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于">
-<meta name="twitter:description" content="一只ctf菜鸡的博客分享一些平时积累的学习经验偶尔可能也会分享一些乱七八糟的教程">
+<meta name="twitter:title" content="探索xss中的编码原理">
+<meta name="twitter:description" content="探索xss在浏览器中是如何被渲染的。">
+<meta name="twitter:image" content="https://museljh.github.io/images/fly.png">
 
 
 
@@ -129,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="https://museljh.github.io/about/">
+  <link rel="canonical" href="https://museljh.github.io/2019/03/06/探索xss中的编码原理/">
 
 
 
 
 
-  <title>关于 | LJH's blog</title>
+  <title>探索xss中的编码原理 | LJH's blog</title>
   
 
 
@@ -289,33 +295,332 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://museljh.github.io/2019/03/06/探索xss中的编码原理/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LJH">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LJH's blog">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">关于</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <center>一只ctf菜鸡的博客</center><br><center>分享一些平时积累的学习经验</center><br><center>偶尔可能也会分享一些乱七八糟的教程</center>                         
+          <h1 class="post-title" itemprop="name headline">探索xss中的编码原理</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-06T20:06:31+08:00">
+                2019-03-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/文章/" itemprop="url" rel="index">
+                    <span itemprop="name">文章</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/03/06/探索xss中的编码原理/" class="leancloud_visitors" data-flag-title="探索xss中的编码原理">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  13
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  探索xss在浏览器中是如何被渲染的。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <p><img src="/images/fly.png" alt=""></p>
+<blockquote>
+<p>JS解码</p>
+</blockquote>
+<p>先给出结论</p>
+<blockquote>
+<p>在javascript伪协议形式，全部字符串可以是任意的URL编码和实体字符。</p>
+</blockquote>
+<blockquote>
+<p>在IE解析HTML时，只对所有实体编码做出解码，在解析URL时，会解码URL编码，script标签时，原始文本均不做处理！</p>
+</blockquote>
+<p>我们再给出下面三个test<br>Test1：URL 编码 “javascript:alert(1)”<br>URL编码“javascript:alert(1)”=“%6A%61%76%61%73%63%72%69%70%74:%61%6C%65%72%74%28%31%29”</p>
+<p>Test2：HTML字符实体编码 “javascript” 、URL 编码 “alert(2)”<br>HTML编码”javascript”=”&#106;&#97;&#118;&#97;&#115;&#99;&#114;&#105;&#112;&#116;”</p>
+<p>URL编码”alert(2)”=” %61%6C%65%72%74%28%32%29”</p>
+<p>Test3：对\&lt;a href=\”javascript:alert(3)\”>test3\&lt;/a>做JS编码àURL编码àHTML编码共3层。</p>
+<p>JS编码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=&quot;javascript:\u0061\u006c\u0065\u0072\u0074(3)&quot;&gt;test3&lt;/a&gt;</span><br></pre></td></tr></table></figure></p>
+<p>URL编码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=&quot;javascript:%5c%75%30%30%36%31%5c%75%30%30%36%63%5c%75%30%30%36%35%5c%75%30%30%37%32%5c%75%30%30%37%34(3)&quot;&gt;test3&lt;/a&gt;</span><br></pre></td></tr></table></figure></p>
+<p>HTML编码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=&quot;&amp;#106;&amp;#97;&amp;#118;&amp;#97;&amp;#115;&amp;#99;&amp;#114;&amp;#105;&amp;#112;&amp;#116;&amp;#58;&amp;#37;&amp;#53;&amp;#99;&amp;#37;&amp;#55;&amp;#53;&amp;#37;&amp;#51;&amp;#48;&amp;#37;&amp;#51;&amp;#48;&amp;#37;&amp;#51;&amp;#54;&amp;#37;&amp;#51;&amp;#49;&amp;#37;&amp;#53;&amp;#99;&amp;#37;&amp;#55;&amp;#53;&amp;#37;&amp;#51;&amp;#48;&amp;#37;&amp;#51;&amp;#48;&amp;#37;&amp;#51;&amp;#54;&amp;#37;&amp;#54;&amp;#51;&amp;#37;&amp;#53;&amp;#99;&amp;#37;&amp;#55;&amp;#53;&amp;#37;&amp;#51;&amp;#48;&amp;#37;&amp;#51;&amp;#48;&amp;#37;&amp;#51;&amp;#54;&amp;#37;&amp;#51;&amp;#53;&amp;#37;&amp;#53;&amp;#99;&amp;#37;&amp;#55;&amp;#53;&amp;#37;&amp;#51;&amp;#48;&amp;#37;&amp;#51;&amp;#48;&amp;#37;&amp;#51;&amp;#55;&amp;#37;&amp;#51;&amp;#50;&amp;#37;&amp;#53;&amp;#99;&amp;#37;&amp;#55;&amp;#53;&amp;#37;&amp;#51;&amp;#48;&amp;#37;&amp;#51;&amp;#48;&amp;#37;&amp;#51;&amp;#55;&amp;#37;&amp;#51;&amp;#52;&amp;#40;&amp;#51;&amp;#41;&quot;&gt;test3&lt;/a&gt;</span><br></pre></td></tr></table></figure></p>
+<p>【过程分析】<br>许多童鞋把Test1放到HTML里发现脚本并没有正常执行，就会想按照刚才分析的，URL解码之后Javascript解析器完成解码操作，脚本应该会正常执行啊，这里就有一个URL解析过程中的一个细节了，不能对协议类型进行任何的编码操作，否则URL解析器会认为它无类型，就导致Test1中被编码的“javascript”没有解码，当然不会被URL解析器识别了。</p>
+<blockquote>
+<p>这时候我们对于为什么question3、Question 1不能xss有了足够理解了把？</p>
+</blockquote>
+<p>那Test2也是对javascript编码了为什么可以执行呢？因为”javascript”是做的HTML实体编码，HTML解析器工作时，href里的HTML实体会被解码，接下来URL解析器工作解析href属性里的链接时，”javascript”协议在第一步被HTML解码了，这样URL解析器是可以识别的，然后继续解析后面的”%61%6C%65%72%74%28%32%29”，最后JavaScript解析器完成解析操作，脚本执行。</p>
+<blockquote>
+<p>这时候我们对于为什么question2能xss有了足够理解了把？</p>
+</blockquote>
+<p>Test3实现了3层复合编码，每一层编码都能正常执行，并思考一下在复合编码环境中XSS防御策略不做组合编码，后果是什么呢？</p>
+<p>我们接下来再提出几个问题<br>Question 4<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;&amp;#60;img src=x onerror=alert(4)&amp;#62;&lt;/div&gt; </span><br><span class="line">&lt;img src=x onerror=alert(4)&gt;</span><br></pre></td></tr></table></figure></p>
+<p>Question 5<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;textarea&gt;&amp;#60;script&amp;#62;alert(5)&amp;#60;/script&amp;#62;&lt;/textarea&gt;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(5)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>Question 6<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;textarea&gt;&lt;script&gt;alert(6)&lt;/script&gt;&lt;/textarea&gt;</span><br></pre></td></tr></table></figure></p>
+<p>答案：都不可以执行xss，并且Question 5 实体编码不会被解码<br>探索：<br>为什么呢？<br>回到我们之前所说的，浏览器，以IE为例子，拿到HTML文本代码，然后扫描寻找左尖括号&lt;，找到即开始按照后面的字符串来生成相应的对象，然后把之后属性的值“赋值”给对象相应的属性，这里说明一下，这个属性其实在内存里并不是一个直接的值，而还是一个对象。<br>假设之前的例子中在a标签中的href里，有一个&gt;符号，<br>所以现浏览器只认&lt;,<br>Question 4中这里根本没有在文本里扫描到&lt;（因为被实体编码了），故根本就不是对象，不产生IMG元素</p>
+<p>那么问题又来了，假如说Question 5中也同样用这种方式是可以解释的通，那么为什么Question 6却无法xss弹窗呢？</p>
+<p>这里的textarea是一个非常特殊的例子</p>
+<p>它有一个如下的特性<br>即使将html代码段插入textarea， html代码段不会执行， 仅仅将其作为普通文本显示。<br>在Question 5、6中只扫描到了textarea类型，产生了textarea，其余字符串只是作为值字符串，值里含有&lt;字符。</p>
+<p><img src="https://i.imgur.com/of4NVgF.png" alt=""><br>当然textarea并非是绝对安全的，它仍然会遭到xss的攻击<br>在插入textarea内容时候，提前关闭标签，然后输出script脚本，如下</p>
+<p>即构成如下脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;textarea&gt;</span><br><span class="line"></span><br><span class="line">&lt;/textarea&gt;&lt;script&gt;alert(6)&lt;/script&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;/textarea&gt;</span><br></pre></td></tr></table></figure></p>
+<p>我们接下来继续再提出几个问题<br>Question 7<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;button onclick=&quot;confirm(&apos;7&amp;#39;);&quot;&gt;Button&lt;/button&gt;</span><br></pre></td></tr></table></figure></p>
+<p>Question 8<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;button onclick=&quot;confirm(&apos;8\u0027);&quot;&gt;Button&lt;/button&gt;</span><br></pre></td></tr></table></figure></p>
+<p>答案：Question 8不可以执行xss，Question 7可以执行xss<br>探索：<br>为什么呢？<br>因为onclick是事件触发情形，而事件触发的情况下只解码实体编码<br>所以对于Question 7来说进行HTML解码后就原始文本所以是可以被执行的，但是对于Question 8就不行了<br>是不是对这两个问题有了一定了解了呢？</p>
+<p>我们接下来继续提出一系列问题<br>Question 9<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(9);&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p>Question 10<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;\u0061\u006c\u0065\u0072\u0074(10);&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p>Question 11<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;\u0061\u006c\u0065\u0072\u0074\u0028\u0031\u0031\u0029\u003b&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p>Question 12<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;\u0061\u006c\u0065\u0072\u0074(\u0031\u0032);&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p>Question 13<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(&apos;13\u0027)&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p>Question 14<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(&apos;14\u000a&apos;)&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p>Question 15<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;&amp;#97;&amp;#108;&amp;#101;&amp;#114;&amp;#116&amp;#40;&amp;#57;&amp;#41;&amp;#59&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p>答案：只有9、10、14可以进行xss<br>探索：<br>我们在之前提到：对于script标签定义的JS,可以泛理解为IE会直接产生script对象，之后把innerHTML，也就是JS代码内容直接原封不动传给JS引擎去解释执行。</p>
+<p>当然Question 9    在script标签里，原封不动交给js引擎。当然是可以触发xss的。<br>这里涉及到JS引擎对字符串的解码</p>
+<p>先说question 14<br>javascript 出发了JS 解释器，JS会先对内容进行解析，里边有一个转义字符\u000a,前导的 \u 表示他是一个Unicode 字符，根据后边的数字，解析为’14 ’，于是在完成JS的解析之后变成了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(&apos;14</span><br><span class="line">&apos;)&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p>然后JS 解释器执行alert(‘14<br>‘)，这句话会交给浏览器渲染，最终弹窗。<br>这里边会有一个看起来让人有些疑惑的东西，以question 10为例子，假如我们编码的位置不是括号里，而是在alert上，我们知道，js 是会对它进行逆转义的：<br>所以question 10 仍然是可以的<br>而另一方面，如果想用这种方式来替换掉圆括号，或者引号，会判定为失败。同时，主要注意的方式，上边这种直接在字符串外进行专一的方式，只有Unicode 转义方式呗支持，其他转义方式则不行。其实，这样的策略是正确的，<br>因为对于JavaScript，转义编码应当只出现在标示符部分，不能用于对语法有真正影响的符号，也就是括号，或者是引号</p>
+<p>所以question 11、12、13 是不可以进行xss的<br>至于Question 15 这里采用了html编码而这里却是需要先进行js解码，所以Question 15毫无疑问也是不可以的</p>
+<p>当然这些问题同样也是适用于javascript伪协议的，如下，当然我就不再进行解释了，原理也是一样的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=&quot;javascript:alert(&apos;&lt;一&gt;&apos;)&quot;&gt;test&lt;/a&gt;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">	</span><br><span class="line">&lt;a href=&quot;javascript:alert(&apos;&lt;\u4e00&gt;&apos;)&quot;&gt;test&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">	</span><br><span class="line">&lt;a href=&quot;javascript:\u0061lert(&apos;&lt;一&gt;&apos;)&quot;&gt;test&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+<p>在一个页面中，可以出发JS 解析器的方式有这么几种</p>
+<blockquote>
+<p>直接嵌入&lt; script&gt; 代码块。<br>通过&lt; script sr=… &gt; 加载代码。<br>各种HTML CSS 参数支持JavaScript：URL 触发调用。<br>CSS expression(…) 语法和某些浏览器的XBL 绑定。<br>事件处理器(Event handlers),比如 onload, onerror, onclick等等。<br>定时器，Timer(setTimeout, setInterval)<br>eval(…) 调用</p>
+</blockquote>
+<p>最后我们再次构造两个场景</p>
+<p>场景一：\<script>alert(‘xss’)\</script>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">function init()</span><br><span class="line">&#123;</span><br><span class="line">document.getElementById(&quot;div1&quot;).innerHTML=&quot;&lt;script&gt;alert(&apos;aa&apos;)&lt;/script&gt;&quot;;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;body onload=init()&gt;</span><br><span class="line">&lt;div id=&quot;div1&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<p>场景二：\<img src="’non-exist.jpg’" onerror="”alert(‘xss’)”"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">function init()</span><br><span class="line">&#123;</span><br><span class="line">document.getElementById(&quot;div1&quot;).innerHTML=&quot;&lt;img src=&apos;aa.jpg&apos; onerror=\&quot;alert(&apos;aa&apos;)\&quot;/&gt;&quot;;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;body onload=init()&gt;</span><br><span class="line">&lt;div id=&quot;div1&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<p>如果把这2个分别保存成HTML，但是发现第一个\<script>alert(‘xss’)\</script>不会执行，但是第二个例子是会执行的。想想看为什么？<br>Tips：</p>
+<p>innerHTML只能使用\<img src="1onerror=alert(1)">这种方式来触发JS。而不能以\<script>alert(1)\</script>来触发，因为这种压根不会执行\<script>..\</script>之间的内容。<br>因为当我们的HTML解析器解析到\<script>标签时，它会快速去查找离它最近的闭合标签\</script>。<br>而当我们提交\<script>alert(1);\&lt;\/script&gt;,则可以正常弹框。</p>
+<p>还是同样的解析原则，html解析引擎解析到\<script>时，它会快速去查找离它最近的闭合标签\</script>。这是在到第8行时发现&lt;\/script&gt;标签，而不是\,<br>故继续往下，直到找寻到\标签，才完成了配对。其中的代码交给了js引起去解析。由于\<script>alert(1);\&lt;\/script&gt;双引号包围，所以js解析器会把它当字符串处理。 所以最终的解析结果是第8行中的\<script>和\</script>都是字符串而不是标签。</p>
+<p>值得注意的是第当\字符的引入使得\<script>标签在html解析引擎解析时未在最近被闭合,同时又因为\为js语法中的转义字符，故在js解析引擎解析时，又能正常解析input_str变量的值为\<script>alert(1);\</script>字符串，所以最总成功弹窗，很巧妙！</p>
+<p>小结：<br>我们知道XSS漏洞最常见的检测方式就是输入\<script>alert(‘xss’)\</script>来确认，大部分人在测试的时候就是直接使用类似\<script>alert(‘xss’)\</script>这样的输入，如果发现有弹出对话框就说明存在漏洞，如果没有对话框就认为不存在漏洞。那么，只使用\<script>标签是否就足够了呢？</p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>对于xss编码的研究就先到这里了，当然xss的绕过方法不仅仅只有编码这一种，但仅仅只是编码问题，想要研究透彻还是需要一些时间的，这里我仅仅是探索一些我能够查到的资料，还有未查到的知识等着我们探索</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
+<p><a href="https://blog.csdn.net/qq_35513598/article/details/79861908">https://blog.csdn.net/qq_35513598/article/details/79861908</a><br><a href="https://blog.csdn.net/czh500/article/details/79903698">https://blog.csdn.net/czh500/article/details/79903698</a><br><a href="http://test.attacker-domain.com/browserparsing/tests.html">http://test.attacker-domain.com/browserparsing/tests.html</a><br><a href="https://xz.aliyun.com/t/1556">https://xz.aliyun.com/t/1556</a><br><a href="https://shinpachi8.github.io/2017/07/28/xss%E7%BC%96%E7%A0%81/">https://shinpachi8.github.io/2017/07/28/xss%E7%BC%96%E7%A0%81/</a><br><a href="https://security.yirendai.com/news/share/26">https://security.yirendai.com/news/share/26</a><br><a href="https://www.cnblogs.com/lightsong/p/4356698.html">https://www.cnblogs.com/lightsong/p/4356698.html</a><br><a href="http://www.voidcn.com/article/p-tapgsgbo-baz.html">http://www.voidcn.com/article/p-tapgsgbo-baz.html</a><br><a href="http://gv7.me/articles/2018/escape-string-in-xss/">http://gv7.me/articles/2018/escape-string-in-xss/</a><br><a href="http://xuelinf.github.io/2016/05/18/%E7%BC%96%E7%A0%81%E4%B8%8E%E8%A7%A3%E7%A0%81-%E6%B5%8F%E8%A7%88%E5%99%A8%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88/">http://xuelinf.github.io/2016/05/18/%E7%BC%96%E7%A0%81%E4%B8%8E%E8%A7%A3%E7%A0%81-%E6%B5%8F%E8%A7%88%E5%99%A8%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88/</a></p>
+</blockquote>
+</script></p>
       
     </div>
     
     
     
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/03/06/探索xss中的编码原理/">探索xss中的编码原理</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 LJH 的个人博客">LJH</a></p>
+  <p><span>发布时间:</span>2019年03月06日 - 20:06</p>
+  <p><span>最后更新:</span>2019年03月06日 - 23:07</p>
+  <p><span>原始链接:</span><a href="/2019/03/06/探索xss中的编码原理/" title="探索xss中的编码原理">https://museljh.github.io/2019/03/06/探索xss中的编码原理/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://museljh.github.io/2019/03/06/探索xss中的编码原理/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+
+      
+    </div>
+    <div>
+     
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------END-------------</div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/xss/" rel="tag"><i class="fa fa-tag"></i> xss</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/04/记一次深入理解PHP弱类型原理的经历并以此第一次深入了解PHP内核/" rel="next" title="记一次深入理解PHP弱类型原理的经历并以此第一次深入了解PHP内核">
+                <i class="fa fa-chevron-left"></i> 记一次深入理解PHP弱类型原理的经历并以此第一次深入了解PHP内核
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/06/tamuctf Network部分wp/" rel="prev" title="从tamuctf Network中学习内网渗透">
+                从tamuctf Network中学习内网渗透 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -324,6 +629,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjUxOC8xOTA2NQ=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -588,6 +902,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
