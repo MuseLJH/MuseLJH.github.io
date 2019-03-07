@@ -76,7 +76,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="sql注入,">
 
 
 
@@ -89,13 +89,27 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="LJH&#39;s blog">
-<meta property="og:url" content="https://museljh.github.io/categories/随笔/index.html">
+<meta name="description" content="SQL与Nosql注入判断以及Nosql注入入门。">
+<meta name="keywords" content="sql注入">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL与Nosql注入判断以及Nosql注入入门">
+<meta property="og:url" content="https://museljh.github.io/2019/03/07/SQL与Nosql注入判断以及Nosql注入入门/index.html">
 <meta property="og:site_name" content="LJH&#39;s blog">
+<meta property="og:description" content="SQL与Nosql注入判断以及Nosql注入入门。">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://museljh.github.io/images/fly.png">
+<meta property="og:image" content="https://i.imgur.com/IevDfzk.png">
+<meta property="og:image" content="https://i.imgur.com/HdcXZWx.png">
+<meta property="og:image" content="https://i.imgur.com/hWNXO6K.png">
+<meta property="og:image" content="https://i.imgur.com/b21D4ZH.png">
+<meta property="og:image" content="https://i.imgur.com/kyp9GD0.png">
+<meta property="og:image" content="https://i.imgur.com/LjbXwyI.png">
+<meta property="og:image" content="https://i.imgur.com/6aXuFuH.png">
+<meta property="og:updated_time" content="2019-03-07T04:27:35.534Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LJH&#39;s blog">
+<meta name="twitter:title" content="SQL与Nosql注入判断以及Nosql注入入门">
+<meta name="twitter:description" content="SQL与Nosql注入判断以及Nosql注入入门。">
+<meta name="twitter:image" content="https://museljh.github.io/images/fly.png">
 
 
 
@@ -125,13 +139,13 @@
 
 
 
-  <link rel="canonical" href="https://museljh.github.io/categories/随笔/">
+  <link rel="canonical" href="https://museljh.github.io/2019/03/07/SQL与Nosql注入判断以及Nosql注入入门/">
 
 
 
 
 
-  <title>分类: 随笔 | LJH's blog</title>
+  <title>SQL与Nosql注入判断以及Nosql注入入门 | LJH's blog</title>
   
 
 
@@ -147,7 +161,7 @@
 
 <a href="https://github.com/MuseLJH" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 
-  <div class=" ">
+  <div class=" page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -283,53 +297,370 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>随笔<small>分类</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://museljh.github.io/2019/03/07/SQL与Nosql注入判断以及Nosql注入入门/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LJH">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LJH's blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2019/02/05/新的一年，新的开始/" itemprop="url">
-              
-                <span itemprop="name">新的一年，新的开始</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">SQL与Nosql注入判断以及Nosql注入入门</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-02-05T21:39:11+08:00" content="2019-02-05">
-          02-05
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-07T12:24:41+08:00">
+                2019-03-07
+              </time>
+            
 
-    </header>
-  </article>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/文章/" itemprop="url" rel="index">
+                    <span itemprop="name">文章</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/03/07/SQL与Nosql注入判断以及Nosql注入入门/" class="leancloud_visitors" data-flag-title="SQL与Nosql注入判断以及Nosql注入入门">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  7
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  SQL与Nosql注入判断以及Nosql注入入门。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="/images/fly.png" alt=""></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>虽然说ctf比赛中主要都是考mysql数据库，但是不可否认同样也有考其他数据库的可能性。</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>在当今的互联网企业中，最常用的数据库模型主要分为两种，即关系型数据库和非关系型数据库NoSQL。<br>1.常用关系型数据库<br>Oracle数据库</p>
+<blockquote>
+<p>主要的应用企业包括传统大企业、大公司、政府、金融、证券等</p>
+</blockquote>
+<p>MySQL数据库</p>
+<blockquote>
+<p>MySQL被广泛地应用于各大中小型网站中，具有体积小、速度快、总体拥有成本低，且开放源码等特点。</p>
+</blockquote>
+<p>MariaDB数据库</p>
+<blockquote>
+<p>MariaDB数据库管理系统是MySQL数据库的一个分支，主要由开源社区维护，采用GPL授权许可。</p>
+</blockquote>
+<p>SQL Server数据库<br>SQL Server的功能比较全面、效率高，可以作为中型企业或单位的数据库平台。</p>
+<p>Access数据库</p>
+<p>PostgreSQL数据库</p>
+<p>2.非关系型数据库(nosql)<br>Memcached</p>
+<blockquote>
+<p>Memcached是一个开源的、支持高性能、高并发的分布式内存缓存系统，由C语言编写。</p>
+</blockquote>
+<p>redis（key-value）</p>
+<blockquote>
+<p>redis是一个高性能的key-value数据库</p>
+</blockquote>
+<p>MongoDB（document-oriented）</p>
+<blockquote>
+<p>MongoDB是一个介于关系型数据库和非关系型数据库之间的产品，是非关系型数据库当中功能最丰富，最像关系型数据库的一种产品。</p>
+</blockquote>
+<p><img src="https://i.imgur.com/IevDfzk.png" alt=""></p>
+<h3 id="判断数据库"><a href="#判断数据库" class="headerlink" title="判断数据库"></a>判断数据库</h3><h4 id="一-关系型数据库"><a href="#一-关系型数据库" class="headerlink" title="一.关系型数据库"></a>一.关系型数据库</h4><p>1.法一</p>
+<blockquote>
+<p><a href="http://www.test.com/search.php?name=zhutougg" target="_blank" rel="noopener">http://www.test.com/search.php?name=zhutougg</a></p>
+</blockquote>
+<p>假设你已经找到了一个类似如上这样string型注入，我们可以通过利用 +、||、 等，构造如下payload（虽然我觉得这个方法没什么作用）</p>
+<blockquote>
+<p><a href="http://www.test.com/search.php?name=zhutou&#39;+&#39;gg" target="_blank" rel="noopener">http://www.test.com/search.php?name=zhutou&#39;+&#39;gg</a></p>
+</blockquote>
+<p><img src="https://i.imgur.com/HdcXZWx.png" alt=""></p>
+<p>以mysql为例子只有，<code>select &#39;some&#39; &#39;thing&#39;</code>或者    <code>select concat(&#39;some&#39;,&#39;thing&#39;)</code> 才会得到数据，若使用其他数据库的脚本就会返回空。<br>mysql数据库使用 mysql脚本<code>select &#39;some&#39; &#39;thing&#39;</code><br><img src="https://i.imgur.com/hWNXO6K.png" alt=""></p>
+<p>mysql数据库使用oracle脚本<code>select &#39;some&#39;||&#39;thing&#39;</code><br><img src="https://i.imgur.com/b21D4ZH.png" alt=""></p>
+<p>其它同理。</p>
+<p>2.法二</p>
+<p>可以利用数据库的一些特有的返回整型结果的函数来判断数据库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">SQLServer	@@pack_received</span><br><span class="line">                @@rowcount</span><br><span class="line">MySQL	        connection_id()</span><br><span class="line">                last_insert_id()</span><br><span class="line">                row_count()</span><br><span class="line">Oracle	        BITAND(1,1)</span><br><span class="line">PostgreSQL	select extract(dow from now())</span><br></pre></td></tr></table></figure></p>
+<p>同样是MySQL数据库 使用 select connection_id()<br><img src="https://i.imgur.com/kyp9GD0.png" alt=""><br>使用 select extract(dow from now())<br><img src="https://i.imgur.com/LjbXwyI.png" alt=""></p>
+<p>法三、<br>通过某些特有的函数判断，比如SQLServer的 waitfor delay 比如PostgreSQL的pg_sleep()<br> 基于时间的<br> 在oracle之中，没有专门的内置时间函数，但是它有一个向远端服务器发送http请求的内置函数，UTL_HTTP,如果发送一个不存在的远端主机请 求，它就会尝试去连接，这样势必会造成一定程度的延迟。</p>
+<p>在ms-sql之中，可以使用waitfor delay ‘0:0:10’注入参数之中，造成一定的延迟然后和预期的正常请求时间相比较，如果符合自己的预期，那么就可以确定数据库的类型</p>
+<p>在mysql之中，可以使用sleep(5)注入参数之中，造成延迟来判断数据库类型</p>
+<p>法四：</p>
+<ul>
+<li><p>Access:</p>
+<p>  <code>and (select count(*) from MSysAccessObjects)&gt;0</code><br><code>and exists(select count(*) from 表)</code><br> 返回正常说明是access<br><code>ID=1 and (select count(*) from sysobjects)&gt;0</code><br>返回异常</p>
+</li>
+</ul>
+<p><code>ID=1 and(select count(*) fromm sysobjects)&gt;0</code><br>返回异常</p>
+<p><del><em> SQLserver:<br>    `and (select count(</em>) from sysobjects) &gt;0 `<br>    返回正常说明是mssql</del><br>sqlserver：<br><code>http://www.wenkuxiazai.com/showdetail.asp?id=49 and user&gt;0</code></p>
+<p>MySQL:<br>    <code>and length(user())&gt;0</code><br>    <code>id=2 CHAR(97,110,100,32,49,61,49)</code><br>    <code>id=2 and version() &gt;0</code></p>
+<p>返回正常说明是MySQL</p>
+<p>ORACLE：<br><code>ID=1 and &#39;1&#39; || &#39;1&#39; = &#39;11</code></p>
+<p><code>ID=1 and 0 &lt;&gt; (select count(*) from dual)</code></p>
+<p><code>ID=1 CHR(97) || CHR(110) || CHR(100) || CHR(32) || CHR(49) || CHR(61) || CHR(49)</code></p>
+<p>返回正常说明是ORACLE</p>
+<p>MSSQL：<br><code>ID=1 and (select count(*) from sysobjects)&gt;0返回正常</code><br><code>ID=1 and (select count(*) fromm sysobjects)&gt;0返回异常</code><br><code>ID=1 and left(version(),1)=5%23//红色字体也可能是4</code><br><code>ID=1 and exists(select id from sysobjects)</code><br><code>ID=1 and length(user)&gt;0</code><br><code>ID=1 CHAR(97) +CHAR(110) +CHAR(100) +CHAR(32) +CHAR(49) +CHAR(61) +CHAR(49)</code></p>
+<p>法五：<br>其实我们还可以利用数据库的注释符来判断<br><img src="https://i.imgur.com/6aXuFuH.png" alt=""></p>
+<h4 id="二、非关系型数据库"><a href="#二、非关系型数据库" class="headerlink" title="二、非关系型数据库"></a>二、非关系型数据库</h4><p>如何识别数据库使用的是nosql数据库呢？<br>法一：<br>使用nosqlmap或者nosqlattack等自动化工具<br>法二：直接使用针对于nosql的常见注入脚本<br>法三：根据情况判断。比如网站有信息泄露之类的。</p>
+<p>NoSQL(NoSQL = Not Only SQL )，意即”不仅仅是SQL”。<br>使用比较多的Nosql数据库为MongoDB，Nosql在查询的时候采用BSON类型数据，有别于传统的json数据<br>我们先讲解下什么是Bson数据</p>
+<p>那BSON是个啥？BSON Spec官方是这样描述的：<br>BSON（Binary Serialized Document Format）, short for Bin­ary JSON, is a bin­ary-en­coded seri­al­iz­a­tion of JSON-like doc­u­ments.</p>
+<p>举个栗子：<br>json数据</p>
+<blockquote>
+<p>{ “key”: “value” }</p>
+</blockquote>
+<p>将它转换成BSON数据：</p>
+<blockquote>
+<p> 0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5<br>+–+–+–+–+–+–+–+–+–+–+–+–+–+–+–+–+<br>|14 00 00 00|02|6b 65 79 00|06 00 00 00 76 61 6c|<br>+–+–+–+–+–+–+–+–+–+–+–+–+–+–+–+–+<br>|75 65 00|00|<br>+–+–+–+–+</p>
+</blockquote>
+<p>大概就是json的摘要，类似于将json二进制数据进行序列化<br>感兴趣的可以看</p>
+<blockquote>
+<p><a href="http://liehu.tass.com.cn/archives/1294" target="_blank" rel="noopener">http://liehu.tass.com.cn/archives/1294</a></p>
+</blockquote>
+<p>其实这么一看好像nosql安全性挺高的，然而却不是这样，为了保持高速的访问，nosql有着许多安全问题。</p>
+<p>主要问题有Nosql未授权访问。<br>PHP:<br>1.以查询条件{ “password”: @USER_INPUT }为例，在不知道密码的情况下，可以使用{ “password”: { “$ne”: 1 } }绕过。</p>
+<p>2.永真式，此类攻击是在条件语句中注入代码，使生成的表达式判定结果永远为真，从而绕过认证或访问机制，主要造成这个原因是由于MongoDB之类的nosql数据库对用户输入没有做任何校验，<br>感兴趣可以看</p>
+<blockquote>
+<p><a href="https://www.anquanke.com/post/id/97211" target="_blank" rel="noopener">https://www.anquanke.com/post/id/97211</a></p>
+</blockquote>
+<p>以登入界面为例子，直接使用以下payload便可以直接登入。<br>payload:<br><code>username[$ne]=1&amp;password[$ne]=1</code></p>
+<p>感觉这个和未授权访问貌似讲的是同会事<br>3.NoSQL联合查询注入</p>
+<p>string query =”{ username: ‘“ + post_username + “‘, password: ‘“ + post_password + “‘ }”</p>
+<p>payload:</p>
+<p>username=tolkien’, $or: [ {}, { ‘a’:’a&amp;password=’ } ]</p>
+<p>JavaScript:<br>在MongoDB中 $where操作符是可以执行JavaScript语句的<br>payload</p>
+<blockquote>
+<p>username=1&amp;password=1;return true;</p>
+</blockquote>
+<blockquote>
+<p>username=1&amp;password=1;(function(){var%20date%20=%20new%20Date();%20do{curDate%20=%20new%20Date();}while(curDate-date%3C5000);%20return%20Math.max();})();</p>
+</blockquote>
+<p>这个payload可以让MongoDB所在服务器CPU瞬间飙升，持续5秒。<br>5.Node.js中的NoSQL注入<br>payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;username&quot;: &#123;&quot;$ne&quot;: null&#125;,&quot;password&quot;: &#123;&quot;$ne&quot;: null&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>其实就是把它数据变成json。<br>靶场</p>
+<blockquote>
+<p><a href="https://pockr.org/bug-environment/detail?environment_no=env_75b82b98ffedbe0035" target="_blank" rel="noopener">https://pockr.org/bug-environment/detail?environment_no=env_75b82b98ffedbe0035</a></p>
+</blockquote>
+<p>wp</p>
+<blockquote>
+<p><a href="https://www.anquanke.com/post/id/95844" target="_blank" rel="noopener">https://www.anquanke.com/post/id/95844</a></p>
+</blockquote>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
+<p><a href="https://www.jianshu.com/p/80d7e16c0185" target="_blank" rel="noopener">https://www.jianshu.com/p/80d7e16c0185</a><br><a href="https://db-engines.com/en/ranking" target="_blank" rel="noopener">https://db-engines.com/en/ranking</a><br><a href="https://www.jianshu.com/p/995f57e36918" target="_blank" rel="noopener">https://www.jianshu.com/p/995f57e36918</a><br><a href="https://wsygoogol.github.io/2016/06/18/sql%E6%B3%A8%E5%85%A5%E4%B9%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AF%86%E5%88%AB/" target="_blank" rel="noopener">https://wsygoogol.github.io/2016/06/18/sql%E6%B3%A8%E5%85%A5%E4%B9%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AF%86%E5%88%AB/</a><br><a href="https://www.jianshu.com/p/995f57e36918" target="_blank" rel="noopener">https://www.jianshu.com/p/995f57e36918</a><br><a href="https://www.bugbank.cn/q/article/59899f4b9a4253dc14efe543.html" target="_blank" rel="noopener">https://www.bugbank.cn/q/article/59899f4b9a4253dc14efe543.html</a><br><a href="https://xz.aliyun.com/t/2075" target="_blank" rel="noopener">https://xz.aliyun.com/t/2075</a><br><a href="https://www.anquanke.com/post/id/97211" target="_blank" rel="noopener">https://www.anquanke.com/post/id/97211</a><br><a href="http://liehu.tass.com.cn/archives/1294" target="_blank" rel="noopener">http://liehu.tass.com.cn/archives/1294</a></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/03/07/SQL与Nosql注入判断以及Nosql注入入门/">SQL与Nosql注入判断以及Nosql注入入门</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 LJH 的个人博客">LJH</a></p>
+  <p><span>发布时间:</span>2019年03月07日 - 12:24</p>
+  <p><span>最后更新:</span>2019年03月07日 - 12:27</p>
+  <p><span>原始链接:</span><a href="/2019/03/07/SQL与Nosql注入判断以及Nosql注入入门/" title="SQL与Nosql注入判断以及Nosql注入入门">https://museljh.github.io/2019/03/07/SQL与Nosql注入判断以及Nosql注入入门/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://museljh.github.io/2019/03/07/SQL与Nosql注入判断以及Nosql注入入门/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
 
 
       
     </div>
+    <div>
+     
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------END-------------</div>
+    
+</div>
 
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/sql注入/" rel="tag"><i class="fa fa-tag"></i> sql注入</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/06/tamuctf Network部分wp/" rel="next" title="从tamuctf Network中学习内网渗透">
+                <i class="fa fa-chevron-left"></i> 从tamuctf Network中学习内网渗透
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -337,6 +668,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjUxOC8xOTA2NQ=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -357,8 +697,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -449,6 +798,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正文"><span class="nav-number">2.</span> <span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">2.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#判断数据库"><span class="nav-number">2.2.</span> <span class="nav-text">判断数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一-关系型数据库"><span class="nav-number">2.2.1.</span> <span class="nav-text">一.关系型数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、非关系型数据库"><span class="nav-number">2.2.2.</span> <span class="nav-text">二、非关系型数据库</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -569,6 +934,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -597,6 +966,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
