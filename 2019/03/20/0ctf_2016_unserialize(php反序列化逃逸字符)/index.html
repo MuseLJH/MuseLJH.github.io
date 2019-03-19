@@ -76,7 +76,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="php反序列化,">
 
 
 
@@ -89,19 +89,20 @@
 
 
 
-<meta name="description" content="title: 0ctf_2016_unserialize(php反序列化逃逸字符)copyright: truedate: 2019-03-20 00:11:21tags:  php反序列化categories: 文章description: 使用unserialize逃逸出多余的字符串导致命令执行  一.0ctf_2016_unserialize(php反序列化逃逸字符)1234知识点:* 代">
+<meta name="description" content="使用unserialize逃逸出多余的字符串导致命令执行">
+<meta name="keywords" content="php反序列化">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LJH&#39;s blog">
+<meta property="og:title" content="0ctf_2016_unserialize(php反序列化逃逸字符)">
 <meta property="og:url" content="https://museljh.github.io/2019/03/20/0ctf_2016_unserialize(php反序列化逃逸字符)/index.html">
 <meta property="og:site_name" content="LJH&#39;s blog">
-<meta property="og:description" content="title: 0ctf_2016_unserialize(php反序列化逃逸字符)copyright: truedate: 2019-03-20 00:11:21tags:  php反序列化categories: 文章description: 使用unserialize逃逸出多余的字符串导致命令执行  一.0ctf_2016_unserialize(php反序列化逃逸字符)1234知识点:* 代">
+<meta property="og:description" content="使用unserialize逃逸出多余的字符串导致命令执行">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.imgur.com/hvvkk2B.png">
 <meta property="og:image" content="https://i.imgur.com/YpHBfEu.png">
-<meta property="og:updated_time" content="2019-03-19T16:43:15.112Z">
+<meta property="og:updated_time" content="2019-03-19T16:52:04.198Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LJH&#39;s blog">
-<meta name="twitter:description" content="title: 0ctf_2016_unserialize(php反序列化逃逸字符)copyright: truedate: 2019-03-20 00:11:21tags:  php反序列化categories: 文章description: 使用unserialize逃逸出多余的字符串导致命令执行  一.0ctf_2016_unserialize(php反序列化逃逸字符)1234知识点:* 代">
+<meta name="twitter:title" content="0ctf_2016_unserialize(php反序列化逃逸字符)">
+<meta name="twitter:description" content="使用unserialize逃逸出多余的字符串导致命令执行">
 <meta name="twitter:image" content="https://i.imgur.com/hvvkk2B.png">
 
 
@@ -138,7 +139,7 @@
 
 
 
-  <title> | LJH's blog</title>
+  <title>0ctf_2016_unserialize(php反序列化逃逸字符) | LJH's blog</title>
   
 
 
@@ -321,7 +322,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">0ctf_2016_unserialize(php反序列化逃逸字符)</h1>
         
 
         <div class="post-meta">
@@ -344,6 +345,28 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/文章/" itemprop="url" rel="index">
+                    <span itemprop="name">文章</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -351,7 +374,7 @@
 
           
           
-             <span id="/2019/03/20/0ctf_2016_unserialize(php反序列化逃逸字符)/" class="leancloud_visitors" data-flag-title="">
+             <span id="/2019/03/20/0ctf_2016_unserialize(php反序列化逃逸字符)/" class="leancloud_visitors" data-flag-title="0ctf_2016_unserialize(php反序列化逃逸字符)">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -378,7 +401,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.3k
+                  1.2k
                 </span>
               
 
@@ -401,6 +424,10 @@
           
 
           
+              <div class="post-description">
+                  使用unserialize逃逸出多余的字符串导致命令执行
+              </div>
+          
 
         </div>
       </header>
@@ -415,13 +442,7 @@
       
 
       
-        <hr>
-<p>title: 0ctf_2016_unserialize(php反序列化逃逸字符)<br>copyright: true<br>date: 2019-03-20 00:11:21<br>tags:</p>
-<ul>
-<li>php反序列化<br>categories:</li>
-<li>文章<br>description: 使用unserialize逃逸出多余的字符串导致命令执行</li>
-</ul>
-<h2 id="一-0ctf-2016-unserialize-php反序列化逃逸字符"><a href="#一-0ctf-2016-unserialize-php反序列化逃逸字符" class="headerlink" title="一.0ctf_2016_unserialize(php反序列化逃逸字符)"></a>一.0ctf_2016_unserialize(php反序列化逃逸字符)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">知识点:</span><br><span class="line">* 代码审计</span><br><span class="line">* Unserialize</span><br><span class="line">* LFR</span><br></pre></td></tr></table></figure>
+        <h2 id="一-0ctf-2016-unserialize-php反序列化逃逸字符"><a href="#一-0ctf-2016-unserialize-php反序列化逃逸字符" class="headerlink" title="一.0ctf_2016_unserialize(php反序列化逃逸字符)"></a>一.0ctf_2016_unserialize(php反序列化逃逸字符)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">知识点:</span><br><span class="line">* 代码审计</span><br><span class="line">* Unserialize</span><br><span class="line">* LFR</span><br></pre></td></tr></table></figure>
 <p><a href="http://www.Zip源码泄露获取源码" target="_blank" rel="noopener">www.Zip源码泄露获取源码</a></p>
 <p>通过源码，我们可以发现在config.php中的flag，这题意图已经很明显了，是要我们读取config.php文件的内容。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	$config[&apos;hostname&apos;] = &apos;127.0.0.1&apos;;</span><br><span class="line">	$config[&apos;username&apos;] = &apos;root&apos;;</span><br><span class="line">	$config[&apos;password&apos;] = &apos;&apos;;</span><br><span class="line">	$config[&apos;database&apos;] = &apos;&apos;;</span><br><span class="line">	$flag = &apos;&apos;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure></p>
 <p>注册并登入，在cookie里发现bottle.session，说明很有可能这道题目是由Python的 bottle框架搭建的，与此同时在profile.php找到<code>$profile = unserialize($profile);</code>，        <code>$photo = base64_encode(file_get_contents($profile[&#39;photo&#39;]));</code>中包含有<code>unserialize</code>与<code>file_get_contents</code>，猜测这道题是需要利用unserialize反序列构造file_get_contents执行RCE。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$profile = unserialize($profile);</span><br><span class="line">$phone = $profile[&apos;phone&apos;];</span><br><span class="line">$email = $profile[&apos;email&apos;];</span><br><span class="line">$nickname = $profile[&apos;nickname&apos;];</span><br><span class="line">$photo = base64_encode(file_get_contents($profile[&apos;photo&apos;]));</span><br></pre></td></tr></table></figure></p>
@@ -449,6 +470,35 @@
     <div>
       
         
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/03/20/0ctf_2016_unserialize(php反序列化逃逸字符)/">0ctf_2016_unserialize(php反序列化逃逸字符)</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 LJH 的个人博客">LJH</a></p>
+  <p><span>发布时间:</span>2019年03月20日 - 00:11</p>
+  <p><span>最后更新:</span>2019年03月20日 - 00:52</p>
+  <p><span>原始链接:</span><a href="/2019/03/20/0ctf_2016_unserialize(php反序列化逃逸字符)/" title="0ctf_2016_unserialize(php反序列化逃逸字符)">https://museljh.github.io/2019/03/20/0ctf_2016_unserialize(php反序列化逃逸字符)/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://museljh.github.io/2019/03/20/0ctf_2016_unserialize(php反序列化逃逸字符)/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
 
       
     </div>
@@ -469,6 +519,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/php反序列化/" rel="tag"><i class="fa fa-tag"></i> php反序列化</a>
+          
+        </div>
       
 
       
