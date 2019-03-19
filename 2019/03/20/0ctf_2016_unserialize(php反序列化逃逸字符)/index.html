@@ -89,19 +89,19 @@
 
 
 
-<meta name="description" content="title: 0ctf_2016_unserialize(php反序列化逃逸字符)copyright: truedate: 2019-03-20 00:11:21tags:  php反序列化categories: 文章description:   一.0ctf_2016_unserialize(php反序列化逃逸字符)1234知识点:* 代码审计* Unserialize* LFR www.Zi">
+<meta name="description" content="title: 0ctf_2016_unserialize(php反序列化逃逸字符)copyright: truedate: 2019-03-20 00:11:21tags:  php反序列化categories: 文章description: 使用unserialize逃逸出多余的字符串导致命令执行  一.0ctf_2016_unserialize(php反序列化逃逸字符)1234知识点:* 代">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LJH&#39;s blog">
 <meta property="og:url" content="https://museljh.github.io/2019/03/20/0ctf_2016_unserialize(php反序列化逃逸字符)/index.html">
 <meta property="og:site_name" content="LJH&#39;s blog">
-<meta property="og:description" content="title: 0ctf_2016_unserialize(php反序列化逃逸字符)copyright: truedate: 2019-03-20 00:11:21tags:  php反序列化categories: 文章description:   一.0ctf_2016_unserialize(php反序列化逃逸字符)1234知识点:* 代码审计* Unserialize* LFR www.Zi">
+<meta property="og:description" content="title: 0ctf_2016_unserialize(php反序列化逃逸字符)copyright: truedate: 2019-03-20 00:11:21tags:  php反序列化categories: 文章description: 使用unserialize逃逸出多余的字符串导致命令执行  一.0ctf_2016_unserialize(php反序列化逃逸字符)1234知识点:* 代">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.imgur.com/hvvkk2B.png">
 <meta property="og:image" content="https://i.imgur.com/YpHBfEu.png">
-<meta property="og:updated_time" content="2019-03-19T16:35:21.076Z">
+<meta property="og:updated_time" content="2019-03-19T16:43:15.112Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LJH&#39;s blog">
-<meta name="twitter:description" content="title: 0ctf_2016_unserialize(php反序列化逃逸字符)copyright: truedate: 2019-03-20 00:11:21tags:  php反序列化categories: 文章description:   一.0ctf_2016_unserialize(php反序列化逃逸字符)1234知识点:* 代码审计* Unserialize* LFR www.Zi">
+<meta name="twitter:description" content="title: 0ctf_2016_unserialize(php反序列化逃逸字符)copyright: truedate: 2019-03-20 00:11:21tags:  php反序列化categories: 文章description: 使用unserialize逃逸出多余的字符串导致命令执行  一.0ctf_2016_unserialize(php反序列化逃逸字符)1234知识点:* 代">
 <meta name="twitter:image" content="https://i.imgur.com/hvvkk2B.png">
 
 
@@ -378,7 +378,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.2k
+                  1.3k
                 </span>
               
 
@@ -419,7 +419,7 @@
 <p>title: 0ctf_2016_unserialize(php反序列化逃逸字符)<br>copyright: true<br>date: 2019-03-20 00:11:21<br>tags:</p>
 <ul>
 <li>php反序列化<br>categories:</li>
-<li>文章<br>description: </li>
+<li>文章<br>description: 使用unserialize逃逸出多余的字符串导致命令执行</li>
 </ul>
 <h2 id="一-0ctf-2016-unserialize-php反序列化逃逸字符"><a href="#一-0ctf-2016-unserialize-php反序列化逃逸字符" class="headerlink" title="一.0ctf_2016_unserialize(php反序列化逃逸字符)"></a>一.0ctf_2016_unserialize(php反序列化逃逸字符)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">知识点:</span><br><span class="line">* 代码审计</span><br><span class="line">* Unserialize</span><br><span class="line">* LFR</span><br></pre></td></tr></table></figure>
 <p><a href="http://www.Zip源码泄露获取源码" target="_blank" rel="noopener">www.Zip源码泄露获取源码</a></p>
@@ -437,6 +437,9 @@
 <p>输出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a:4:&#123;s:5:&quot;phone&quot;;s:11:&quot;11115908609&quot;;s:5:&quot;email&quot;;s:17:&quot;1049135811@qq.com&quot;;s:8:&quot;nickname&quot;;s:27:&quot;aa&quot;;s:5:&quot;photo&quot;;s:3:&quot;aaa&quot;;&#125;&quot;;s:5:&quot;photo&quot;;s:3:&quot;aaa&quot;;&#125;</span><br></pre></td></tr></table></figure></p>
 <p>因为多出<code>&quot;;s:5:&quot;photo&quot;;s:3:&quot;aaa&quot;;}</code><br>于是我们可以hacker比where多的字符将其顶替,这里多处的字符用1代替<br>比如这样<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a:4:&#123;s:5:&quot;phone&quot;;s:11:&quot;11115908609&quot;;s:5:&quot;email&quot;;s:17:&quot;1049135811@qq.com&quot;;s:8:&quot;nickname&quot;;s:27:&quot;aa1111111111111111111111111&quot;;s:5:&quot;photo&quot;;s:3:&quot;aaa&quot;;&#125;&quot;;s:5:&quot;photo&quot;;s:3:&quot;aaa&quot;;&#125;</span><br></pre></td></tr></table></figure></p>
 <p>最后得到<br><img src="https://i.imgur.com/hvvkk2B.png" alt=""><br>同理我们可以将aaa换成我们想要的比如config.php就可以读出flag了,<br>将得到的base64解码后的到flag<br><img src="https://i.imgur.com/YpHBfEu.png" alt=""></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
+<p><a href="http://blog.nsfocus.net/rpo-attack/" target="_blank" rel="noopener">http://blog.nsfocus.net/rpo-attack/</a><br><a href="https://lorexxar.cn/2018/01/02/34c3-writeup/#urlstorage" target="_blank" rel="noopener">https://lorexxar.cn/2018/01/02/34c3-writeup/#urlstorage</a><br><a href="http://www.yqxiaojunjie.com/index.php/archives/171/" target="_blank" rel="noopener">http://www.yqxiaojunjie.com/index.php/archives/171/</a></p>
+</blockquote>
 
       
     </div>
@@ -485,6 +488,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/20/HCTF 2017 Deserted place(SOME攻击)/" rel="prev" title="HCTF 2017 Deserted place(SOME攻击)">
+                HCTF 2017 Deserted place(SOME攻击) <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -568,7 +575,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -590,7 +597,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -652,7 +659,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-0ctf-2016-unserialize-php反序列化逃逸字符"><span class="nav-number">1.</span> <span class="nav-text">一.0ctf_2016_unserialize(php反序列化逃逸字符)</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-0ctf-2016-unserialize-php反序列化逃逸字符"><span class="nav-number">1.</span> <span class="nav-text">一.0ctf_2016_unserialize(php反序列化逃逸字符)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">2.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>

