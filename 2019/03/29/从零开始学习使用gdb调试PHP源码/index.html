@@ -97,10 +97,12 @@
 <meta property="og:site_name" content="LJH&#39;s blog">
 <meta property="og:description" content="从零开始学习使用gdb调试PHP源码">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-29T06:22:13.971Z">
+<meta property="og:image" content="https://museljh.github.io/images/fly.png">
+<meta property="og:updated_time" content="2019-03-29T06:36:51.357Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从零开始学习使用gdb调试PHP源码">
 <meta name="twitter:description" content="从零开始学习使用gdb调试PHP源码">
+<meta name="twitter:image" content="https://museljh.github.io/images/fly.png">
 
 
 
@@ -439,7 +441,8 @@
       
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>GDB是一个由GNU开源组织发布的、UNIX/LINUX操作系统下的、基于命令行的、功能强大的程序调试工具。 对于一名Linux下工作的c++程序员，gdb是必不可少的工具；</p>
+        <p><img src="/images/fly.png" alt=""></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>GDB是一个由GNU开源组织发布的、UNIX/LINUX操作系统下的、基于命令行的、功能强大的程序调试工具。 对于一名Linux下工作的c++程序员，gdb是必不可少的工具；</p>
 <h2 id="基础命令"><a href="#基础命令" class="headerlink" title="基础命令"></a>基础命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">b/break ：设置断点</span><br><span class="line">delete ：清除断点</span><br><span class="line">continue ：继续终止的程序</span><br><span class="line">run/r ：运行程序</span><br><span class="line">step/s ：单步运行，进入函数</span><br><span class="line">next/n ：单步运行，不进入函数</span><br><span class="line">list/l ：显示源代码，每次显示10行</span><br><span class="line">bt/backtrace ：显示栈中的内容</span><br><span class="line">print/p ：显示queue中的内容</span><br><span class="line">kill ：终止正在调试的程序</span><br><span class="line">file ：装入将要调试的文件</span><br><span class="line">info variables 命令将打印出所有程序变量的值</span><br><span class="line">info locals 命令时，gdb 会打印出当前帧中的局部变量</span><br><span class="line">bt 程序“调用堆栈”是当前函数之前的所有已调用函数的列表（包括当前函数）</span><br><span class="line">q ：退出gdb</span><br></pre></td></tr></table></figure>
 <h2 id="gdb调试入门"><a href="#gdb调试入门" class="headerlink" title="gdb调试入门"></a>gdb调试入门</h2><h3 id="简单的使用gdb分析程序错误"><a href="#简单的使用gdb分析程序错误" class="headerlink" title="简单的使用gdb分析程序错误"></a>简单的使用gdb分析程序错误</h3><p>将以下样本代码保存成.c文件格式,这段程序意思为循环十次并输出，使用<code>gcc -g eg1.c -o eg1</code> 进行编译<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">int wib(int no1, int no2)</span><br><span class="line">&#123;</span><br><span class="line">  int result, diff;</span><br><span class="line">  diff = no1 - no2;</span><br><span class="line">  result = no1 / diff;</span><br><span class="line">  return result;</span><br><span class="line">&#125;</span><br><span class="line">int main(int argc, char *argv[])</span><br><span class="line">&#123;</span><br><span class="line">  int value, div, result, i, total;</span><br><span class="line">  value = 10;</span><br><span class="line">  div = 6;</span><br><span class="line">  total = 0;</span><br><span class="line">  for(i = 0; i &lt; 10; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    result = wib(value, div);</span><br><span class="line">    total += result;</span><br><span class="line">    div++;</span><br><span class="line">    value--;</span><br><span class="line">  &#125;</span><br><span class="line">  printf(&quot;%d wibed by %d equals %d\n&quot;, value, div, total);</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>当我们直接执行<code>./eg1</code>，时候会爆出<code>Floating point exception</code>错误，我们需要使用gdb调试来寻找这个错误<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@iZwz9hyvb5rjm3oubt8o15Z:~/gbk_test# ./eg1 </span><br><span class="line">Floating point exception</span><br></pre></td></tr></table></figure></p>
@@ -485,7 +488,7 @@
   <p><span>本文标题:</span><a href="/2019/03/29/从零开始学习使用gdb调试PHP源码/">从零开始学习使用gdb调试PHP源码</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 LJH 的个人博客">LJH</a></p>
   <p><span>发布时间:</span>2019年03月29日 - 14:19</p>
-  <p><span>最后更新:</span>2019年03月29日 - 14:22</p>
+  <p><span>最后更新:</span>2019年03月29日 - 14:36</p>
   <p><span>原始链接:</span><a href="/2019/03/29/从零开始学习使用gdb调试PHP源码/" title="从零开始学习使用gdb调试PHP源码">https://museljh.github.io/2019/03/29/从零开始学习使用gdb调试PHP源码/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://museljh.github.io/2019/03/29/从零开始学习使用gdb调试PHP源码/" aria-label="复制成功！"></i></span>
   </p>
