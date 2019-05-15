@@ -504,7 +504,7 @@
 <p><img src="https://i.imgur.com/G5M5GvV.png" alt=""><br>进行查询了很多个apache不可解析的文件后缀，结果都上传成功了？？？发现，并不是上传后会把它变成php格式文件，而是解析的时候会当成php文件来解析</p>
 <p>方法三：.htaccess上传<br>可以看到这里黑名单并没有限制.htaccess文件的上传<br>文件内容如下</p>
 <blockquote>
-<filesmatch "aaa"=""><br>    SetHandler application/x-httpd-php<br></filesmatch>
+<p>&lt;FilesMatch “aaa”&gt;<br>    SetHandler application/x-httpd-php<br></p>
 </blockquote>
 <p>当apache在解析该目录下的php时，就会按照.htaccess中的要求去解析aaa文件解析成php<br><img src="https://i.imgur.com/QBM3e7y.png" alt=""></p>
 <blockquote>

