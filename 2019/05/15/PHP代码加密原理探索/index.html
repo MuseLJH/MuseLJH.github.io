@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+
+
+
+  
+
+<script type="text/javascript" src="/lib/clipboard/clipboard.js"></script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon-32x32-next.png?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="PHP内核分析,PHP代码加密,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="LJH's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="SQL与Nosql注入判断以及Nosql注入入门。">
+<meta name="keywords" content="PHP内核分析,PHP代码加密">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP代码加密原理探索">
+<meta property="og:url" content="https://museljh.github.io/2019/05/15/PHP代码加密原理探索/index.html">
+<meta property="og:site_name" content="LJH&#39;s blog">
+<meta property="og:description" content="SQL与Nosql注入判断以及Nosql注入入门。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g2xrm0cx2kj30m9020aa1.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g2xrr3i875j30fp048gmv.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g2xs0ctb2gj30vp0c5abn.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g2ynnp7uxbj30qg0dedh8.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g2ymsa5l2wj30ga09btay.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g2xtlmd5k0j30no078jvw.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g2xtzpgcprj30pn0fhtg6.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g2veeo2jphj30pj0evq4r.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g2vij9m6f0j30je05t3zf.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g2vy61xdtej30fi04mdgw.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g2veeo2jphj30pj0evq4r.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g2yac83kszj30ox0f374i.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g2yaddwrmwj30qf0e8mxf.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g2vym7jsrhj30fk04dwft.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g2vij9m6f0j30je05t3zf.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g2xrr3i875j30fp048gmv.jpg">
+<meta property="og:updated_time" content="2019-05-15T09:53:59.148Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PHP代码加密原理探索">
+<meta name="twitter:description" content="SQL与Nosql注入判断以及Nosql注入入门。">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g2xrm0cx2kj30m9020aa1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://museljh.github.io/2019/05/15/PHP代码加密原理探索/">
+
+
+
+
+
+  <title>PHP代码加密原理探索 | LJH's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+<a href="https://github.com/MuseLJH" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+  <div class=" page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LJH's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">LJH's blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://museljh.github.io/2019/05/15/PHP代码加密原理探索/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LJH">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LJH's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">PHP代码加密原理探索</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-15T17:51:29+08:00">
+                2019-05-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/文章/" itemprop="url" rel="index">
+                    <span itemprop="name">文章</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/05/15/PHP代码加密原理探索/" class="leancloud_visitors" data-flag-title="PHP代码加密原理探索">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  19
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  SQL与Nosql注入判断以及Nosql注入入门。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="开始之前"><a href="#开始之前" class="headerlink" title="开始之前"></a>开始之前</h2><p>以我理解解释下CISCN线上初赛一题非预期解法</p>
+<p><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g2xrm0cx2kj30m9020aa1.jpg" alt=""></p>
+<p>先抛出来有扩展加密方式</p>
+<p>此种加密原理是把源码通过des或aes等加密算法进行加密，当加密的源码执行时扩展会截获加密的代码并解密后交给zend执行。</p>
+<p><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g2xrr3i875j30fp048gmv.jpg" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">  $code = file_get_contents(&apos;待加密的PHP&apos;);</span><br><span class="line">  $code = base64_encode(openssl_encrypt($code, &apos;aes-128-cbc&apos;, &apos;密钥&apos;, false, &apos;IV&apos;));</span><br><span class="line">  echo &quot;&lt;?php eval(openssl_decrypt(base64_decode($code), &apos;aes-128-cbc&apos;, &apos;密钥&apos;, false, &apos;IV&apos;));&quot;;</span><br></pre></td></tr></table></figure>
+<p>将其化成流程图方式讲解。</p>
+<p><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g2xs0ctb2gj30vp0c5abn.jpg" alt=""></p>
+<p>由于其中加密的密钥用户是可以自己修改的(以php-beast为例子)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">static uint8_t key[] = &#123;</span><br><span class="line">    0x2b, 0x7e, 0x15, 0x16, 0x28, 0xae, 0xd2, 0xa6,</span><br><span class="line">    0xab, 0xf7, 0x15, 0x88, 0x09, 0xcf, 0x4f, 0x3c,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>所以题目的流程图如下</p>
+<p><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g2ynnp7uxbj30qg0dedh8.jpg" alt=""></p>
+<p>那么我们要怎么去解这题呢？</p>
+<p>zsx学长发现了一个sdk.php文件是用SourceGuardian加密的。因此zsx学长先下载了一个SourceGuardian扩展，并且再引入了一个sg11的破解脚本密钥，<br>sg11目的是为了破解这个<code>openssl_private_encrypt</code>达到实现正真题目环境也就是SDK让它能够正常运行，然后再让它满足<code>sha1($key) === $this-&gt;getHash()</code>条件即可。</p>
+<p>所以截图如下</p>
+<p><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g2ymsa5l2wj30ga09btay.jpg" alt=""></p>
+<p><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g2xtlmd5k0j30no078jvw.jpg" alt=""></p>
+<p>sg11的破解脚本这里起到的作用为<code>openssl_private_decrypt</code>，然后<br>直接修改<code>zend_is_identical</code>的返回值，直接让他return 1，使得<code>sha1($key) === $this-&gt;getHash()</code>条件成立满足sdk.php条件，直接var_dump出flag</p>
+<blockquote>
+<p><code>zend_is_identical</code>为控制===返回值</p>
+</blockquote>
+<p><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g2xtzpgcprj30pn0fhtg6.jpg" alt=""></p>
+<h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><p>目前编程语言可以分为两大类:</p>
+<p>第一类是像C/C++， .NET， Java之类的编译型语言， 它们的共性是: 运行之前必须对源代码进行编译，然后运行编译后的目标文件。</p>
+<p>第二类比如:PHP， Javascript， Ruby， Python这些解释型语言， 他们都无需经过编译即可”运行”，虽然可以理解为直接运行，</p>
+<p>但它们并不是真的直接就被能被机器理解， 机器只能理解机器语言，那这些语言是怎么被执行的呢， 一般这些语言都需要一个解释器， 由解释器来执行这些源码， 实际上这些语言还是会经过编译环节， 只不过它们一般会在运行的时候实时进行编译。</p>
+<p>为了效率，并不是所有语言在每次执行的时候都会重新编译一遍， 比如PHP的各种opcode缓存扩展(如APC， xcache， eAccelerator等)，比如Python会将编译的中间文件保存成pyc/pyo文件， 避免每次运行重新进行编译所带来的性能损失。</p>
+<p>一种语言被称为编译类语言，一般是由于在程序执行之前有一个翻译的过程， 其中关键点是有一个形式上完全不同的等价程序生成。 而PHP之所以被称为解释类语言，就是因为并没有这样的一个程序生成， 它生成的是中间代码，这只是PHP的一种内部数据结构。</p>
+<p>当一段PHP代码进入Zend虚拟机，它会被执行两步操作:编译和执行。 对于一个解释性语言来说，这是一个创造性的举动，但是，现在的实现并不彻底。 现在当PHP代码进入Zend虚拟机后，它虽然会被执行这两步操作，但是这两步操作对于一个常规的执行过程来说却是连续的， </p>
+<p>也就是说它并没有转变成和Java这种编译型语言一样：生成一个中间文件存放编译后的结果。 如果每次执行这样的操作，对于PHP脚本的性能来说是一个极大的损失。 虽然有类似于APC，eAccelerator等缓存解决方案。但是其本质上是没有变化的，并且不能将两个步骤分离，各自发展壮大。</p>
+<p>PHP语言作为脚本语言的一种，由于不需要进行编译，所以通常PHP程序的分发都是直接发布源代码。对于开源软件来说这并没有什么问题，但是对于一些商业代码却是一个不太好的消息，正因为如此，导致PHP界涌现出了不少加密产品。</p>
+<h2 id="加密的本质"><a href="#加密的本质" class="headerlink" title="加密的本质"></a>加密的本质</h2><p>本质上程序在运行时都是在执行机器码，而基于虚拟机的语言的加密通常也是加密到这个级别， 也就是说PHP加密后的程序在执行之前都会解密成opcode来执行。</p>
+<p><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g2veeo2jphj30pj0evq4r.jpg" alt=""></p>
+<p>PHP在执行之前有一个编译的环节，编译的结果是opcode，然后由Zend虚拟机执行， 从这里看如果只要将源代码加密，然后在执行之前将代码解密即可。</p>
+<p>加密的目的就是为了防止轻易获取程序源码的一种手段，对于PHP来说， 将源码编译为opcode已经能达到目的了，因为PHP引擎最终都是需要执行opcode的。 虽然可以将加密进一步，但是如果需要修改Zend引擎，那么成本就有点大了，因为需要修改 Zend引擎了，而这是无法通过简单的扩展机制来实现了，所以解密的成本也会变的太大， 也就没有实际意义了。</p>
+<blockquote>
+<p>opcode是计算机指令中的一部分，用于指定要执行的操作， 指令的格式和规范由处理器的指令规范指定。<br>PHP中的opcode则属于前面介绍中的后者，PHP是构建在Zend虚拟机(Zend VM)之上的。PHP的opcode就是Zend虚拟机中的指令。</p>
+</blockquote>
+<p><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g2vij9m6f0j30je05t3zf.jpg" alt=""></p>
+<h2 id="PHP源码加密-解密的初步探索"><a href="#PHP源码加密-解密的初步探索" class="headerlink" title="PHP源码加密/解密的初步探索"></a>PHP源码加密/解密的初步探索</h2><h3 id="无扩展加密"><a href="#无扩展加密" class="headerlink" title="无扩展加密"></a>无扩展加密</h3><p>此种加密方式不依赖其他扩展，可以虽然看上去无法阅读，但是可以直接执行。<br>原理基本上就是以eval(*_decode(…))为核心辅以各种字符串混淆和小技巧。不外乎以下几类</p>
+<p>1.采用多种编码 </p>
+<p>base64_decode,urldecode,gzuncompress</p>
+<p>源码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">eval(&quot;echo &apos;hello by museljh&apos;;&quot;);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$a=base64_encode(&quot;echo &apos;hello by museljh&apos;;&quot;);</span><br><span class="line">eval(base64_decode($a));</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">function phpencode($code) &#123;</span><br><span class="line">$code = str_replace(array(&apos;&lt;?php&apos;,&apos;?&gt;&apos;,&apos;&lt;?PHP&apos;),array(&apos;&apos;,&apos;&apos;,&apos;&apos;),$code);</span><br><span class="line">$encode = base64_encode(gzdeflate($code));// 开始编码</span><br><span class="line">$encode = &apos;&lt;?php&apos;.&quot;\neval(gzinflate(base64_decode(&quot;.&quot;&apos;&quot;.$encode.&quot;&apos;&quot;.&quot;)));\n?&gt;&quot;;</span><br><span class="line">return $encode;</span><br><span class="line">&#125;</span><br><span class="line">function phpdecode($code) &#123;</span><br><span class="line">$code = str_replace(array(&apos;&lt;!?php&apos;,&apos;&lt;?PHP&apos;,&quot;eval(gzinflate(base64_decode(&apos;&quot;,&quot;&apos;)));&quot;,&apos;?&gt;&apos;),array(&apos;&apos;,&apos;&apos;,&apos;&apos;,&apos;&apos;,&apos;&apos;,&apos;&apos;),$code);</span><br><span class="line">$decode = base64_decode($code);</span><br><span class="line">$decode = @gzinflate($decode);</span><br><span class="line">return $decode;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$a=&quot;echo &apos;hello by museljh&apos;;&quot;;</span><br><span class="line">echo phpencode($a);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">结果</span><br><span class="line">&lt;?php</span><br><span class="line">eval(gzinflate(base64_decode(&apos;S03OyFdQz0jNyclXSKpUyC0tTs3JylC3BgA=&apos;)));</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">eval(base64_decode(&apos;S03OyFdQz0jNyclXSKpUyC0tTs3JylC3BgA=&apos;));</span><br><span class="line">`KMÎÈWPÏHÍÉÉWHªTÈ--NÍÉÊP·`</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">(PHP 4 &gt;= 4.0.4, PHP 5, PHP 7) gzdeflate — Deflate a string</span><br><span class="line"></span><br><span class="line">gzdeflate ( string $data [, int $level = -1 [, int $encoding = ZLIB_ENCODING_RAW ]] ) : string</span><br><span class="line"></span><br><span class="line">（PHP 4&gt; = 4.0.4，PHP 5，PHP 7） gzinflate - </span><br><span class="line"></span><br><span class="line">gzinflate ( string $data [, int $length = 0 ] ) : string</span><br><span class="line"></span><br><span class="line">此函数会使收缩的字符串膨胀。</span><br></pre></td></tr></table></figure>
+<p>2.使用变量代替函数名称 </p>
+<p>比如定一串字符串变量通过从这串字符串中提取题目拼接而成</p>
+<p>3.变量采用相似容易混淆或无法辨认的字符命名 </p>
+<p>如$O00OO0 $O00O0O $O0OO00甚至使用ASCII码作为变量名</p>
+<p>4.反劫持 </p>
+<p>加密后增加判断当前文件MD5和原始加密文件的MD5是否相同的逻辑，防止尝试通过美化代码破解文件的操作</p>
+<p>5.字符替换<br>通过随机秘钥替换字符达到混淆的目的</p>
+<p>6.多层加密<br>通过多层的编码混淆增加破解复杂度</p>
+<p>优点:不用安装额外扩展，可以直接运行 </p>
+<p>缺点:加密效果比较差，因为代码最终都是通过eval执行，如果劫持eval可以100%还原。所以一般不推荐此种方法。</p>
+<blockquote>
+<p>phpjiami、zhaoyuanma的免费版本等</p>
+</blockquote>
+<p><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g2vy61xdtej30fi04mdgw.jpg" alt=""></p>
+<p>比如 phpjiami加密源码的整个流程是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">加密流程：源码 -&gt; 加密处理（压缩，替换，BASE64，转义）-&gt; 安全处理（验证文件 MD5 值，限制 IP、限域名、限时间、防破解、防命令行调试）-&gt; 加密程序成品，</span><br></pre></td></tr></table></figure></p>
+<p>再简单的说：源码 + 加密外壳 == 加密程序</p>
+<p>加密处理无非是多次的压缩处理，转换加密我见过某变态程序对源码不集的加密转换，足足进行了50次操作。 要破解的人失去耐心。</p>
+<p>MD5的方式，此方式较复杂。一般会将一段加密后的代码，判断MD5值，写入到PHP中。程序运行的时间读取这一段MD5值，并判断。如果值不相同则停止运行。</p>
+<p>有的人想当然地认为修改eval为echo就能输出源码了，但实际上是不可以的因为他会校验其的MD5值。</p>
+<p>限IP地址，某一些程序在某一些IP 上是不可运行的。某网站提供破解服务，这个网站的ip地址为：42.121.57.XX，在程序中发现这个IP黑名单则直接拒绝执行。</p>
+<p>大概画风如这样(以phpjiami为例子)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">œèÒ9œèÒ9œèÒ9œèÒ9œèÒ9;</span><br><span class="line">œèÒ9œèÒ9œèÒ9œèÒ9;</span><br><span class="line">function a(一堆乱码)&#123;</span><br><span class="line">    b=乱码解密;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br><span class="line">œèÒ9œèÒ9œèÒ9œèÒ9;</span><br><span class="line">œèÒ9œèÒ9œèÒ9œèÒ9;</span><br><span class="line">function b(b,...)&#123;</span><br><span class="line">        由乱码解密构成一堆全局变量 </span><br><span class="line">    ‡¾Üö´=eval；</span><br><span class="line">    œèÒ9æ8î=base64；</span><br><span class="line">    xxxx</span><br><span class="line">&#125;</span><br><span class="line">œèÒ9œèÒ9œèÒ9;œèÒ9</span><br><span class="line">œèÒ9œèÒ9œèÒ9;</span><br><span class="line">function c ()&#123;</span><br><span class="line">    安全处理</span><br><span class="line">&#125;</span><br><span class="line">œèÒ9œèÒ9œèÒ9œèÒ9;</span><br><span class="line">最后    ‡¾Üö´(œèÒ9æ8î(xxx(™¡óšÝï($§‡¾Üö´Õ°¾ãÑ(&apos;Ä4œèÒ9æ8î²4 ª78Øè6ŽDÔðìê´ŽÌ´òØ¦èØÐ’ÌŽ3ÊÔ6ð”’Ô8–7Î°¢26ŒÂÂâ¤0ô¨0¨Î2®â¤°7œ8ÄÈòØäª8Ø¬ŠÜÊÒè5B¨......)));</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>如何进行解密？</p>
+<p>这里我将提供两种我已知的思路进行讲解</p>
+<p>1.调用 eval 等代码执行的函数，最终会调用 php 内核的<code>zend_compile_string</code>函数。</p>
+<p>为什么最终会调用<code>zend_compile_string</code>函数呢？</p>
+<p><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g2veeo2jphj30pj0evq4r.jpg" alt=""></p>
+<p>在中间代码的执行的时候，会经过<code>zend_execute(EG(active_op_array) TSRMLS_CC);</code></p>
+<p>如果你是使用VS查看源码的话，将光标移到zend_execute并直接按F12， 你会发现zend_execute的定义跳转到了一个指针函数的声明<code>(Zend/zend_execute_API.c)。</code></p>
+<p><code>ZEND_API void (*zend_execute)(zend_op_array *op_array TSRMLS_DC);</code></p>
+<p>这是一个全局的函数指针，它的作用就是执行PHP代码文件解析完的转成的zend_op_array。</p>
+<p> <code>在zend_execute函数指针赋值时，还有PHP的中间代码编译函数zend_compile_file（文件形式）和zend_compile_string(字符串形式)</code>。</p>
+<p>所以呢，我们只用Hook住这个函数，就差不多了/其实貌似也可以直接修改<code>zend_compile_file</code>进行输出。</p>
+<p>比如说</p>
+<p>原来是这样</p>
+<p><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g2yac83kszj30ox0f374i.jpg" alt=""></p>
+<p><code>eval(&#39;echo 1;&#39;);</code></p>
+<p>最后得出结果为1 ，</p>
+<p>但是eval换成var_dump</p>
+<p><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g2yaddwrmwj30qf0e8mxf.jpg" alt=""></p>
+<p><code>var_dump(&#39;echo 1;&#39;);</code></p>
+<p>最后结果就是</p>
+<p><code>string(7) &quot;echo 1;&quot;</code></p>
+<p>这样就可以获得源码了。</p>
+<p>2.PHP在执行之前有一个编译的环节，编译的结果是opcode，然后由Zend虚拟机执行， 从这里看如果只要将源代码加密，然后在执行之前将代码解密即可。</p>
+<p>3.手工dump法</p>
+<p>4.动态调试法</p>
+<p>5.代码审计Getshell<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">include &quot;index.php&quot;;</span><br><span class="line">var_dump(get_defined_vars());</span><br></pre></td></tr></table></figure></p>
+<p>从这里看，只要代码能被解密为opcode，那么总有可能反编译出来源代码， 其他的语言中也是类似，比如objdump程序能将二进制程序反汇编出来， .NET、Java的程序也是一样，都有一些反编译的程序，不过通常这些厂商同时还会 附带代码混淆的工具，经过混淆的代码可读性极差，很多人都留意过Gmail等网站 经过混淆的JS代码吧，他们阅读起来非常困难，经过混淆的代码即使反编译出来， 读者也很难通过代码分析出代码中的逻辑，这样也就极大的增加了应用的安全性。</p>
+<p>简化的代码示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">  $code = file_get_contents(&apos;待加密的PHP&apos;);</span><br><span class="line">  $code = base64_encode(openssl_encrypt($code, &apos;aes-128-cbc&apos;, &apos;密钥&apos;, false, &apos;IV&apos;));</span><br><span class="line">  echo &quot;&lt;?php eval(openssl_decrypt(base64_decode($code), &apos;aes-128-cbc&apos;, &apos;密钥&apos;, false, &apos;IV&apos;));&quot;;</span><br></pre></td></tr></table></figure>
+<p><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g2vym7jsrhj30fk04dwft.jpg" alt=""></p>
+<p>对于第一种思路，我们不需要知道数据的加密算法到底是什么，因为真实代码在执行时总会被解密出来，各位只需要知道PHP到底执行了什么，从这儿拿出代码。</p>
+<p>不管是<code>eval</code>、<code>assert</code>、<code>preg_replace(&#39;//e&#39;)</code>，还是这类PHP加密扩展，想要动态执行代码就必须经过<code>zend_compile_string</code>这一个函数。只需要编写一个<code>dll/so</code>，给<code>zend_compile_string</code>挂上“钩子”，就能直接拿到完整的代码。</p>
+<p>当然类似这样原理的加密在网上已经有很多非常成熟的在线解密方式。<a href="https://www.unphp.net/" target="_blank" rel="noopener">UnPHP</a>,当然我们主要是介绍如何如何hook住<code>zend_compile_string</code><br>理论上，只要我们在php内核执行eval函数的时候，将其dump出来，就可以得到源代码。在 php 扩展中, module init 的时候替换掉<code>zend_compile_string</code>，主要代码如下(tool.lu的站长xiaozi的代码),在php.ini中添加extension=hookeval.so，然后直接访问加密过的php代码即可</p>
+<p>主要代码（全部代码<a href="http://php-security.org/downloads/evalhook-0.1.tar.gz" target="_blank" rel="noopener"> evalhook</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">static zend_op_array *edump_compile_string(zval *source_string, char *filename TSRMLS_DC)</span><br><span class="line">&#123;</span><br><span class="line">    int c, len;</span><br><span class="line">    char *copy;</span><br><span class="line"> </span><br><span class="line">    if (Z_TYPE_P(source_string) != IS_STRING) &#123;</span><br><span class="line">        return orig_compile_string(source_string, filename TSRMLS_CC);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    len  = Z_STRLEN_P(source_string);</span><br><span class="line">    copy = estrndup(Z_STRVAL_P(source_string), len);</span><br><span class="line">    if (len &gt; strlen(copy)) &#123;</span><br><span class="line">        for (c=0; c&lt;len; c++) if (copy[c] == 0) copy[c] == &apos;?&apos;;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    php_printf(&quot;----- [tool.lu start] -----\n&quot;);</span><br><span class="line">    php_printf(&quot;%s\n&quot;, copy);</span><br><span class="line">    php_printf(&quot;----- [tool.lu end] -----\n&quot;);</span><br><span class="line"> </span><br><span class="line">    yes = 1;</span><br><span class="line"></span><br><span class="line">    return orig_compile_string(source_string, filename TSRMLS_CC);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">PHP_MINIT_FUNCTION(edump)</span><br><span class="line">&#123;</span><br><span class="line">    if (edump_hooked == 0) &#123;</span><br><span class="line">        edump_hooked = 1;</span><br><span class="line">        orig_compile_string = zend_compile_string;</span><br><span class="line">        zend_compile_string = edump_compile_string;</span><br><span class="line">    &#125;</span><br><span class="line">    return SUCCESS;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>想要自己写出如上代码我们首先需要知道PHP是如何解析一个PHP文件的。<br>依旧是这个图<br><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g2vij9m6f0j30je05t3zf.jpg" alt=""></p>
+<p>即:词法分析 =&gt; 语法分析 =&gt; opcode编译 =&gt; 执行</p>
+<blockquote>
+<p>1.PHP的词法分析和语法分析的实现分别位于Zend目录下的zend_language_scanner.l和 zend_language_parser.y 文件，使用r2ec&amp;flex来编译。</p>
+</blockquote>
+<p>分析下语句</p>
+<p>1.<code>static zend_op_array *edump_compile_string(zval *source_string, char *filename TSRMLS_DC)</code></p>
+<p>在PHP中，函数分为俩种，</p>
+<p>1.一种是<code>zend_internal_function</code>, 这种函数是由扩展或者Zend/PHP内核提供的，用’C/C++’编写的，可以直接执行的函数。</p>
+<p>2.另外一种是<code>zend_user_function</code>, 这种函数呢，就是我们经常在见的，用户在PHP脚本中定义的函数，这种函数最终会被ZE翻译成opcode array来执行</p>
+<p>首先在zend_compile.h可以看到如下结构</p>
+<p>1.<code>typedef struct _zend_internal_function {</code></p>
+<p>2.<code>struct _zend_op_array {</code></p>
+<p>3.<code>typedef union _zend_function {</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">struct _zend_op_array &#123;</span><br><span class="line">    /* Common elements */</span><br><span class="line">    zend_uchar type;</span><br><span class="line">    char *function_name;</span><br><span class="line">    zend_class_entry *scope;</span><br><span class="line">    zend_uint fn_flags;</span><br><span class="line">    union _zend_function *prototype;</span><br><span class="line">    zend_uint num_args;</span><br><span class="line">    zend_uint required_num_args;</span><br><span class="line">    zend_arg_info *arg_info;</span><br><span class="line">    zend_bool pass_rest_by_reference;</span><br><span class="line">    unsigned char return_reference;</span><br><span class="line">    /* END of common elements */</span><br><span class="line"> </span><br><span class="line">    zend_uint *refcount;</span><br><span class="line"> </span><br><span class="line">    zend_op *opcodes;</span><br><span class="line">    zend_uint last, size;</span><br><span class="line"> </span><br><span class="line">    zend_compiled_variable *vars;</span><br><span class="line">    int last_var, size_var;</span><br><span class="line"> </span><br><span class="line">    zend_uint T;</span><br><span class="line"> </span><br><span class="line">    zend_brk_cont_element *brk_cont_array;</span><br><span class="line">    zend_uint last_brk_cont;</span><br><span class="line">    zend_uint current_brk_cont;</span><br><span class="line"> </span><br><span class="line">    zend_try_catch_element *try_catch_array;</span><br><span class="line">    int last_try_catch;</span><br><span class="line"> </span><br><span class="line">    /* static variables support */</span><br><span class="line">    HashTable *static_variables;</span><br><span class="line"> </span><br><span class="line">    zend_op *start_op;</span><br><span class="line">    int backpatch_count;</span><br><span class="line"> </span><br><span class="line">    zend_bool done_pass_two;</span><br><span class="line">    zend_bool uses_this;</span><br><span class="line"> </span><br><span class="line">    char *filename;</span><br><span class="line"> </span><br><span class="line">     zend_uint line_start;</span><br><span class="line">    zend_uint line_end;</span><br><span class="line">    char *doc_comment;</span><br><span class="line">    zend_uint doc_comment_len;</span><br><span class="line"> </span><br><span class="line">    void *reserved[ZEND_MAX_RESERVED_RESOURCES];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>2.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">PHP_MINIT_FUNCTION(edump)</span><br><span class="line">&#123;</span><br><span class="line">    if (edump_hooked == 0) &#123;</span><br><span class="line">        edump_hooked = 1;</span><br><span class="line">        orig_compile_string = zend_compile_string;</span><br><span class="line">        zend_compile_string = edump_compile_string;</span><br><span class="line">    &#125;</span><br><span class="line">    return SUCCESS;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>PHP开始执行以后会经过两个主要的阶段：</p>
+<p>处理请求之前的开始阶段和请求之后的结束阶段。</p>
+<p>开始阶段有两个过程：第一个过程是模块初始化阶段（MINIT），</p>
+<p>在整个SAPI生命周期内(例如Apache启动以后的整个生命周期内或者命令行程序整个执行过程中)， 该过程只进行一次。第二个过程是模块激活阶段（RINIT），该过程发生在请求阶段，</p>
+<p>例如通过url请求某个页面，则在每次请求之前都会进行模块激活（RINIT请求开始）。 例如PHP注册了一些扩展模块，则在MINIT阶段会回调所有模块的MINIT函数。 模块在这个阶段可以进行一些初始化工作，例如注册常量，定义模块使用的类等等。 模块在实现时可以通过如下宏来实现这些回调函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PHP_MINIT_FUNCTION(myphpextension)</span><br><span class="line">&#123;</span><br><span class="line">    // 注册常量或者类等初始化操作</span><br><span class="line">    return SUCCESS; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如何自己写一个类似的PHP解密扩展呢？</p>
+<p>这里主要原理我觉得应该是先抄个var_dump函数，最后将这整个函数传给<br><code>PHP_MINIT_FUNCTION</code>,其中把<br><code>zend_compile_string</code>换成这个函数就可以了</p>
+<p>实验将代码<code>eval(&#39;echo 1;&#39;);</code>输出的结果从1 变成<code>string(7) &quot;echo 1;&quot;</code></p>
+<h3 id="有扩展的加密"><a href="#有扩展的加密" class="headerlink" title="有扩展的加密"></a>有扩展的加密</h3><p>此种加密原理是把源码通过des或aes等加密算法进行加密，当加密的源码执行时扩展会截获加密的代码并解密后交给zend执行。</p>
+<p>优点:1.相比较免扩展加密更加安全，如果只是源码被窃取没有扩展与加密的key也是无法被破解的。 2.客户从目标机上down下来代码+beast.so扩展，因为绑定MAC地址的缘故，也是无法正常启动php-fpm的。</p>
+<p>缺点:需要安装扩展才能使用，扩展可能会被破解拿到密钥。在zend层也可能会被劫持解密的源码。</p>
+<blockquote>
+<p><code>php-beast</code>、<code>php_screw、screw_plus</code>、<code>ZoeeyGuard</code>、<code>tonyenc</code>等市面上几乎所有的开源PHP加密扩展。</p>
+</blockquote>
+<p>有扩展加密中，php_screw因加密方式太弱，容易被已知明文攻击（举例：大部分PHP文件的开头均为<code>&lt;?php）</code>推测出密钥。其他的加密就都需要手动逆向，过于麻烦，直接使用通用方案来反而是更简单的破解方式。</p>
+<p><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g2xrr3i875j30fp048gmv.jpg" alt=""></p>
+<p>转换为代码形式如下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">  $code = file_get_contents(&apos;待加密的PHP&apos;);</span><br><span class="line">  $code = base64_encode(openssl_encrypt($code, &apos;aes-128-cbc&apos;, &apos;密钥&apos;, false, &apos;IV&apos;));</span><br><span class="line">  echo &quot;&lt;?php eval(openssl_decrypt(base64_decode($code), &apos;aes-128-cbc&apos;, &apos;密钥&apos;, false, &apos;IV&apos;));&quot;;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">root@iZwz9hyvb5rjm3oubt8o15Z:~# cd things/php-7.2.0/ext/</span><br><span class="line">root@iZwz9hyvb5rjm3oubt8o15Z:~/things/php-7.2.0/ext# ./ext_skel --extname=php_museljh</span><br><span class="line">Creating directory php_museljh</span><br><span class="line">Creating basic files: config.m4 config.w32 .gitignore php_museljh.c php_php_museljh.h CREDITS EXPERIMENTAL tests/001.phpt php_museljh.php [done].</span><br><span class="line"></span><br><span class="line">To use your new extension, you will have to execute the following steps:</span><br><span class="line"></span><br><span class="line">1.  $ cd ..</span><br><span class="line">2.  $ vi ext/php_museljh/config.m4</span><br><span class="line">3.  $ ./buildconf</span><br><span class="line">4.  $ ./configure --[with|enable]-php_museljh</span><br><span class="line">5.  $ make</span><br><span class="line">6.  $ ./sapi/cli/php -f ext/php_museljh/php_museljh.php</span><br><span class="line">7.  $ vi ext/php_museljh/php_museljh.c</span><br><span class="line">8.  $ make</span><br><span class="line"></span><br><span class="line">Repeat steps 3-6 until you are satisfied with ext/php_museljh/config.m4 and</span><br><span class="line">step 6 confirms that your module is compiled into PHP. Then, start writing</span><br><span class="line">code and repeat the last two steps as often as necessary.</span><br><span class="line"></span><br><span class="line">root@iZwz9hyvb5rjm3oubt8o15Z:~/things/php-7.2.0/ext#</span><br></pre></td></tr></table></figure>
+<h3 id="扩展加密Opcodes-近似加密"><a href="#扩展加密Opcodes-近似加密" class="headerlink" title="扩展加密Opcodes(近似加密)"></a>扩展加密Opcodes(近似加密)</h3><p>此种加密原理是先编译成opcode再压缩执行.</p>
+<p>优点：是三种加密方式中最安全的方式,理论上是无法被破解得到源码的。 </p>
+<p>缺点: 不是绝对安全，可以通过OPCODE逆向转回PHP原代码,好的逆向效果在98%以上。</p>
+<blockquote>
+<p>Zend Guard、老版本ionCube和部分配置下的Swoole Compiler</p>
+</blockquote>
+<p>swoole complier是对编译以后的opcode作了手脚，也就是zend引擎在执行opcode之前需要完成解密的，或者是在执行过程中动态解密</p>
+<h3 id="混淆加密"><a href="#混淆加密" class="headerlink" title="混淆加密"></a>混淆加密</h3><h3 id="无扩展虚拟机加密"><a href="#无扩展虚拟机加密" class="headerlink" title="无扩展虚拟机加密"></a>无扩展虚拟机加密</h3><h4 id="Zend虚拟机"><a href="#Zend虚拟机" class="headerlink" title="Zend虚拟机"></a>Zend虚拟机</h4><p>虚拟机（Virtual Machine），在计算机科学中的体系结构里，是指一种特殊的软件， 他可以在计算机平台和终端用户之间创建一种环境，而终端用户则是基于这个软件所创建的环境来操作软件。 在计算机科学中，虚拟机是指可以像真实机器一样运行程序的计算机的软件实现。虚拟机是一种抽象的计算机，它有自己的指令集，有自己的内存管理体系。</p>
+<p>Zend引擎的核心文件都在$PHP_SRC/Zend/目录下面。不过最为核心的文件只有如下几个：</p>
+<p>1.PHP语法实现</p>
+<p>Zend/zend_language_scanner.l</p>
+<p>Zend/zend_language_parser.y</p>
+<p>2.Opcode编译</p>
+<p>Zend/zend_compile.c</p>
+<p>3.执行引擎</p>
+<p>Zend/zend_vm_*</p>
+<p>Zend/zend_execute.c</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.leavesongs.com/PENETRATION/unobfuscated-phpjiami.html" target="_blank" rel="noopener">phpjiami 数种解密方法</a></p>
+<p><a href="https://juejin.im/entry/5aea84ab6fb9a07ac76ea595" target="_blank" rel="noopener">解密混淆的PHP程序</a></p>
+<p><a href="http://blog.evalbug.com/2017/09/21/phpdecode_01/" target="_blank" rel="noopener">PHPDecode 在线解密工具</a></p>
+<p><a href="http://php-security.org/2010/05/13/article-decoding-a-user-space-encoded-php-script/index.html" target="_blank" rel="noopener">the Month of PHP Security</a></p>
+<p><a href="https://blog.csdn.net/u011721501/article/details/70174924" target="_blank" rel="noopener">PHP HOOK的若干方法</a></p>
+<p><a href="https://www.anquanke.com/post/id/176767" target="_blank" rel="noopener">PHP代码加密面面观</a></p>
+<p><a href="https://www.zybuluo.com/firesnow/note/624415#%E5%85%8D%E6%89%A9%E5%B1%95%E5%8A%A0%E5%AF%86" target="_blank" rel="noopener">php源码加密探究</a></p>
+<p><a href="http://www.php-internals.com/book/?p=chapt07/07-04-source-code-encrypt" target="_blank" rel="noopener">PHP代码的加密解密</a></p>
+<p><a href="https://www.kancloud.cn/kancloud/php-internals" target="_blank" rel="noopener">深入了解PHP内核</a></p>
+<p><a href="http://type.so/c/php-dump-eval.html" target="_blank" rel="noopener">从 php 内核挂载钩子解密源码</a></p>
+<p><a href="http://www.liqingbo.cn/blog-1325.html" target="_blank" rel="noopener">PHP免扩展加密(混淆加密)的基本原理(三)安全加密</a></p>
+<p><a href="http://www.liqingbo.cn/blog-1324.html" target="_blank" rel="noopener">PHP免扩展加密(混淆加密)的基本原理(二)数据混淆</a></p>
+<p><a href="https://blog.csdn.net/u013705066/article/details/82703940" target="_blank" rel="noopener">PHP代码加密+扩展解密实战</a></p>
+<p><a href="https://github.com/liexusong/php-beast/issues/50" target="_blank" rel="noopener">php-beast issues</a></p>
+
+      
+    </div>
+    
+    
+    
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/05/15/PHP代码加密原理探索/">PHP代码加密原理探索</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 LJH 的个人博客">LJH</a></p>
+  <p><span>发布时间:</span>2019年05月15日 - 17:51</p>
+  <p><span>最后更新:</span>2019年05月15日 - 17:53</p>
+  <p><span>原始链接:</span><a href="/2019/05/15/PHP代码加密原理探索/" title="PHP代码加密原理探索">https://museljh.github.io/2019/05/15/PHP代码加密原理探索/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://museljh.github.io/2019/05/15/PHP代码加密原理探索/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+
+      
+    </div>
+    <div>
+     
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------END-------------</div>
+    
+</div>
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/PHP内核分析/" rel="tag"><i class="fa fa-tag"></i> PHP内核分析</a>
+          
+            <a href="/tags/PHP代码加密/" rel="tag"><i class="fa fa-tag"></i> PHP代码加密</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/15/命令&执行&绕过/" rel="next" title="PHP命令&执行&绕过">
+                <i class="fa fa-chevron-left"></i> PHP命令&执行&绕过
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjUxOC8xOTA2NQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="LJH">
+            
+              <p class="site-author-name" itemprop="name">LJH</p>
+              <p class="site-description motion-element" itemprop="description">无</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/MuseLJH" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1049135835@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/MuseLJHX" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#开始之前"><span class="nav-number">1.</span> <span class="nav-text">开始之前</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前置知识"><span class="nav-number">2.</span> <span class="nav-text">前置知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加密的本质"><span class="nav-number">3.</span> <span class="nav-text">加密的本质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP源码加密-解密的初步探索"><span class="nav-number">4.</span> <span class="nav-text">PHP源码加密/解密的初步探索</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#无扩展加密"><span class="nav-number">4.1.</span> <span class="nav-text">无扩展加密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有扩展的加密"><span class="nav-number">4.2.</span> <span class="nav-text">有扩展的加密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展加密Opcodes-近似加密"><span class="nav-number">4.3.</span> <span class="nav-text">扩展加密Opcodes(近似加密)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#混淆加密"><span class="nav-number">4.4.</span> <span class="nav-text">混淆加密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#无扩展虚拟机加密"><span class="nav-number">4.5.</span> <span class="nav-text">无扩展虚拟机加密</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Zend虚拟机"><span class="nav-number">4.5.1.</span> <span class="nav-text">Zend虚拟机</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'true') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("otYDWvApXTYxWRiyvbntKaiI-gzGzoHsz#<app_id>", "BGOUX1v4oeMfXIDWyV4dxdUt#<app_key>");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
