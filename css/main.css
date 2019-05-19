@@ -189,7 +189,7 @@ body {
   font-size: 16px;
   line-height: 2;
   color: #555;
-  background: #000;
+  background: #fff;
 }
 @media (max-width: 767px) {
   body {
@@ -1859,7 +1859,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ffc4f0;
+  background: #204183;
 }
 .site-author-image {
   display: block;
@@ -2932,9 +2932,9 @@ hr {
   }
 }
 .post-body p a {
-  color: #0593d3;
+  color: #fff;
   border-bottom: none;
-  border-bottom: 1px solid #0593d3;
+  border-bottom: 1px solid #fff;
 }
 .post-body p a:hover {
   color: #fc6423;
