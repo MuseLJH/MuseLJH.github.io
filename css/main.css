@@ -1859,7 +1859,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #204183;
+  background: #ff058e;
 }
 .site-author-image {
   display: block;
@@ -2930,16 +2930,6 @@ hr {
     margin: 80px 10px 0;
     text-align: center;
   }
-}
-.post-body p a {
-  color: #fff;
-  border-bottom: none;
-  border-bottom: 1px solid #fff;
-}
-.post-body p a:hover {
-  color: #fc6423;
-  border-bottom: none;
-  border-bottom: 1px solid #fc6423;
 }
 code {
   color: #ff7600;
