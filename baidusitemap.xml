@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://museljh.github.io/2019/05/30/mysql%E6%B3%A8%E5%85%A5%E5%B0%8F%E7%BB%93/</loc>
+    <lastmod>2019-05-30</lastmod>
+  </url>  <url>
+    <loc>https://museljh.github.io/2019/02/09/sqli-labs%20less%2021%20~%2025/</loc>
+    <lastmod>2019-05-19</lastmod>
+  </url>  <url>
     <loc>https://museljh.github.io/2019/02/12/%E5%AF%B9%E4%BA%8E%E5%88%A9%E7%94%A8gopher%E8%BF%9B%E8%A1%8Cssrf%E7%9A%84%E5%AD%A6%E4%B9%A0%E4%B8%8E%E7%90%86%E8%A7%A3/</loc>
     <lastmod>2019-05-19</lastmod>
   </url>  <url>
@@ -83,9 +89,6 @@
     <lastmod>2019-02-11</lastmod>
   </url>  <url>
     <loc>https://museljh.github.io/2019/02/10/upload-labs-writeup%201~5/</loc>
-    <lastmod>2019-02-10</lastmod>
-  </url>  <url>
-    <loc>https://museljh.github.io/2019/02/09/sqli-labs%20less%2021%20~%2025/</loc>
     <lastmod>2019-02-10</lastmod>
   </url>  <url>
     <loc>https://museljh.github.io/2019/02/05/%E6%96%B0%E7%9A%84%E4%B8%80%E5%B9%B4%EF%BC%8C%E6%96%B0%E7%9A%84%E5%BC%80%E5%A7%8B/</loc>
