@@ -253,9 +253,9 @@
         <category>writeup</category>
       </categories>
       <tags>
+        <tag>xss</tag>
         <tag>sql注入</tag>
         <tag>ssrf</tag>
-        <tag>xss</tag>
         <tag>代码审计</tag>
       </tags>
   </entry>
