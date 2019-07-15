@@ -113,7 +113,7 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g50li26hooj31de03ot94.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g50lkxc6v9j31e404z0tb.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g50m907g1mj311e019mx5.jpg">
-<meta property="og:updated_time" content="2019-07-15T08:54:27.687Z">
+<meta property="og:updated_time" content="2019-07-15T08:59:24.117Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Discuz!ML V3.X 代码注入复现与原理分析">
 <meta name="twitter:description" content="对Discuz!ML V3.X 代码注入复现与分析">
@@ -464,7 +464,7 @@
 <p>我们进入forum.php line:76<br><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g50ivwls60j30nx012aa0.jpg" alt=""></p>
 <p>由于我们并没有加载子模块所以默认$mod为index，forum.php line:49</p>
 <p><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g50iwv68jhj30s901ft8n.jpg" alt=""></p>
-<p>进入forum_index.php line:432,被污染的php缓存文件就是从治理被加载进来的<br><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g50izlxc8sj30jf01ndfs.jpg" alt=""></p>
+<p>进入forum_index.php line:432,被污染的php缓存文件就是从这里被加载进来的<br><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g50izlxc8sj30jf01ndfs.jpg" alt=""></p>
 <p>其中<code>$cachefile</code>因为未对DISCUZ_LANG变量进行过滤为我们可控变量</p>
 <p><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g50lmz1fv1j31ga01f74j.jpg" alt=""></p>
 <p>全局搜索<code>DISCUZ_LANG</code>，可以发现在discuz_application.php line:341时对其进行定义</p>
@@ -508,7 +508,7 @@
   <p><span>本文标题:</span><a href="/2019/07/15/Discuz!ML V3.X 代码注入复现与分析/">Discuz!ML V3.X 代码注入复现与原理分析</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 MuseLJH 的个人博客">MuseLJH</a></p>
   <p><span>发布时间:</span>2019年07月15日 - 16:51</p>
-  <p><span>最后更新:</span>2019年07月15日 - 16:54</p>
+  <p><span>最后更新:</span>2019年07月15日 - 16:59</p>
   <p><span>原始链接:</span><a href="/2019/07/15/Discuz!ML V3.X 代码注入复现与分析/" title="Discuz!ML V3.X 代码注入复现与原理分析">https://museljh.github.io/2019/07/15/Discuz!ML V3.X 代码注入复现与分析/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://museljh.github.io/2019/07/15/Discuz!ML V3.X 代码注入复现与分析/" aria-label="复制成功！"></i></span>
   </p>
