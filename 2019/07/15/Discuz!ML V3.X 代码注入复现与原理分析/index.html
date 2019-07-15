@@ -76,7 +76,7 @@
 
 
 
-  <meta name="keywords" content="文件上传,">
+  <meta name="keywords" content="cms,">
 
 
 
@@ -89,38 +89,35 @@
 
 
 
-<meta name="description" content="关于upload-labs Pass 01 ~ 05的writeup">
-<meta name="keywords" content="文件上传">
+<meta name="description" content="对Discuz!ML V3.X 代码注入复现与分析">
+<meta name="keywords" content="cms">
 <meta property="og:type" content="article">
-<meta property="og:title" content="upload-labs-writeup 1~5">
-<meta property="og:url" content="https://museljh.github.io/2019/02/10/upload-labs-writeup 1~5/index.html">
+<meta property="og:title" content="Discuz!ML V3.X 代码注入复现与原理分析">
+<meta property="og:url" content="https://museljh.github.io/2019/07/15/Discuz!ML V3.X 代码注入复现与原理分析/index.html">
 <meta property="og:site_name" content="MuseLJH&#39;s blog">
-<meta property="og:description" content="关于upload-labs Pass 01 ~ 05的writeup">
+<meta property="og:description" content="对Discuz!ML V3.X 代码注入复现与分析">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://museljh.github.io/images/fly.png">
-<meta property="og:image" content="https://i.imgur.com/hiUxIwF.png">
-<meta property="og:image" content="https://i.imgur.com/adFI7ae.png">
-<meta property="og:image" content="https://i.imgur.com/chK4DvQ.png">
-<meta property="og:image" content="https://i.imgur.com/Ktk4eTS.png">
-<meta property="og:image" content="https://i.imgur.com/eZhjYN7.png">
-<meta property="og:image" content="https://i.imgur.com/e1EQe2x.png">
-<meta property="og:image" content="https://i.imgur.com/T4bAYD3.png">
-<meta property="og:image" content="https://i.imgur.com/U8D0mkm.png">
-<meta property="og:image" content="https://i.imgur.com/9ZdAKKU.png">
-<meta property="og:image" content="https://i.imgur.com/hCuh49a.png">
-<meta property="og:image" content="https://i.imgur.com/vlMjPqv.png">
-<meta property="og:image" content="https://i.imgur.com/RGYJFZ3.png">
-<meta property="og:image" content="https://i.imgur.com/G5M5GvV.png">
-<meta property="og:image" content="https://i.imgur.com/QBM3e7y.png">
-<meta property="og:image" content="https://i.imgur.com/ZxluhF6.png">
-<meta property="og:image" content="https://i.imgur.com/GfSJ2Mt.png">
-<meta property="og:image" content="https://i.imgur.com/K9bCVfV.png">
-<meta property="og:image" content="https://i.imgur.com/razmpdo.png">
-<meta property="og:updated_time" content="2019-02-10T09:40:16.402Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQly1g50dct8olej31c80cnabo.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g50ivwls60j30nx012aa0.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g50iwv68jhj30s901ft8n.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g50izlxc8sj30jf01ndfs.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g50lmz1fv1j31ga01f74j.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g50lps62szj30h900x0sl.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g50ls4b05jj30ry03udg5.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g50jtnj2jej317g00y3yl.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g50l0zdu93j31ax0btq7q.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g50k1dpzkxj319302xwf1.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g50l43t92gj31f601574k.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g50kn6t95zj30m702vjrk.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g50laf9hj7j31gr02caap.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g50li26hooj31de03ot94.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g50lkxc6v9j31e404z0tb.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g50m907g1mj311e019mx5.jpg">
+<meta property="og:updated_time" content="2019-07-15T08:53:48.547Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="upload-labs-writeup 1~5">
-<meta name="twitter:description" content="关于upload-labs Pass 01 ~ 05的writeup">
-<meta name="twitter:image" content="https://museljh.github.io/images/fly.png">
+<meta name="twitter:title" content="Discuz!ML V3.X 代码注入复现与原理分析">
+<meta name="twitter:description" content="对Discuz!ML V3.X 代码注入复现与分析">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/0078P6qQly1g50dct8olej31c80cnabo.jpg">
 
 
 
@@ -150,13 +147,13 @@
 
 
 
-  <link rel="canonical" href="https://museljh.github.io/2019/02/10/upload-labs-writeup 1~5/">
+  <link rel="canonical" href="https://museljh.github.io/2019/07/15/Discuz!ML V3.X 代码注入复现与原理分析/">
 
 
 
 
 
-  <title>upload-labs-writeup 1~5 | MuseLJH's blog</title>
+  <title>Discuz!ML V3.X 代码注入复现与原理分析 | MuseLJH's blog</title>
   
 
 
@@ -322,7 +319,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://museljh.github.io/2019/02/10/upload-labs-writeup 1~5/">
+    <link itemprop="mainEntityOfPage" href="https://museljh.github.io/2019/07/15/Discuz!ML V3.X 代码注入复现与原理分析/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MuseLJH">
@@ -339,7 +336,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">upload-labs-writeup 1~5</h1>
+          <h1 class="post-title" itemprop="name headline">Discuz!ML V3.X 代码注入复现与原理分析</h1>
         
 
         <div class="post-meta">
@@ -351,8 +348,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-10T17:18:02+08:00">
-                2019-02-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-15T16:51:31+08:00">
+                2019-07-15
               </time>
             
 
@@ -374,8 +371,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/writeup/" itemprop="url" rel="index">
-                    <span itemprop="name">writeup</span>
+                  <a href="/categories/漏洞分析/" itemprop="url" rel="index">
+                    <span itemprop="name">漏洞分析</span>
                   </a>
                 </span>
 
@@ -407,7 +404,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2k
+                  1.1k
                 </span>
               
 
@@ -423,7 +420,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  7
+                  4
                 </span>
               
             </div>
@@ -431,7 +428,7 @@
 
           
               <div class="post-description">
-                  关于upload-labs Pass 01 ~ 05的writeup
+                  对Discuz!ML V3.X 代码注入复现与分析
               </div>
           
 
@@ -448,71 +445,51 @@
       
 
       
-        <p><img src="/images/fly.png" alt=""></p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>upload-labs是一个基于php语言的上传漏洞的靶场项目包括(最新commit17ec936) 的19个上传关卡的方法。可以通过git clone <a href="https://github.com/c0ny1/upload-labs.git" target="_blank" rel="noopener">https://github.com/c0ny1/upload-labs.git</a> 来搭建属于自己的一个upload练习靶场</p>
-</blockquote>
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p><img src="https://i.imgur.com/hiUxIwF.png" alt=""></p>
-<h3 id="Pass-01-客户端js白名单检查"><a href="#Pass-01-客户端js白名单检查" class="headerlink" title="Pass-01 客户端js白名单检查"></a>Pass-01 客户端js白名单检查</h3><p><img src="https://i.imgur.com/adFI7ae.png" alt=""><br>通过源码我们可以看出这题对于文件上传的限制是通过前端js，判断是否为.jpg/.png/.gif这三种格式的文件形式，这种是一种js对文件后缀名做了白名单限制，这种限制十分不安全，有好几种绕过方式<br>一：修改js脚本<br><img src="https://i.imgur.com/chK4DvQ.png" alt=""><br>按道理是可以的，但是这里却失败了，尝试了下直接删除onsubmit函数不过还是不行，不过这也是一种思路</p>
-<p>二：浏览器禁止使用js脚本(这里以火狐浏览器为例子)</p>
-<blockquote>
-<p>1、在Firefox地址栏里输入“about:config”。<br>2、在搜索栏输入“javascript.enabled”查找到首选项。<br>3、点击鼠标右键选择“切换”，把“javascript.enabled”键值改为“false”</p>
-</blockquote>
-<p>三：Burpsuit进行改包<br>因为js仅仅只对客户端进行限制，而使用Burpsuit却可以绕过客户端限制直接拦截发送给服务端的文件进行修改<img src="https://i.imgur.com/Ktk4eTS.png" alt=""></p>
-<p><img src="https://i.imgur.com/eZhjYN7.png" alt=""><br><img src="https://i.imgur.com/e1EQe2x.png" alt=""><br>将jpg修改成php,可以看到自己本地upload文件夹多处了个php文件</p>
-<blockquote>
-<p>提示一：../upload文件夹不存在,请手工创建！（第一次上传文件时可能会有这个错误提示，在根目录创建一个upload文件夹就可以了）<br>提示二：Burpsuit当url是127.0.0.1是不可以抓包的，可以修改为自己本地IPv4地址比如 192.168.xxx.xxx</p>
-</blockquote>
-<p><img src="https://i.imgur.com/T4bAYD3.png" alt=""><br>这里有个地方要注意，我也是看被人的wp的时候才发现的</p>
-<blockquote>
-<p>null：代表声明了一个空对象，不是一个字符串，可以赋给任何对象，是没有地址。<br>“”：代表声明了一个对象实例，这个对象实例的值是一个长度为0的空字符串，是有地址但是里面的内容是空的。</p>
-</blockquote>
-<p>我的理解是null是不可以不上传文件，’’意思是不能上传空文件</p>
-<h3 id="Pass-02-服务端白名单"><a href="#Pass-02-服务端白名单" class="headerlink" title="Pass-02 服务端白名单"></a>Pass-02 服务端白名单</h3><p>直接采取第一题的Burpuit改包的方式一下就成功了，我们尝试下能否使用其他的方式进行绕过，以便对这题有着更加深刻的理解<br>查看下源码<br><img src="https://i.imgur.com/U8D0mkm.png" alt=""><br>这里显然同样采取了白名单的形式，<br>它会在服务端检测上传文件的Content-Type: 内容格式，这也导致了另一种上传绕过方式，即将上传的php文件的文件格式用Burpsuit进行修改，<br><img src="https://i.imgur.com/9ZdAKKU.png" alt=""><br>我们可以看见同样上传成功</p>
-<h3 id="Pass-03-服务端黑名单"><a href="#Pass-03-服务端黑名单" class="headerlink" title="Pass-03 服务端黑名单"></a>Pass-03 服务端黑名单</h3><p>依旧采取第一题的Burpsuit方式，发现会报错错误提示<img src="https://i.imgur.com/hCuh49a.png" alt=""><br>查看源码<br><img src="https://i.imgur.com/vlMjPqv.png" alt=""><br>我们发现这是一种过滤文件后面的.和.asp,.aspx,.php,.jsp等后缀一种黑名单限制，并且不区分大小写，这样我们就不可以通过构造大写来绕过<br>方法一： 特殊后缀绕过<br>尝试使用特殊的php后缀</p>
-<blockquote>
-<p>php2, php3, php4, php5, phps, pht, phtm, phtml<br><img src="https://i.imgur.com/RGYJFZ3.png" alt=""><br>结果并没有上传成php文件，查询后原来是apache的配置文件里并没有配置将这些后缀的文件当做php解析，<br>apache的httpd.conf中有如下配置代码<br>AddType application/x-httpd-php .php .phtml .phps .php5 .pht</p>
-</blockquote>
-<p>方法二：解析漏洞<br>尝试采取Apache解析漏洞，因为我是apache服务器所以采取Apache解析漏洞</p>
-<blockquote>
-<ol>
-<li>Apache解析漏洞<br>解析：test.php.(任意不属于黑名单且也不属于Apache解析白名单的名称)，比如test.php.lala<br>描述：一个文件名为test.x1.x2.x3的文件，apache会从x3的位置开始尝试解析，如果x3不属于apache能够解析的扩展名，那么apache会尝试去解析x2，直到能够解析到能够解析的为止，否则就会报错</li>
-</ol>
-</blockquote>
-<blockquote>
-<ol start="2">
-<li>IIS解析漏洞<br>解析 ：test.asp/(任意文件名)|test.asp；(任意文件名) | (任意文件名)/(任意文件名).php<br>描述：IIS6.0在解析asp格式的时候有两个解析漏洞，一个是如果目录名包含”.asp”字符串，<br>那么这个目录下所有的文件都会按照asp去解析，另一个是只要文件名中含有”.asp;”<br>会优先按asp来解析<br>IIS7.0/7.5是对php解析时有一个类似于Nginx的解析漏洞，对任意文件名只要在URL<br>后面追加上字符串”/任意文件名.php”就会按照php的方式去解析；</li>
-</ol>
-</blockquote>
-<blockquote>
-<ol start="3">
-<li>Nginx解析漏洞<br>解析： (任意文件名)/(任意文件名).php | (任意文件名).php<br>描述：目前Nginx主要有这两种漏洞，一个是对任意文件名，在后面添加/任意文件名.php<br>的解析漏洞，比如原本文件名是test.jpg，可以添加test.jpg/x.php进行解析攻击。</li>
-</ol>
-</blockquote>
-<p>我构造了一个Assert_Post.php.aaa文件（后来发现不能使用aaa后缀而是要特定的后缀如.arex）结果直接上传了个</p>
-<p><img src="https://i.imgur.com/G5M5GvV.png" alt=""><br>进行查询了很多个apache不可解析的文件后缀，结果都上传成功了？？？发现，并不是上传后会把它变成php格式文件，而是解析的时候会当成php文件来解析</p>
-<p>方法三：.htaccess上传<br>可以看到这里黑名单并没有限制.htaccess文件的上传<br>文件内容如下</p>
-<blockquote>
-<p>&lt;FilesMatch “aaa”&gt;<br>    SetHandler application/x-httpd-php<br></p>
-</blockquote>
-<p>当apache在解析该目录下的php时，就会按照.htaccess中的要求去解析aaa文件解析成php<br><img src="https://i.imgur.com/QBM3e7y.png" alt=""></p>
-<blockquote>
-<p>备注其余配置问题导致漏洞<br>（1）如果在 Apache 的 conf 里有这样一行配置 AddHandler php5-script .php 这时只要文件名里包含.php 即使文件名是 test2.php.jpg 也会以 php 来执行。<br>（2）如果在 Apache 的 conf 里有这样一行配置 AddType application/x-httpd-php .jpg 即使扩展名是 jpg，一样能以 php 方式执行。</p>
-</blockquote>
-<p>即我们可以在.htaccess 中添加这两句就可以将JPG以php执行，或者只要文件中含有php就可以以php执行</p>
-<h3 id="Pass-04-服务端黑名单加强"><a href="#Pass-04-服务端黑名单加强" class="headerlink" title="Pass-04 服务端黑名单加强"></a>Pass-04 服务端黑名单加强</h3><p>查看源码<br><img src="https://i.imgur.com/ZxluhF6.png" alt=""><br>发现这里增加了对特殊php后缀的黑名单，不过却没有过滤.htaccess<br>这里我们可以采取第三关的第二种和第三种方式进行绕过</p>
-<blockquote>
-<p>.htaccess是Apache的又一特色。一般来说，配置文件的作用范围都是全局的，但Apache提供了一种很方便的、可作用于当前目录及其子目录的配置文件。<br>要想使.htaccess文件生效，需要两个条件，<br>一是在Apache的配置文件中写上：AllowOverride All  Apache的配置文件一般在/etc/httpd/conf下面的httpd.conf<br>二是Apache要加载mod_Rewrite模块。加载该模块，需要在Apache的配置文件中写上：LoadModule rewrite_module /usr/lib/apache2/modules/mod_rewrite.so</p>
-</blockquote>
-<h3 id="Pass-05-服务端黑名单超级加强"><a href="#Pass-05-服务端黑名单超级加强" class="headerlink" title="Pass-05 服务端黑名单超级加强"></a>Pass-05 服务端黑名单超级加强</h3><p>先上传个.htaccess文件，失败了<br>查看源码</p>
-<blockquote>
-<p>“.php”,”.php5”,”.php4”,”.php3”,”.php2”,”.html”,”.htm”,”.phtml”,”.pht”,”.pHp”,”.pHp5”,”.pHp4”,”.pHp3”,”.pHp2”,”.Html”,”.Htm”,”.pHtml”,”.jsp”,”.jspa”,”.jspx”,”.jsw”,”.jsv”,”.jspf”,”.jtml”,”.jSp”,”.jSpx”,”.jSpa”,”.jSw”,”.jSv”,”.jSpf”,”.jHtml”,”.asp”,”.aspx”,”.asa”,”.asax”,”.ascx”,”.ashx”,”.asmx”,”.cer”,”.aSp”,”.aSpx”,”.aSa”,”.aSax”,”.aScx”,”.aShx”,”.aSmx”,”.cEr”,”.sWf”,”.swf”,”.htaccess”</p>
-</blockquote>
-<p>这么多黑名单，嗯以后如果不是这题其他文件上传题目可以看看有没有没有禁用这些黑名单的。<br><img src="https://i.imgur.com/GfSJ2Mt.png" alt=""><br>方法一:构造.php. .后缀<br>因为deldot只删除了一个点，而在windows下后缀为空格或者.的会被忽略，并且在linux下.为后缀的也同样会被当成php来解析<br>（这里我上传了个没有后缀的文件，或许apache会将它也解析成php文件大概把？）<br><img src="https://i.imgur.com/K9bCVfV.png" alt=""></p>
-<p><img src="https://i.imgur.com/razmpdo.png" alt=""><br>方法二：大小写绕过<br>这里并没有忽略大小写故我们可以构造.PHP文件后缀进行绕过，经过尝试发现上传成功</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
-<p><a href="https://zhuanlan.zhihu.com/p/52099683" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/52099683</a><br><a href="http://lawlietweb.com/2018/06/07/upload-labs/" target="_blank" rel="noopener">http://lawlietweb.com/2018/06/07/upload-labs/</a></p>
-</blockquote>
+        <h3 id="poc"><a href="#poc" class="headerlink" title="poc"></a>poc</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">GET /Discuz/upload/forum.php HTTP/1.1</span><br><span class="line">Host: 169.254.183.180</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Connection: close</span><br><span class="line">Cookie: lpAo_2132_saltkey=gJ6FRwO6; lpAo_2132_language=en&apos;.phpinfo().&apos;; lpAo_2132_lastvisit=1563156484; lpAo_2132_sid=G5YO6z; lpAo_2132_lastact=1563160086%09home.php%09misc; lpAo_2132_onlineusernum=1; lpAo_2132_sendmail=1</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Cache-Control: max-age=0</span><br></pre></td></tr></table></figure>
+
+<h3 id="漏洞描述"><a href="#漏洞描述" class="headerlink" title="漏洞描述"></a>漏洞描述</h3><p>Discuz 系列建站软件（以下简称DZ）是目前国内部署最为广泛的建站系统，经过多年的发展，已成为集CMS、Forum、Blog等功能为一体的社区系统，并具备完善的插件和模板机制，使得针对DZ进行二次开发变得非常有效率。</p>
+<p>由于Discuz!ML V3.X 的cookie字段中language参数未经过过滤，被拼接后直接写入缓存中，随后缓存又被加载导致了任意代码执行。</p>
+<h3 id="受影响的系统版本"><a href="#受影响的系统版本" class="headerlink" title="受影响的系统版本"></a>受影响的系统版本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Discuz! ML v.3.4</span><br><span class="line"></span><br><span class="line">Discuz! ML v.3.3</span><br><span class="line"></span><br><span class="line">Discuz! ML v.3.2</span><br></pre></td></tr></table></figure>
+
+<h3 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h3><p>在debug模式下Poc中扔入过长代码执行会报错.根据debug报错信息进行溯源。</p>
+<p><img src="http://ww1.sinaimg.cn/large/0078P6qQly1g50dct8olej31c80cnabo.jpg" alt=""></p>
+<p>以 forum.php 为例，进入模块通常会首先加载内核代码，通过加载 class_core.php 即可，<br>参考源码：<code>require &#39;./source/class/class_core.php&#39;;</code></p>
+<p>内核代码加载完成后，接着加载对应模块的代码，包括对应的函数库、相关类库等等；比如 forum 模块就会加载：</p>
+<p>参考源码：<code>require &#39;./source/function/function_forum.php&#39;;</code></p>
+<p>Dz 每个大模块都是有很多子模块构成，访问或者调用这些子模块通常都是通过 URL 传参数来实现，比如：论坛版块（Forum）可以有论坛版块展示或者帖子内容展示等不同的操作，论坛版块展示则通过加载 forumdisplay 模块来实现，参考源码：<code>require DISCUZ_ROOT.&#39;./source/module/forum/forum_&#39;.$mod.&#39;.php&#39;;</code></p>
+<p><code>其中 $mod 的值就是 forumdisplay，而如果当前操作是帖子内容展示，则 $mod 的值为 viewthread。</code></p>
+<p>Discuz 调用实例：1、<code>”http://www.bacysoft.cn/forum.php?mod=viewthread&amp;tid=57“</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">入口文件：forum.php， /forum.php</span><br><span class="line">模块文件：viewthread，/source/module/forum/forum_viewthread.php</span><br><span class="line">其他参数：tid， 帖子ID号</span><br></pre></td></tr></table></figure>
+
+<p>我们进入forum.php line:76<br><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g50ivwls60j30nx012aa0.jpg" alt=""></p>
+<p>由于我们并没有加载子模块所以默认$mod为index，forum.php line:49</p>
+<p><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g50iwv68jhj30s901ft8n.jpg" alt=""></p>
+<p>进入forum_index.php line:432,被污染的php缓存文件就是从治理被加载进来的<br><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g50izlxc8sj30jf01ndfs.jpg" alt=""></p>
+<p>其中<code>$cachefile</code>因为未对DISCUZ_LANG变量进行过滤为我们可控变量</p>
+<p><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g50lmz1fv1j31ga01f74j.jpg" alt=""></p>
+<p>全局搜索<code>DISCUZ_LANG</code>，可以发现在discuz_application.php line:341时对其进行定义</p>
+<p><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g50lps62szj30h900x0sl.jpg" alt=""></p>
+<p>可以看到在同文件下discuz_application.php line:305对$lng进行赋值，这里可以清楚看到其中并未对<code>var[&#39;cookie&#39;][&#39;language&#39;]</code>进行任何过滤，这也是该漏洞形成的根本原因<br><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g50ls4b05jj30ry03udg5.jpg" alt=""></p>
+<p>回到function_core.php文件，<br>进入function_core.php line:653</p>
+<p><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g50jtnj2jej317g00y3yl.jpg" alt=""></p>
+<p>在经过了一轮的替换<br><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g50l0zdu93j31ax0btq7q.jpg" alt=""></p>
+<p>最后在class_template.php line:105中将缓存写入文件，进行包含，这时该缓存文件并没有被我们污染<br><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g50k1dpzkxj319302xwf1.jpg" alt=""></p>
+<p>但在该缓存文件line:1,进行了再次包含<br><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g50l43t92gj31f601574k.jpg" alt=""></p>
+<p>最终包含了包括该缓存文件共五个文件<br><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g50kn6t95zj30m702vjrk.jpg" alt=""></p>
+<p>其中问题出在<code>en&#39;.phpinfo().&#39;_1_1_common_header_forum_index.tpl.php</code>文件</p>
+<p>可以看到在class_template.php line:30时，将<code>template\default\common\footer.htm</code>文件对$template变量进行赋值</p>
+<p><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g50laf9hj7j31gr02caap.jpg" alt=""></p>
+<p>由于footer.htm中 <code>{subtemplate</code>分别在line:1 line:140 line:200 多次出现，导致在<br>，<code>class_template.phpline</code> line:46 时进行回调函数时候对<code>$this-&gt;subtemplates</code>进行赋值</p>
+<p><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g50li26hooj31de03ot94.jpg" alt=""></p>
+<p>导致对<code>$headeradd</code>进行赋值，由于<code>$cachefile</code>为可控变量，所以<code>$headeradd</code>也为我们可控的</p>
+<p><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g50lkxc6v9j31e404z0tb.jpg" alt=""></p>
+<p>可以看到同样在该文件中，<code>class_template.phpline</code> line:84 将<code>$headeradd</code>变量写入缓存中 这时只要<code>$cachefile</code>里面包含类似<code>&#39;.phpinfo().&#39;</code>就可以将危险的函数嵌入到缓存文件中</p>
+<p><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g50m907g1mj311e019mx5.jpg" alt=""></p>
+<p>最后因为缓存文件被包含导致我们的写入的危险函数被执行导致我们可以做到任意代码执行的效果</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://xz.aliyun.com/t/5638" target="_blank" rel="noopener">Discuz!ML V3.X 代码注入分析</a></p>
+<p><a href="https://www.anquanke.com/post/id/181887" target="_blank" rel="noopener">Discuz ML! V3.X 代码注入漏洞深度分析</a></p>
+<p><a href="http://www.bacysoft.cn/thread-126-1-1.html" target="_blank" rel="noopener">Discuz 整体架构及内核浅析一：调用流程（For DzX3.2）</a></p>
+<p><a href="https://www.anquanke.com/post/id/181887" target="_blank" rel="noopener">Discuz ML! V3.X 代码注入漏洞深度分析</a></p>
 
       
     </div>
@@ -528,12 +505,12 @@
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/2019/02/10/upload-labs-writeup 1~5/">upload-labs-writeup 1~5</a></p>
+  <p><span>本文标题:</span><a href="/2019/07/15/Discuz!ML V3.X 代码注入复现与原理分析/">Discuz!ML V3.X 代码注入复现与原理分析</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 MuseLJH 的个人博客">MuseLJH</a></p>
-  <p><span>发布时间:</span>2019年02月10日 - 17:18</p>
-  <p><span>最后更新:</span>2019年02月10日 - 17:40</p>
-  <p><span>原始链接:</span><a href="/2019/02/10/upload-labs-writeup 1~5/" title="upload-labs-writeup 1~5">https://museljh.github.io/2019/02/10/upload-labs-writeup 1~5/</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://museljh.github.io/2019/02/10/upload-labs-writeup 1~5/" aria-label="复制成功！"></i></span>
+  <p><span>发布时间:</span>2019年07月15日 - 16:51</p>
+  <p><span>最后更新:</span>2019年07月15日 - 16:53</p>
+  <p><span>原始链接:</span><a href="/2019/07/15/Discuz!ML V3.X 代码注入复现与原理分析/" title="Discuz!ML V3.X 代码注入复现与原理分析">https://museljh.github.io/2019/07/15/Discuz!ML V3.X 代码注入复现与原理分析/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://museljh.github.io/2019/07/15/Discuz!ML V3.X 代码注入复现与原理分析/" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -574,7 +551,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/文件上传/" rel="tag"><i class="fa fa-tag"></i> 文件上传</a>
+            <a href="/tags/cms/" rel="tag"><i class="fa fa-tag"></i> cms</a>
           
         </div>
       
@@ -587,8 +564,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/09/sqli-labs less 21 ~ 25/" rel="next" title="sqli-labs less 21 ~ 25a">
-                <i class="fa fa-chevron-left"></i> sqli-labs less 21 ~ 25a
+              <a href="/2019/07/10/Django URL跳转漏洞（CVE-2018-14574 ）分析与复现/" rel="next" title="Django URL跳转漏洞（CVE-2018-14574 ）分析与复现">
+                <i class="fa fa-chevron-left"></i> Django URL跳转漏洞（CVE-2018-14574 ）分析与复现
               </a>
             
           </div>
@@ -597,8 +574,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/02/11/sqli-labs less 26 ~ 30/" rel="prev" title="sqli-labs less 26 ~ 30">
-                sqli-labs less 26 ~ 30 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/07/15/Discuz!ML V3.X 代码注入复现与分析/" rel="prev" title="Discuz!ML V3.X 代码注入复现与原理分析">
+                Discuz!ML V3.X 代码注入复现与原理分析 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -762,7 +739,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正文"><span class="nav-number">2.</span> <span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Pass-01-客户端js白名单检查"><span class="nav-number">2.1.</span> <span class="nav-text">Pass-01 客户端js白名单检查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pass-02-服务端白名单"><span class="nav-number">2.2.</span> <span class="nav-text">Pass-02 服务端白名单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pass-03-服务端黑名单"><span class="nav-number">2.3.</span> <span class="nav-text">Pass-03 服务端黑名单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pass-04-服务端黑名单加强"><span class="nav-number">2.4.</span> <span class="nav-text">Pass-04 服务端黑名单加强</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pass-05-服务端黑名单超级加强"><span class="nav-number">2.5.</span> <span class="nav-text">Pass-05 服务端黑名单超级加强</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#poc"><span class="nav-number">1.</span> <span class="nav-text">poc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞描述"><span class="nav-number">2.</span> <span class="nav-text">漏洞描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#受影响的系统版本"><span class="nav-number">3.</span> <span class="nav-text">受影响的系统版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞分析"><span class="nav-number">4.</span> <span class="nav-text">漏洞分析</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number"></span> <span class="nav-text">参考</span></a></li></div>
             
 
           </div>
