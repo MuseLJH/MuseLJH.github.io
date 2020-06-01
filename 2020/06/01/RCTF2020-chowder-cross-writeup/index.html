@@ -103,7 +103,7 @@
 <meta property="og:image" content="https://museljh.oss-cn-beijing.aliyuncs.com/img/177.png">
 <meta property="og:image" content="https://museljh.oss-cn-beijing.aliyuncs.com/img/178.png">
 <meta property="og:image" content="https://museljh.oss-cn-beijing.aliyuncs.com/img/186.png">
-<meta property="og:updated_time" content="2020-06-01T05:23:01.486Z">
+<meta property="og:updated_time" content="2020-06-01T05:24:40.761Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RCTF2020 chowder_cross writeup">
 <meta name="twitter:description" content="RCTF2020 chowder_cross writeup">
@@ -436,7 +436,7 @@
 
       
         <h1 id="RCTF-2020-chowder-cross-writeup"><a href="#RCTF-2020-chowder-cross-writeup" class="headerlink" title="RCTF 2020 chowder_cross writeup"></a>RCTF 2020 chowder_cross writeup</h1><p><img src="https://museljh.oss-cn-beijing.aliyuncs.com/img/hint.png" alt=""></p>
-<h2 id="一-csp-police-inject-firefox-import-css-to-leak-nonce"><a href="#一-csp-police-inject-firefox-import-css-to-leak-nonce" class="headerlink" title="(一) csp police inject + firefox import css to leak nonce"></a>(一) <code>csp police inject + firefox import css to leak nonce</code></h2><h3 id="1-csp-inject"><a href="#1-csp-inject" class="headerlink" title="1. csp inject"></a>1. <code>csp inject</code></h3><p>The csp of the title is as follows: </p>
+<h2 id="一-csp-inject-firefox-import-css-to-leak-nonce"><a href="#一-csp-inject-firefox-import-css-to-leak-nonce" class="headerlink" title="(一) csp inject + firefox import css to leak nonce"></a>(一) <code>csp inject + firefox import css to leak nonce</code></h2><h3 id="1-csp-inject"><a href="#1-csp-inject" class="headerlink" title="1. csp inject"></a>1. <code>csp inject</code></h3><p>The csp of the title is as follows: </p>
 <p><img src="https://museljh.oss-cn-beijing.aliyuncs.com/img/185.png" alt=""></p>
 <p>Obviously, the conventional xss payload can not be bypassed.</p>
 <p>But because of the <code>.htaccess</code> of this web challenge is written, and the <code>PHP backend</code> implementation of csp leads to us being able to inject at the csp such as: <code>http://124.156.139.238/xss/?action=post&amp;id=1a3f48b6b2655ba6feeefb38ca9ce492</code></p>
@@ -488,7 +488,7 @@
   <p><span>本文标题:</span><a href="/2020/06/01/RCTF2020-chowder-cross-writeup/">RCTF2020 chowder_cross writeup</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 MuseLJH 的个人博客">MuseLJH</a></p>
   <p><span>发布时间:</span>2020年06月01日 - 10:16</p>
-  <p><span>最后更新:</span>2020年06月01日 - 13:23</p>
+  <p><span>最后更新:</span>2020年06月01日 - 13:24</p>
   <p><span>原始链接:</span><a href="/2020/06/01/RCTF2020-chowder-cross-writeup/" title="RCTF2020 chowder_cross writeup">https://museljh.github.io/2020/06/01/RCTF2020-chowder-cross-writeup/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://museljh.github.io/2020/06/01/RCTF2020-chowder-cross-writeup/" aria-label="复制成功！"></i></span>
   </p>
@@ -715,7 +715,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RCTF-2020-chowder-cross-writeup"><span class="nav-number">1.</span> <span class="nav-text">RCTF 2020 chowder_cross writeup</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-csp-police-inject-firefox-import-css-to-leak-nonce"><span class="nav-number">1.1.</span> <span class="nav-text">(一) csp police inject + firefox import css to leak nonce</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-csp-inject"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. csp inject</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-firefox-import-css-to-leak-nonce"><span class="nav-number">1.1.2.</span> <span class="nav-text">2.firefox import css to leak nonce</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-cover-bypass-RegExp-iframe-xssi"><span class="nav-number">1.2.</span> <span class="nav-text">(二) cover bypass RegExp + iframe xssi</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-cover-bypass-RegExp"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.cover bypass RegExp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-iframe-xssi"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.iframe xssi</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RCTF-2020-chowder-cross-writeup"><span class="nav-number">1.</span> <span class="nav-text">RCTF 2020 chowder_cross writeup</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-csp-inject-firefox-import-css-to-leak-nonce"><span class="nav-number">1.1.</span> <span class="nav-text">(一) csp inject + firefox import css to leak nonce</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-csp-inject"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. csp inject</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-firefox-import-css-to-leak-nonce"><span class="nav-number">1.1.2.</span> <span class="nav-text">2.firefox import css to leak nonce</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-cover-bypass-RegExp-iframe-xssi"><span class="nav-number">1.2.</span> <span class="nav-text">(二) cover bypass RegExp + iframe xssi</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-cover-bypass-RegExp"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.cover bypass RegExp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-iframe-xssi"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.iframe xssi</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
