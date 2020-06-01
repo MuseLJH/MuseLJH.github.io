@@ -103,7 +103,7 @@
 <meta property="og:image" content="https://museljh.oss-cn-beijing.aliyuncs.com/img/177.png">
 <meta property="og:image" content="https://museljh.oss-cn-beijing.aliyuncs.com/img/178.png">
 <meta property="og:image" content="https://museljh.oss-cn-beijing.aliyuncs.com/img/186.png">
-<meta property="og:updated_time" content="2020-06-01T04:10:04.135Z">
+<meta property="og:updated_time" content="2020-06-01T05:08:11.964Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RCTF2020 chowder_cross writeup">
 <meta name="twitter:description" content="RCTF2020 chowder_cross writeup">
@@ -444,7 +444,7 @@
 <p>You can refer to the following link to learn it: </p>
 <p><code>https://portswigger.net/research/bypassing-csp-with-policy-injection</code></p>
 <p>however because I have filtered characters such as script, you cannot use methods such as <code>script-src-attr</code> or <code>report</code> to bypass <code>script-src</code> directly, so you need to leak the nonce first.</p>
-<h3 id="2-firefox-import-css-to-leak-nonce"><a href="#2-firefox-import-css-to-leak-nonce" class="headerlink" title="2.firefox import css to leak nonce"></a>2.<code>firefox import css to leak nonce</code></h3><p>The xss bot is using <code>firefox 74.0</code> version, this version is amazing, when the version is higher than <code>74.0</code> you will not be able to use this method of leak nonce because firefox removes the nonce when loading the dom, of course, this situation is greater than <code>60</code> in <code>chrome</code> version Will also happen.Of course, there is also a little knowledge point. When there is a csp, if we want to leak nonce, we can not directly use <code>script [nonce ^ = &quot;a&quot;]</code> to attack like this. We must use other selectors as a part such as <code>script [nonce ^ = &quot;% s &quot;] ~ nav</code>.</p>
+<h3 id="2-firefox-import-css-to-leak-nonce"><a href="#2-firefox-import-css-to-leak-nonce" class="headerlink" title="2.firefox import css to leak nonce"></a>2.<code>firefox import css to leak nonce</code></h3><p>The xss bot is using <code>firefox 74.0</code> version, this version is amazing, when the version is higher than <code>74.0</code> you will not be able to use this method of leak nonce because firefox removes the nonce when loading the dom, of course, this situation is greater than <code>60</code> in <code>chrome</code> version Will also happen.And there is also a little knowledge point. When there is a csp, if we want to leak nonce, we can not directly use <code>script [nonce ^ = &quot;a&quot;]</code> to attack like this. We must use other selectors as a part such as <code>script [nonce ^ = &quot;% s &quot;] ~ nav</code>.</p>
 <p>So in the case of filtering keywords such as url, we can use import to import external css  for leak attack,  you can refer to the following article:</p>
 <p><code>https://research.securitum.com/css-data-exfiltration-in-firefox-via-single-injection-point/</code></p>
 <p>In the end we can compose the following script:</p>
@@ -488,7 +488,7 @@
   <p><span>本文标题:</span><a href="/2020/06/01/RCTF2020-chowder-cross-writeup/">RCTF2020 chowder_cross writeup</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 MuseLJH 的个人博客">MuseLJH</a></p>
   <p><span>发布时间:</span>2020年06月01日 - 10:16</p>
-  <p><span>最后更新:</span>2020年06月01日 - 12:10</p>
+  <p><span>最后更新:</span>2020年06月01日 - 13:08</p>
   <p><span>原始链接:</span><a href="/2020/06/01/RCTF2020-chowder-cross-writeup/" title="RCTF2020 chowder_cross writeup">https://museljh.github.io/2020/06/01/RCTF2020-chowder-cross-writeup/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://museljh.github.io/2020/06/01/RCTF2020-chowder-cross-writeup/" aria-label="复制成功！"></i></span>
   </p>
