@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://museljh.github.io/2020/06/01/RCTF2020-chowder-cross-writeup/</loc>
+    <lastmod>2020-06-01</lastmod>
+  </url>  <url>
+    <loc>https://museljh.github.io/2019/07/06/ThinkPHP5.1.x%20RCE%E5%88%86%E6%9E%90/</loc>
+    <lastmod>2020-02-19</lastmod>
+  </url>  <url>
+    <loc>https://museljh.github.io/2019/05/30/mysql%E6%B3%A8%E5%85%A5%E5%B0%8F%E7%BB%93/</loc>
+    <lastmod>2019-11-27</lastmod>
+  </url>  <url>
     <loc>https://museljh.github.io/2019/05/15/%E5%91%BD%E4%BB%A4&%E6%89%A7%E8%A1%8C&%E7%BB%95%E8%BF%87/</loc>
     <lastmod>2019-07-15</lastmod>
   </url>  <url>
@@ -9,12 +18,6 @@
   </url>  <url>
     <loc>https://museljh.github.io/2019/07/10/Django%20URL%E8%B7%B3%E8%BD%AC%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2018-14574%20%EF%BC%89%E5%88%86%E6%9E%90%E4%B8%8E%E5%A4%8D%E7%8E%B0/</loc>
     <lastmod>2019-07-10</lastmod>
-  </url>  <url>
-    <loc>https://museljh.github.io/2019/07/06/ThinkPHP5.1.x%20RCE%E5%88%86%E6%9E%90/</loc>
-    <lastmod>2019-07-06</lastmod>
-  </url>  <url>
-    <loc>https://museljh.github.io/2019/05/30/mysql%E6%B3%A8%E5%85%A5%E5%B0%8F%E7%BB%93/</loc>
-    <lastmod>2019-05-30</lastmod>
   </url>  <url>
     <loc>https://museljh.github.io/2019/02/09/sqli-labs%20less%2021%20~%2025/</loc>
     <lastmod>2019-05-19</lastmod>

